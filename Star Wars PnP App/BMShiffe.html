@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BlackMynocks</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+
+<body>
+  <div class="Title">
+    <p>BM Schiffe</p>
+  </div>
+  <div class="mainContainer">
+    <div class="ListOfShips">
+      <button class="Ship" onclick="createScene(3, 16, 0x0077ff, 0x0077aa, [1, 5, 3], true, 'Katarr')">
+        <div class="ShipTitle">
+          <p>alc-9</p>
+        </div>
+      </button>
+      <button class="Ship" onclick="createScene(4, 20, 0x00ff77, 0x00ffaa, [3, 2, 0], true, 'Aquaris')">
+        <div class="ShipTitle">
+          <p>Schiffsname2</p>
+        </div>
+      </button>
+      <button class="Ship" onclick="createScene(5, 24, 0xff0077, 0xaa0077, [5, 10, 2], true, 'Teta')">
+        <div class="ShipTitle">
+          <p>Schiffsname3</p>
+        </div>
+      </button>
+      <button class="Ship" onclick="createScene(0, 2, 0xff0000, 0xff0000, [0, 0, 0], false, 'Kernwelten: (121.08, 75.30, 25.73)')">
+        <div class="ShipTitle">
+          <p>yt-2400</p>
+        </div>
+      </button>
+      <button class="Ship" onclick="createScene(3, 12, 0xffcc00, 0xff9900, [2, 4, 0], true, 'Kuat')">
+        <div class="ShipTitle">
+          <p>Schiffsname4</p>
+        </div>
+      </button>
+      <button class="Ship" onclick="createScene(5, 8, 0x00ffff, 0x0099ff, [6, 3, 0], true, 'Metellos')">
+        <div class="ShipTitle">
+          <p>Schiffsname5</p>
+        </div>
+      </button>
+      <button class="Ship" onclick="createScene(4, 18, 0xff00ff, 0x990099, [3, 6, 1], true, 'Corruscant')">
+        <div class="ShipTitle">
+          <p>Schiffsname6</p>
+        </div>
+      </button>
+      <!-- Weitere Schiffe hier hinzufügen -->
+    </div>
+    <div class="viewer" id="viewer"></div>
+  </div>
+  <div class="infoBox" id="infoBox">
+    <p id="systemName">Planetensystem Name</p>
+  </div>
+
+  <script>
+    let scene, camera, renderer, planet, satellites, specialSatellite;
+let rotationSpeed = 0.005; // Konstante Drehgeschwindigkeit
+
+function createScene(numSatellites, planetPolygons, planetColor, satelliteColor, specialSatPos = [0, 5, 0], specialSat = true, systemName = "Unbekannt") {
+  // Remove previous scene if exists
+  if (scene) {
+    scene.children.forEach(child => {
+      if (child instanceof THREE.Mesh) {
+        scene.remove(child);
+        child.geometry.dispose();
+        child.material.dispose();
+      }
+    });
+    renderer.dispose();
+    document.getElementById('viewer').removeChild(renderer.domElement);
+  }
+
+  // Set up new scene
+  scene = new THREE.Scene();
+  const viewer = document.getElementById('viewer');
+
+  // Initialize renderer and append to viewer
+  renderer = new THREE.WebGLRenderer({ antialias: true });
+  viewer.appendChild(renderer.domElement);
+
+  // Set camera
+  camera = new THREE.PerspectiveCamera(75, viewer.clientWidth / viewer.clientHeight, 0.1, 1000);
+  camera.position.z = 15;
+
+  // Update renderer size
+  renderer.setSize(viewer.clientWidth, viewer.clientHeight);
+
+  // Create planet
+  const planetGeometry = new THREE.SphereGeometry(2, planetPolygons, planetPolygons);
+  const planetMaterial = new THREE.MeshBasicMaterial({ color: planetColor, wireframe: true });
+  planet = new THREE.Mesh(planetGeometry, planetMaterial);
+  scene.add(planet);
+
+  // Create satellites
+  const satelliteGeometry = new THREE.SphereGeometry(0.5, 8, 8);
+  const satelliteMaterial = new THREE.MeshBasicMaterial({ color: satelliteColor, wireframe: true });
+
+  satellites = [];
+  for (let i = 0; i < numSatellites; i++) {
+    const satellite = new THREE.Mesh(satelliteGeometry, satelliteMaterial);
+    satellite.position.set(
+      4 * Math.cos((i * 2 * Math.PI) / numSatellites),
+      4 * Math.sin((i * 2 * Math.PI) / numSatellites),
+      0
+    );
+    satellites.push(satellite);
+    scene.add(satellite);
+  }
+
+  // Create special red satellite with 4 polygons
+  if (specialSat) {
+    const specialSatelliteGeometry = new THREE.SphereGeometry(0.25, 1, 1); // 4 polygons
+    const specialSatelliteMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000, wireframe: true });
+    specialSatellite = new THREE.Mesh(specialSatelliteGeometry, specialSatelliteMaterial);
+    specialSatellite.position.set(specialSatPos[0], specialSatPos[1], specialSatPos[2]); // Starting position
+    scene.add(specialSatellite);
+  }
+
+  // Update infoBox
+  document.getElementById('systemName').textContent = systemName;
+
+  // Handle resizing
+  function onResize() {
+    const width = viewer.clientWidth;
+    const height = viewer.clientHeight;
+    renderer.setSize(width, height);
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+  }
+
+  window.addEventListener('resize', onResize);
+  onResize();  // Initial call to set the correct size
+
+  function animate() {
+    requestAnimationFrame(animate);
+
+    // Rotate the planet with constant speed
+    planet.rotation.y += rotationSpeed;
+
+    // Update satellite positions
+    const now = Date.now() * 0.0005;
+    satellites.forEach((satellite, index) => {
+      const angle = now + index * (Math.PI / 1.5);
+      satellite.position.x = 4 * Math.cos(angle);
+      satellite.position.z = 4 * Math.sin(angle);
+    });
+
+    // Update special satellite position
+    if (specialSatellite) {
+      const specialAngle = now * 0.5; // Move slower than other satellites
+      specialSatellite.position.x = 1 * Math.cos(specialAngle);
+      specialSatellite.position.z = 1 * Math.sin(specialAngle);
+    }
+
+    renderer.render(scene, camera);
+  }
+
+  animate();
+}
+
+// Initial setup
+// createScene(3, 16, 0x0077ff, 0x0077aa, [1, 5, 3], true, 'Alpha Centauri');
+
+  </script>
+</body>
+
+</html>

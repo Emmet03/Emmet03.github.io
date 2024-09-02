@@ -1,0 +1,141 @@
+@font-face {
+    font-family: 'Aurebesh';
+    src: url('https://aurebesh.org/font/Aurebesh.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'Aurebesh', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: radial-gradient(circle at center, #000b7f 50%, #15024f 100%);
+    color: #00bfff;
+    overflow: hidden;
+    cursor: crosshair;
+}
+
+.Title {
+    font-family: 'Aurebesh', sans-serif; /* Sicherstellen, dass die Schriftart verwendet wird */
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 3rem;
+    color: #00bfff;
+    text-transform: lowercase;
+    text-shadow: 0 0 5px #00bfff, 0 0 30px #00bfff;
+    border-bottom: 2px solid #00bfff;
+    padding-bottom: 1px;
+}
+
+.mainContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+    padding: 20px;
+}
+
+.ListOfShips {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 10px;
+    margin-right: 20px;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    border: 1px solid #00bfff;
+    box-shadow: 0 0 15px #00bfff, inset 0 0 5px #00bfff;
+}
+
+.Ship {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 10px;
+    border-radius: 10px;
+    width: 200px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 10px rgba(0, 191, 255, 0.5);
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 1px solid #00bfff;
+}
+
+.Ship:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(0, 191, 255, 1);
+}
+
+.Ship:active {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(0, 191, 255, 1);
+}
+
+.ShipTitle {
+    font-family: 'Aurebesh', sans-serif; /* Sicherstellen, dass die Schriftart verwendet wird */
+    font-size: 1.2rem;
+    color: #ffffff;
+    text-align: center;
+    text-transform: lowercase;
+    text-shadow: 0 0 10px #00bfff;
+}
+
+.viewer {
+    flex-grow: 1;
+    height: 545px;
+    border: 2px solid #00bfff;
+    border-radius: 10px;
+    box-shadow: 0 0 15px #00bfff, inset 0 0 10px #00bfff;
+    position: relative;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    overflow: hidden;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #00bfff;
+    border-radius: 5px;
+}
+
+@media (max-width: 768px) {
+    .mainContainer {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .ListOfShips {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+
+    .viewer {
+        height: 300px;
+    }
+}
+
+.infoBox {
+    margin-top: 20px;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid #00bfff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #00bfff;
+    color: #ffffff;
+    text-align: center;
+    font-size: 1.2rem;
+    font-family: 'Aurebesh', sans-serif;
+}
+
+.infoBox p {
+    margin: 0;
+}
