@@ -1,0 +1,110 @@
+/* Allgemeine Stile für den Körper */
+body {
+    font-family: 'Kumbh Sans', sans-serif;
+    background-color: hsl(185, 75%, 39%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    flex-direction: column;
+    position: relative;
+    background-image: url('images/bg-pattern-top.svg'), url('images/bg-pattern-bottom.svg');
+    background-position: bottom -80% right 150%, top -80% left 150%;
+
+    background-repeat: no-repeat;
+}
+
+/* Container für die gesamte Karte */
+.CardMain {
+    background-color: white;
+    width: 350px;
+    border-radius: 15px;
+    box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* Hintergrundbild oben auf der Karte */
+.CardBck img {
+    width: 100%;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+/* Profilbild */
+.profilePicture {
+    display: flex;
+    justify-content: center;
+    margin-top: -50px;
+}
+
+.profilePicture img {
+    border-radius: 50%;
+    border: 5px solid white;
+    width: 100px;
+    height: 100px;
+}
+
+/* Name und Alter */
+.Name {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 22px;
+    font-weight: bold;
+    color: hsl(229, 23%, 23%);
+}
+
+.Age {
+    display: inline-block;
+    font-size: 18px;
+    color: hsl(227, 10%, 46%);
+    margin-left: 10px;
+}
+
+/* Stadt */
+.city {
+    text-align: center;
+    color: hsl(227, 10%, 46%);
+    font-size: 16px;
+    margin-top: 5px;
+}
+
+/* Unterer Abschnitt der Karte */
+.lowerCard {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px 0;
+    border-top: 1px solid hsl(227, 10%, 90%);
+    margin-top: 20px;
+}
+
+/* Einzelne Anzeigeelemente (Follower, Likes, Photos) */
+.display {
+    text-align: center;
+}
+
+.num {
+    font-weight: bold;
+    color: hsl(229, 23%, 23%);
+    font-size: 18px;
+}
+
+.title {
+    font-size: 14px;
+    color: hsl(227, 10%, 46%);
+}
+
+/* Attribution außerhalb der Karte */
+.attribution {
+    position: absolute;
+    bottom: 10px;
+    font-size: 11px;
+    text-align: center;
+    width: 100%;
+    color: hsl(228, 45%, 44%);
+}
+
+.attribution a {
+    color: hsl(228, 45%, 44%);
+    text-decoration: none;
+}
