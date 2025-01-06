@@ -5,8 +5,8 @@ body {
 .headder {
     width: 100%;
     height: 100px;
-    background: rgb(185,100,3);
-background: linear-gradient(180deg, rgba(185,100,3,1) 20%, rgb(218, 102, 1) 83%);
+    background: rgb(185, 100, 3);
+    background: linear-gradient(180deg, rgba(185, 100, 3, 1) 20%, rgb(218, 102, 1) 83%);
     /* background-color:#b96403; */
     display: flex;
     align-items: center;
@@ -16,13 +16,16 @@ background: linear-gradient(180deg, rgba(185,100,3,1) 20%, rgb(218, 102, 1) 83%)
     text-decoration: none;
     box-shadow: 5px 4px 8px 5px rgba(0, 0, 0, 0.3);
 }
+
 .Logo {
     margin-left: 20px;
     color: #190d04;
     text-decoration: none;
 }
+
 .Impressum {
     margin-right: 20px;
+
     p {
         color: #190d04;
         text-decoration: none;
@@ -34,7 +37,8 @@ background: linear-gradient(180deg, rgba(185,100,3,1) 20%, rgb(218, 102, 1) 83%)
     height: 800px;
 }
 
-.contentMain, .contentPage {
+.contentMain,
+.contentPage {
     position: relative;
     min-width: 15%;
     display: flex;
@@ -43,18 +47,22 @@ background: linear-gradient(180deg, rgba(185,100,3,1) 20%, rgb(218, 102, 1) 83%)
     /* border: 1px solid black; */
     transition: all 0.8s cubic-bezier(0.165, 0.840, 0.440, 1.000);
     align-items: center;
+
     a {
         position: absolute;
         width: 100%;
         height: 100%;
     }
 }
+
 .contentMain {
     width: 40%;
+
     .PageTitle {
         display: block;
     }
 }
+
 .contentPage {
     .PageTitle {
         display: none;
@@ -62,17 +70,21 @@ background: linear-gradient(180deg, rgba(185,100,3,1) 20%, rgb(218, 102, 1) 83%)
 }
 
 
-.contentMain:hover, .contentPage:hover {
+.contentMain:hover,
+.contentPage:hover {
     width: 55%;
-    background: rgb(135,72,0);
-    background: linear-gradient(180deg, rgba(135,72,0,0) 0%, rgba(120,57,0,1) 58%);
+    background: rgb(135, 72, 0);
+    background: linear-gradient(180deg, rgba(135, 72, 0, 0) 0%, rgba(120, 57, 0, 1) 58%);
     /* transition: width 0.5s; */
     transition: all 0.8s cubic-bezier(0.165, 0.840, 0.440, 1.000);
+
     .PageTitle {
         display: block;
     }
 }
-.contentMain:hover::before, .contentPage:hover::before {
+
+.contentMain:hover::before,
+.contentPage:hover::before {
     content: "";
     position: absolute;
     top: 0;
@@ -80,14 +92,17 @@ background: linear-gradient(180deg, rgba(185,100,3,1) 20%, rgb(218, 102, 1) 83%)
     width: 100%;
     height: 100%;
     background: linear-gradient(180deg, rgba(135, 72, 0, 0) 0%, rgba(120, 57, 0, 0.7) 58%);
-    z-index: 1; /* Über dem Bild */
-    pointer-events: none; /* Klicks durchlassen */
-    
+    z-index: 1;
+    /* Über dem Bild */
+    pointer-events: none;
+    /* Klicks durchlassen */
+
     transition: opacity 0.8s cubic-bezier(0.165, 0.840, 0.440, 1.000);
 }
 
 .PageTitle {
     position: absolute;
+    width: 80%;
     bottom: 35%;
     left: 50%;
     transform: translateX(-50%);
@@ -108,40 +123,92 @@ background: linear-gradient(180deg, rgba(185,100,3,1) 20%, rgb(218, 102, 1) 83%)
     z-index: 0;
 }
 
-
+.infoboxContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 .Infobox {
-    background-color: #c47657; /* Warmer, dezenter Braunton */
-    color: #190d04; /* Dunklerer Braunton für den Text */
+    background-color: #c47657;
+    color: #190d04;
     padding: 20px;
     margin: 20px;
-    border-radius: 10px; /* Abgerundete Ecken für einen sanften Look */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sanfte Schatten für Tiefenwirkung */
-    max-width: 800px; /* Maximale Breite für die Infobox */
-    width: 100%;
-    font-family: 'Arial', sans-serif; /* Eine moderne Schriftart */
-    line-height: 1.6; /* Angenehme Zeilenhöhe für bessere Lesbarkeit */
-    text-align: left; /* Textausrichtung auf der linken Seite */
-    border-left: 5px solid #6a3300; /* Dezente Akzentlinie auf der linken Seite */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 900px;
+    width: fit-content;
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    text-align: left;
+    border-left: 5px solid #944902;
 }
 
 .Infobox h1 {
-    color: #190d04; /* Noch dunklerer Braunton für die Überschrift */
-    font-size: 2rem; /* Größere Schrift für die Überschrift */
-    margin-bottom: 10px; /* Abstand unter der Überschrift */
+    color: #190d04;
+    font-size: 2rem;
+    margin-bottom: 10px;
 }
 
 .Infobox p {
-    font-size: 1rem; /* Normale Textgröße */
-    margin-bottom: 15px; /* Abstand zwischen Absätzen */
-    color: #190d04; /* Passend zur Überschrift */
+    font-size: 1rem;
+    margin-bottom: 15px;
+    color: #190d04;
 }
 
 .Infobox a {
-    color: #6b3e1e; /* Akzentfarbe für Links */
-    text-decoration: none; /* Entfernen des Standard-Underlines */
+    color: #6b3e1e;
+    text-decoration: none;
 }
 
 .Infobox a:hover {
-    text-decoration: underline; /* Unterstreichung beim Hover für Interaktivität */
+    text-decoration: underline;
+}
+
+
+@media (max-width: 768px) {
+    .MainContentContainer {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+    }
+
+    .contentMain,
+    .contentPage {
+        width: 100%;
+        height: auto;
+
+        .PageTitle {
+            display: block;
+            width: 100%;
+        }
+
+    }
+
+    .PageTitle {
+        display: block;
+        position: absolute;
+        background-color: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 10px;
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    .PageImage {
+        width: 100%;
+        height: auto;
+    }
+
+    .contentMain:hover,
+    .contentPage:hover {
+        width: 100%;
+        background: none;
+    }
+
+    .contentMain:hover .PageTitle,
+    .contentPage:hover .PageTitle {
+        background: none;
+    }
 }
