@@ -1,0 +1,147 @@
+body {
+    background-color: #783900;
+}
+
+.headder {
+    width: 100%;
+    height: 100px;
+    background: rgb(185,100,3);
+background: linear-gradient(180deg, rgba(185,100,3,1) 20%, rgb(218, 102, 1) 83%);
+    /* background-color:#b96403; */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 25px 25px 0 0;
+    color: #190d04;
+    text-decoration: none;
+    box-shadow: 5px 4px 8px 5px rgba(0, 0, 0, 0.3);
+}
+.Logo {
+    margin-left: 20px;
+    color: #190d04;
+    text-decoration: none;
+}
+.Impressum {
+    margin-right: 20px;
+    p {
+        color: #190d04;
+        text-decoration: none;
+    }
+}
+
+.MainContentContainer {
+    display: flex;
+    height: 800px;
+}
+
+.contentMain, .contentPage {
+    position: relative;
+    min-width: 15%;
+    display: flex;
+    width: 25%;
+    height: 100%;
+    /* border: 1px solid black; */
+    transition: all 0.8s cubic-bezier(0.165, 0.840, 0.440, 1.000);
+    align-items: center;
+    a {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+}
+.contentMain {
+    width: 40%;
+    .PageTitle {
+        display: block;
+    }
+}
+.contentPage {
+    .PageTitle {
+        display: none;
+    }
+}
+
+
+.contentMain:hover, .contentPage:hover {
+    width: 55%;
+    background: rgb(135,72,0);
+    background: linear-gradient(180deg, rgba(135,72,0,0) 0%, rgba(120,57,0,1) 58%);
+    /* transition: width 0.5s; */
+    transition: all 0.8s cubic-bezier(0.165, 0.840, 0.440, 1.000);
+    .PageTitle {
+        display: block;
+    }
+}
+.contentMain:hover::before, .contentPage:hover::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(135, 72, 0, 0) 0%, rgba(120, 57, 0, 0.7) 58%);
+    z-index: 1; /* Über dem Bild */
+    pointer-events: none; /* Klicks durchlassen */
+    
+    transition: opacity 0.8s cubic-bezier(0.165, 0.840, 0.440, 1.000);
+}
+
+.PageTitle {
+    position: absolute;
+    bottom: 35%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    text-align: center;
+    z-index: 2;
+}
+
+.PageImage {
+    width: 100%;
+    height: 100%;
+    /* overflow: hidden; */
+    object-fit: cover;
+    z-index: 0;
+}
+
+
+
+.Infobox {
+    background-color: #c47657; /* Warmer, dezenter Braunton */
+    color: #190d04; /* Dunklerer Braunton für den Text */
+    padding: 20px;
+    margin: 20px;
+    border-radius: 10px; /* Abgerundete Ecken für einen sanften Look */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sanfte Schatten für Tiefenwirkung */
+    max-width: 800px; /* Maximale Breite für die Infobox */
+    width: 100%;
+    font-family: 'Arial', sans-serif; /* Eine moderne Schriftart */
+    line-height: 1.6; /* Angenehme Zeilenhöhe für bessere Lesbarkeit */
+    text-align: left; /* Textausrichtung auf der linken Seite */
+    border-left: 5px solid #6a3300; /* Dezente Akzentlinie auf der linken Seite */
+}
+
+.Infobox h1 {
+    color: #190d04; /* Noch dunklerer Braunton für die Überschrift */
+    font-size: 2rem; /* Größere Schrift für die Überschrift */
+    margin-bottom: 10px; /* Abstand unter der Überschrift */
+}
+
+.Infobox p {
+    font-size: 1rem; /* Normale Textgröße */
+    margin-bottom: 15px; /* Abstand zwischen Absätzen */
+    color: #190d04; /* Passend zur Überschrift */
+}
+
+.Infobox a {
+    color: #6b3e1e; /* Akzentfarbe für Links */
+    text-decoration: none; /* Entfernen des Standard-Underlines */
+}
+
+.Infobox a:hover {
+    text-decoration: underline; /* Unterstreichung beim Hover für Interaktivität */
+}
