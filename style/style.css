@@ -21,6 +21,9 @@ body {
     margin-left: 20px;
     color: #190d04;
     text-decoration: none;
+    img {
+        width: 7%;
+    }
 }
 
 .Impressum {
