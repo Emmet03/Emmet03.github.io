@@ -131,3 +131,10 @@ footer {
     background: #444;
     color: #fff;
 }
+
+
+@media (max-width: 768px) {
+    .logo img {
+        display: none;
+    }
+}
