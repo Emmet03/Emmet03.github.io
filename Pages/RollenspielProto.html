@@ -4,9 +4,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../style/style_Rollenspiel.css">
-    <title>Rollenspiel</title>
-    <link rel="shortcut icon" href="img/Jan_Logo.ico" type="image/x-icon">
+    <title>Rollenspiel & LARP Startseite</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        header {
+            background: #444;
+            color: #fff;
+            padding: 1em 0;
+            text-align: center;
+            position: relative;
+            /* Für die Positionierung des Logos */
+        }
+
+        .logo {
+            position: absolute;
+            /* Damit das Logo unabhängig positioniert wird */
+            top: 50%;
+            /* Vertikale Zentrierung */
+            left: 20px;
+            /* Abstand vom linken Rand */
+            transform: translateY(-50%);
+            /* Exakte vertikale Zentrierung */
+        }
+
+        .logo img {
+            width: 50px;
+            /* Größe des Logos */
+            height: auto;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            background: #555;
+            padding: 0.5em 0;
+        }
+
+        nav a {
+            color: #fff;
+            margin: 0 1em;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            padding: 2em;
+        }
+
+        section {
+            margin-bottom: 2em;
+        }
+
+        .group {
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 1em;
+            margin-bottom: 1em;
+            display: flex;
+            justify-content: space-between;
+            /* Stellt sicher, dass Bild und Text an den Enden bleiben */
+            align-items: center;
+        }
+
+        .group h2 {
+            margin-top: 0;
+        }
+
+        .group img {
+            width: 150px;
+            height: auto;
+            margin-left: 1em;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            margin-left: auto;
+            /* Fügt einen automatischen linken Abstand hinzu */
+            margin-right: 0;
+            /* Entfernt rechten Abstand */
+        }
+
+        /* Stil für die Buttons */
+        .button {
+            display: inline-block;
+            background-color: #333;
+            /* Grüner Hintergrund */
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            text-align: center;
+            text-decoration: none;
+            /* Entfernt die Unterstreichung */
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #666666;
+            /* Etwas dunklerer Grünton beim Hover */
+        }
+
+        .button:active {
+            background-color: #666666;
+            /* Noch dunklerer Grünton bei Klick */
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #0d0d2e;
+            color: #dce0e2;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #2b2547;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1em 0;
+            background: #444;
+            color: #fff;
+        }
+    </style>
 </head>
 
 <body>
