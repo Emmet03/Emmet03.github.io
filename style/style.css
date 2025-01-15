@@ -3,7 +3,7 @@ body {
 }
 
 .headder {
-    width: 96.85%;
+    /* width: 96.85%; */
     height: 85px;
     background: rgb(185, 100, 3);
     background: linear-gradient(180deg, rgba(185, 100, 3, 1) 20%, rgb(218, 102, 1) 83%);
