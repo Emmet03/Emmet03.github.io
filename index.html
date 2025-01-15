@@ -14,11 +14,26 @@
         <div class="Logo">
             <a href="/"><img src="img/Jan_Logo.png" alt="Logo"></a>
         </div>
-        <div class="Impressum">
-            <a href="Pages/impressum.html">
-                <p>Impressum</p>
-            </a>
+        <div class="title">
+            <p>Jan</p>
         </div>
+        <div class="menu">
+            <select name="" id="navigation">
+                <option value="#Willkommen">Willkommen</option>
+                <option value="https://inakapenandpaper.wixsite.com/inaka">Inaka</option>
+                <option value="Pages/Rollenspiel.html">Rollenspiel</option>
+                <option value="Pages/Fiktion.html">Fiktion</option>
+            </select>
+        </div>
+        <script>
+            document.getElementById('navigation').addEventListener('change', function() {
+                const selectedValue = this.value; // Wert der ausgewählten Option
+                if (selectedValue) {
+                    console.log(selectedValue);
+                    window.location.href = selectedValue; // Weiterleitung zur URL oder ID
+                }
+            });
+        </script>
     </div>
     <div class="MainContentContainer">
         <div class="contentMain" style="background-color: aqua;">
@@ -30,7 +45,7 @@
         </div>
         <div class="contentPage" style="background-color: rgb(32, 195, 29);">
             <img class="PageImage"
-                src="https://cdn.discordapp.com/attachments/486980879093071872/1302597053309784134/Inaka_Karte_2_1.png?ex=677d118a&is=677bc00a&hm=d8ed87a7f616d25fba20b08f8ac5e3037c85bc0609a37b4ea049d6ff90d15c72&"
+                src="img/Inaka_Karte_2_1.png"
                 alt="img/02.jpeg">
             <!-- <img class="PageImage" src="https://static.wixstatic.com/media/636ce1_84a0445e4ee2498e8f8648b855dac22f~mv2_d_1429_1417_s_2.png/v1/fill/w_246,h_244,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Inaka%20Logo.png" alt="img/02.jpeg"> -->
             <div class="PageTitle">
@@ -86,6 +101,11 @@
 
     <footer>
         <p>&copy; 2025, Jan Mamay - Alle Rechte vorbehalten.</p>
+        <div class="Impressum">
+            <a href="Pages/impressum.html">
+                <p>Impressum</p>
+            </a>
+        </div>
     </footer>
 </body>
 

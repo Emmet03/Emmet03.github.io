@@ -3,40 +3,71 @@ body {
 }
 
 .headder {
-    width: 100%;
-    height: 100px;
+    width: 96.85%;
+    height: 85px;
     background: rgb(185, 100, 3);
     background: linear-gradient(180deg, rgba(185, 100, 3, 1) 20%, rgb(218, 102, 1) 83%);
-    /* background-color:#b96403; */
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start; /* Elemente rücken näher zusammen */
+    padding: 0 20px; /* Optional: Abstand nach außen */
     border-radius: 25px 25px 0 0;
     color: #190d04;
     text-decoration: none;
     box-shadow: 5px 4px 8px 5px rgba(0, 0, 0, 0.3);
+    gap: 10px; /* Abstand zwischen den Elementen */
 }
 
 .Logo {
-    margin-left: 20px;
     color: #190d04;
     text-decoration: none;
-    img {
-        width: 7%;
-    }
 }
 
-.Impressum {
-    margin-right: 20px;
+.Logo img {
+    width: 50px; /* Größe des Logos anpassen, falls nötig */
+}
 
-    p {
-        color: #190d04;
-        text-decoration: none;
-    }
+.title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #ffffff;
+    text-align: left;
+    padding: 0 10px; /* Abstand zwischen Logo und Titel */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.menu {
+    margin: 0; /* Entfernt die vorherige linke Marge */
+    padding: 0 10px; /* Optional: Abstand zu den anderen Elementen */
+}
+
+.menu select {
+    background-color: #b96403;
+    color: #ffffff;
+    font-size: 1rem;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    appearance: none;
+    outline: none;
+}
+
+.menu select:hover {
+    background-color: #da8a03;
+}
+
+
+.menu select option {
+    background-color: #ffffff;
+    color: #190d04;
+    font-size: 1rem;
 }
 
 .MainContentContainer {
     display: flex;
+    width: 100%;
     height: 800px;
 }
 
@@ -116,6 +147,7 @@ body {
     font-size: 1.2rem;
     text-align: center;
     z-index: 2;
+    pointer-events: none;
 }
 
 .PageImage {
