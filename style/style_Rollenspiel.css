@@ -71,6 +71,33 @@ section {
     align-items: center;
 }
 
+/* .group-article {
+    width: 750px;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 1em;
+    margin-bottom: 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+} */
+
+.group-article {
+    width: 750px;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 1em;
+    /* Neue Regeln für die Zentrierung */
+    margin: 0 auto; /* Zentriert horizontal */
+    margin-bottom: 1em;
+    display: flex;
+    flex-direction: column; /* Falls es flex-Elemente gibt, vertikal anordnen */
+    align-items: center; /* Zentriert die Inhalte innerhalb */
+}
+
+
 .group h2 {
     margin-top: 0;
 }
