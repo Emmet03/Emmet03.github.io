@@ -33,7 +33,7 @@ header {
 }
 
 nav {
-    top:0;
+    top: 0;
     position: sticky;
     display: flex;
     justify-content: center;
@@ -84,17 +84,20 @@ section {
 } */
 
 .group-article {
-    width: 750px;
+    max-width: 850px;
     background: #fff;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     padding: 1em;
     /* Neue Regeln für die Zentrierung */
-    margin: 0 auto; /* Zentriert horizontal */
+    margin: 0 auto;
+    /* Zentriert horizontal */
     margin-bottom: 1em;
     display: flex;
-    flex-direction: column; /* Falls es flex-Elemente gibt, vertikal anordnen */
-    align-items: center; /* Zentriert die Inhalte innerhalb */
+    flex-direction: column;
+    /* Falls es flex-Elemente gibt, vertikal anordnen */
+    align-items: center;
+    /* Zentriert die Inhalte innerhalb */
 }
 
 
@@ -165,5 +168,22 @@ footer {
 @media (max-width: 768px) {
     .logo img {
         display: none;
+    }
+
+    .group-article {
+        /* width: 90%; */
+        background: #fff;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        padding: 1em;
+        /* Neue Regeln für die Zentrierung */
+        margin: 0 auto;
+        /* Zentriert horizontal */
+        margin-bottom: 1em;
+        display: flex;
+        flex-direction: column;
+        /* Falls es flex-Elemente gibt, vertikal anordnen */
+        align-items: center;
+        /* Zentriert die Inhalte innerhalb */
     }
 }
