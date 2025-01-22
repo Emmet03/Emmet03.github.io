@@ -1,0 +1,51 @@
+body {
+    background: rgb(50,193,50);
+background: radial-gradient(circle, rgba(50,193,50,1) 0%, rgba(57,125,33,1) 100%);
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.headContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Elemente gleichmäßig verteilen */
+    padding: 20px;
+    background-color: #143b17d8;
+}
+
+.imageContainer img {
+    max-width: 150px;
+    height: auto;
+    border-radius: 50%;
+}
+
+.textContainer {
+    text-align: left;
+    margin-left: 1.5em; /* Reduzierter Abstand zwischen Bild und Text */
+    margin-right: 45%; /* Platz für den Würfel */
+}
+
+.textContainer h1 {
+    margin: 0;
+    font-size: 2em;
+    color: #e0e0e0;
+}
+
+.textContainer ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.textContainer ul li {
+    margin: 5px 0;
+    font-size: 1.2em;
+    color: #aeaaaa;
+}
+
+.threejsContainer {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    flex-shrink: 0; /* Verhindert Schrumpfen des Würfels */
+}
