@@ -1,0 +1,110 @@
+/* Allgemeine Stile */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: url('../img/Inaka_Karte_2_1.png') no-repeat center center fixed; /* Hintergrundbild, fixiert */
+    background-size: cover; /* Das Bild füllt den gesamten Bildschirm ohne Verzerrung */
+    color: #2e3d30; /* Dunkles Grün für den Text */
+}
+
+header {
+    background-color: #297943; /* Ein gemütliches Grün */
+    color: #ffffff; /* Weißer Text */
+    text-align: center;
+    padding: 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+}
+
+header .btn {
+    display: inline-block;
+    margin-top: 0.5rem;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    color: #ffffff;
+    background-color: #5a8f6b; /* Knopf in passendem Grün */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+header .btn:hover {
+    background-color: #466d54; /* Etwas dunkleres Grün beim Hover */
+}
+
+.content {
+    text-align: center;
+    padding: 2rem;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.6); /* Halbtransparenter Hintergrund für Lesbarkeit */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    margin: 2rem auto;
+    max-width: 800px;
+    color: #ffffff; /* Weißer Text für Lesbarkeit */
+    position: relative;
+    z-index: 1;
+}
+
+.content h2 {
+    margin-top: 0;
+    font-size: 2rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); /* Stärkerer Textschatten */
+}
+
+.content p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); /* Stärkerer Textschatten */
+}
+
+.content button {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    color: #ffffff;
+    background-color: #5a8f6b; /* Knopf in passendem Grün */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.content button:hover {
+    background-color: #466d54; /* Etwas dunkleres Grün beim Hover */
+}
+
+footer {
+    background-color: #297943;
+    color: #ffffff;
+    text-align: center;
+    padding: 1rem;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 1;
+}
+
+footer p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+/* Zusätzlicher Platz für den Inhalt, um den Footer nicht zu verdecken */
+body::after {
+    content: '';
+    display: block;
+    height: 100px; /* Höhe des Footers als Abstand */
+}
