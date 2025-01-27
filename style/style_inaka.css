@@ -55,6 +55,46 @@ header .btn:hover {
     z-index: 1;
 }
 
+.content-blog {
+    text-align: left;
+    padding: 2rem;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.9); /* Halbtransparenter Hintergrund für Lesbarkeit */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    margin: 2rem auto;
+    max-width: 800px;
+    color: #ffffff; /* Weißer Text für Lesbarkeit */
+    position: relative;
+    z-index: 1;
+}
+
+.blog-posts {
+    margin-top: 3rem;
+}
+
+.BlogTitle {
+    margin-top: 15%;
+    font-size: 2rem;
+    text-align: center;
+    color: #5a8f6b;
+    font-family: 'Georgia', serif;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    margin-bottom: 1rem;
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 0.5rem;
+}
+
+.BlogTitle::after {
+    content: '';
+    display: block;
+    width: 50%; /* 50% der Breite der Überschrift */
+    height: 2px;
+    background-color: #5a8f6b; /* Die gleiche Farbe wie die Schrift */
+    margin: 0.5rem auto;
+}
+
+
 .content h2 {
     margin-top: 0;
     font-size: 2rem;
@@ -108,3 +148,5 @@ body::after {
     display: block;
     height: 100px; /* Höhe des Footers als Abstand */
 }
+
+
