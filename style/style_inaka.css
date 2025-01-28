@@ -3,7 +3,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    background: url('../img/Inaka_Karte_2_1.png') no-repeat center center fixed; /* Hintergrundbild, fixiert */
+    background: url('../img/NeueKarteStaedteNamen_newFont.png') no-repeat center center fixed; /* Hintergrundbild, fixiert */
     background-size: cover; /* Das Bild füllt den gesamten Bildschirm ohne Verzerrung */
     color: #2e3d30; /* Dunkles Grün für den Text */
 }
