@@ -1,0 +1,137 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #dce0e2;
+    color: #333;
+}
+
+header {
+    background-color: #0d0d2e;
+    color: #dce0e2;
+    padding: 15px 0;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.hero {
+    position: relative;
+    background-image: url('../img/Ewiger\ Augenblick/Wiese.jpeg');
+    background-size: cover; /* Bild skalieren, um den gesamten Bereich auszufüllen */
+    background-position: center; /* Bild zentrieren */
+    background-repeat: no-repeat; /* Wiederholung verhindern */
+    height: 300px; /* Höhe der Hero-Sektion festlegen */
+    color: #dce0e2; /* Textfarbe auf weiß setzen, um Kontrast sicherzustellen */
+    text-align: center; /* Inhalt zentrieren */
+    display: flex; /* Flexbox verwenden, um Inhalt zu positionieren */
+    flex-direction: column; /* Inhalt vertikal anordnen */
+    justify-content: center; /* Vertikale Zentrierung */
+    align-items: center; /* Horizontale Zentrierung */
+    padding: 20px;
+    box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.5); /* Dunkler Effekt für bessere Lesbarkeit */
+}
+
+.hero h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.hero .btn {
+    background-color: #0d0d2e;
+    color: #dce0e2;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.hero .btn:hover {
+    background-color: #2b2547;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #333;
+    color: white;
+    margin-top: 20px;
+}
+
+/* Basisstil für die gesamte Foto-Sektion */
+.FotoView {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Überschrift-Styling */
+.Foto_ueberschrift {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Container für das Foto, um flexible Nutzung zu ermöglichen */
+.Foto_Container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 800px;
+    gap: 10px;
+}
+
+/* Einzelnes Foto-Div */
+.FotoDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    width: calc(50% - 10px); /* Standardmäßig 2 pro Reihe */
+    max-width: calc(50% - 10px);
+}
+
+.Foto_Container .FotoDiv:nth-child(3n) {
+    width: calc(33.33% - 10px); /* Bei drei Elementen in einer Zeile */
+    max-width: calc(33.33% - 10px);
+}
+
+.FotoDiv:hover {
+    transform: scale(1.05);
+}
+
+/* Bild-Styling für responsive Darstellung */
+.FotoDiv img {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+@media (max-width: 600px) {
+    .FotoDiv {
+        width: 100%; /* Bei kleineren Bildschirmen ein Bild pro Zeile */
+        max-width: 100%;
+    }
+}
