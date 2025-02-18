@@ -24,7 +24,7 @@
         <br>
         <section class="Form">
 
-            <label for="pseudonym">Pseudonym*:</label>
+            <!-- <label for="pseudonym">Pseudonym*:</label>
             <input type="text" id="pseudonym" name="pseudonym" required>
 
             <label for="comment" id="commentLabel">Kommentar*:</label>
@@ -39,7 +39,11 @@
             <label id="datenschutzLabel">
                 <input type="checkbox" name="datenschutz" id="datenschutz" required>
                 Ich stimme zu, dass mein Kommentar gespeichert und auf der Webseite veröffentlicht wird.*
-            </label>
+            </label> -->
+            <iframe
+                src="https://docs.google.com/forms/d/e/1FAIpQLSft4iPf3PdeBDSkAOiktug3W_bKfhLyTOGqs_5BxJ7nDQZUOw/viewform?usp=dialog"
+                frameborder="0" style="width: 100%; height: 600px;"></iframe>
+
             <br>
             <details>
                 <summary>Regeln</summary>
@@ -50,23 +54,27 @@
             </details>
             <details>
                 <summary>Datenschutz</summary>
-                <p>Bitte gib keine personenbezogenen Daten an, nutze gerne ein Pseudonym. (Wenn ein offensichtlicher
-                    Klarname angegeben wird, wird nach prüfung durch den Admin nur der Vorname im Kommentar zusehen
-                    sein)</p>
+                <p>Bitte gib keine personenbezogenen Daten an und nutze bitte ein Pseudonym. Wenn ein Klarname angegeben
+                    wird, wird dieser nur nach Prüfung durch den Admin in eine anonymisierte Form (nur Vorname)
+                    geändert.</p>
+
                 <p>Dein Kommentar wird nach Prüfung veröffentlicht und kann jederzeit gelöscht werden. Die Löschung
                     eines Kommentares erfolgt nach der Überprüfung durch den Administrator.</p>
-                <p>Die Daten werden nicht an Dritte weitergegeben und nur für das Gästebuch genutzt.</p>
-                <p>Es werden keine IP-Adressen oder sonstige Daten, die nicht der Kommentar, das Pseudonym und das Datum
-                    der Einreichung sind gespeichert. Diese Seite benutzt keine Technologien wie Cookies, Tracking oder
-                    ähnliches.</p>
+                <b>Bitte beachte: Da das Formular durch Google Forms betrieben wird, gelten die folgenden Informationen
+                    nur für die Datenverarbeitung auf dieser Seite. Informationen zur Datenverarbeitung durch Google
+                    findest du direkt im Formular unter dem Punkt 'Datenschutzerklärung'.</b>
+
+                <p>Die Daten werden nur für das Gästebuch genutzt.</p>
+                <p>Die Daten (Kommentar, Pseudonym und Datum) werden nur für das Gästebuch verwendet und nicht an Dritte
+                    weitergegeben. Es werden keine IP-Adressen oder andere Daten gespeichert, die nicht direkt mit
+                    deinem Kommentar in Verbindung stehen. Diese Seite verwendet keine Technologien wie Cookies,
+                    Tracking oder ähnliches.</p>
+
             </details>
-            <br>
-            <button type="submit" onclick="CreateMessage()">Absenden</button>
             <br>
             <p>Wenn Du mir etwas sagen möchtest, ohne dass es hier veröffentlicht wird, dann schreibe mir eine Mail an:
                 Kommentar[dot]Jan[at]proton[dot]me <br><sup>[at] ist durch das Sonderzeichen @ zu ersetzen und [dot]
                     durch .</sup></p>
-            <sub>Mit * markierte Felder sind Pflichtfelder!</sub>
 
 
         </section>
