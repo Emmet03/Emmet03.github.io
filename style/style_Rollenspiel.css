@@ -12,23 +12,17 @@ header {
     padding: 1em 0;
     text-align: center;
     position: relative;
-    /* Für die Positionierung des Logos */
 }
 
 .logo {
     position: absolute;
-    /* Damit das Logo unabhängig positioniert wird */
     top: 50%;
-    /* Vertikale Zentrierung */
     left: 20px;
-    /* Abstand vom linken Rand */
     transform: translateY(-50%);
-    /* Exakte vertikale Zentrierung */
 }
 
 .logo img {
     width: 50px;
-    /* Größe des Logos */
     height: auto;
 }
 
@@ -67,21 +61,9 @@ section {
     margin-bottom: 1em;
     display: flex;
     justify-content: space-between;
-    /* Stellt sicher, dass Bild und Text an den Enden bleiben */
     align-items: center;
 }
 
-/* .group-article {
-    width: 750px;
-    background: #fff;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    padding: 1em;
-    margin-bottom: 1em;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-} */
 
 .group-article {
     max-width: 850px;
@@ -89,15 +71,11 @@ section {
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     padding: 1em;
-    /* Neue Regeln für die Zentrierung */
     margin: 0 auto;
-    /* Zentriert horizontal */
     margin-bottom: 1em;
     display: flex;
     flex-direction: column;
-    /* Falls es flex-Elemente gibt, vertikal anordnen */
     align-items: center;
-    /* Zentriert die Inhalte innerhalb */
 }
 
 
@@ -112,35 +90,28 @@ section {
     border-radius: 5px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
     margin-left: auto;
-    /* Fügt einen automatischen linken Abstand hinzu */
     margin-right: 0;
-    /* Entfernt rechten Abstand */
 }
 
-/* Stil für die Buttons */
 .button {
     display: inline-block;
     background-color: #333;
-    /* Grüner Hintergrund */
     color: white;
     padding: 10px 20px;
     font-size: 16px;
     border-radius: 5px;
     text-align: center;
     text-decoration: none;
-    /* Entfernt die Unterstreichung */
     margin-top: 10px;
     transition: background-color 0.3s ease;
 }
 
 .button:hover {
     background-color: #666666;
-    /* Etwas dunklerer Grünton beim Hover */
 }
 
 .button:active {
     background-color: #666666;
-    /* Noch dunklerer Grünton bei Klick */
 }
 
 .btn {
@@ -176,14 +147,10 @@ footer {
         border-radius: 5px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         padding: 1em;
-        /* Neue Regeln für die Zentrierung */
         margin: 0 auto;
-        /* Zentriert horizontal */
         margin-bottom: 1em;
         display: flex;
         flex-direction: column;
-        /* Falls es flex-Elemente gibt, vertikal anordnen */
         align-items: center;
-        /* Zentriert die Inhalte innerhalb */
     }
 }
