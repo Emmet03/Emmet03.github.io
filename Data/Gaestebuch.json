@@ -1,18 +1,8 @@
 [
     {
-        "name": "Max Mustermann",
-        "Datum": "18.02.2025",
-        "Kommentar": "Das ist ein Testkommentar1"
-    },
-    {
-        "name": "Max Mustermann",
-        "Datum": "18.02.2025",
-        "Kommentar": "Das ist ein Testkommentar2"
-    },
-    {
-        "name": "Max Mustermann",
-        "Datum": "18.02.2025",
-        "Kommentar": "Das ist ein Testkommentar3"
+        "name": "Sei der Erste!",
+        "Datum": "",
+        "Kommentar": "Sei der Erste und schreibe mir einen Kommentar."
     }
 
 ]
