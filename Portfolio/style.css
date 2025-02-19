@@ -80,8 +80,9 @@ section {
 }
 
 .showContainer img {
-    width: 80px;
+    width: 100%;
     height: 80px;
+    border-radius: 10%;
 }
 
 /* Projekte */
