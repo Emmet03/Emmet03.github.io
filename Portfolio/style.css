@@ -116,3 +116,10 @@ section {
 .ProjectContainer a:hover {
     text-decoration: underline;
 }
+
+@media (max-width: 600px) {
+    .showContainer img, .ProjectContainer img {
+        max-width: 60px;
+        height: 100%;
+    }
+}
