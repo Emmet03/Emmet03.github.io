@@ -92,9 +92,8 @@ section {
     border-radius: 10%;
 }
 
-/* Tooltip Styling */
 .showContainer:hover::after {
-    content: attr(data-tooltip); /* Tooltip-Text aus dem 'data-tooltip' Attribut */
+    content: attr(data-tooltip);
     position: absolute;
     top: -30px;
     left: 50%;
@@ -179,32 +178,6 @@ section {
     }
 }
 
-/* .contact {
-    transition: .5s;
-    position: fixed;
-    left: 10;
-    top: 35%;
-    transform: translateY(-50%);
-    background: rgba(20, 59, 23, 0.9);
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
-    width: 150px;
-}
-
-.contact:hover {
-    transition: .5s;
-    position: fixed;
-    left: 15;
-    top: 34%;
-    transform: translateY(-50%);
-    background: rgba(25, 75, 29, 0.9);
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
-    width: 175px;
-} */
-
 .contact h1 {
     font-size: 1.2em;
     color: #fff;
@@ -234,47 +207,26 @@ section {
     margin-right: 5px;
 }
 
-/* @media (max-width: 600px) {
-    .contact {
-        padding: 10px;
-        position: absolute;
-        top: 40%;
-    }
-
-    .contact:hover {
-        padding: 10px;
-        position: absolute;
-        top: 40%;
-    }
-
-    .contact h1 {
-        font-size: 1em;
-    }
-
-    .contact a {
-        font-size: 0.9em;
-    }
-} */
 
 .contact {
     transition: .5s;
     position: fixed;
     left: 10px;
-    bottom: 20px; /* Positioniert die Karte am unteren Rand */
-    transform: translateY(0); /* Entfernt das vorherige 'translateY(-50%)' */
+    bottom: 20px; 
+    transform: translateY(0);
     background: rgba(20, 59, 23, 0.9);
     padding: 15px;
     border-radius: 10px;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
     width: 150px;
-    z-index: 10; /* Falls es Konflikte gibt, kann hier der z-index angepasst werden */
+    z-index: 10; 
 }
 
 .contact:hover {
     transition: .5s;
     position: fixed;
     left: 15px;
-    bottom: 20px; /* Gleiches für den Hover-Effekt */
+    bottom: 20px; 
     transform: translateY(0);
     background: rgba(25, 75, 29, 0.9);
     padding: 15px;
@@ -287,9 +239,9 @@ section {
     .contact {
         position: fixed;
         left: 10px;
-        bottom: 10px; /* Anpassen, damit es nicht zu nah an den Bildschirmrand rückt */
+        bottom: 10px; 
         padding: 10px;
-        width: 120px; /* Vielleicht etwas kleiner für die mobile Ansicht */
+        width: 120px;
     }
 
     .contact:hover {
