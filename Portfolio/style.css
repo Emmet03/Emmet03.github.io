@@ -217,6 +217,7 @@ section {
     background: rgba(20, 59, 23, 0.9);
     padding: 15px;
     border-radius: 10px;
+    transform: rotateX(-15deg) rotateY(15deg);
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
     width: 150px;
     z-index: 10; 
