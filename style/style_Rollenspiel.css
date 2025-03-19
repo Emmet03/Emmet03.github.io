@@ -104,6 +104,16 @@ section {
     margin: 10px auto;
     max-width: 750px;
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+}
+
+.group-article img {
+    width: 230px;
+    height: 230px;
+    border-radius: 50%;
+    margin-left: 20px;
+    border: 4px solid #5a3e2b;
+    object-fit: cover;
 }
 
 .button {
