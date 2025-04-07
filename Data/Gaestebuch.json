@@ -1,8 +1,13 @@
 [
     {
-        "name": "Sei der Erste!",
-        "Datum": "",
-        "Kommentar": "Sei der Erste und schreibe mir einen Kommentar."
+        "name": "Ein Herr W.",
+        "Datum": "07.04.2025",
+        "Kommentar": "Was eine wundervolle Oase einer Webseite ich hier gefunden habe! Welch eine Freude!"
+    },
+    {
+        "name": "Herr Kassani",
+        "Datum": "07.04.2025",
+        "Kommentar": "Hallo!"
     }
 
 ]
