@@ -1,0 +1,483 @@
+/* ==========================================
+   INAKA WIKI - MODULARES CSS SYSTEM
+   ========================================== */
+
+/* ==========================================
+   RESET & BASE STYLES
+   ========================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Hauptfarben basierend auf dem Inaka Design */
+    --primary-dark: #1a1a1a;
+    --primary-brown: #8B4513;
+    --accent-gold: #D4AF37;
+    --secondary-brown: #A0522D;
+    --background-dark: #0f0f0f;
+    --background-light: #f5f5f5;
+    --text-light: #ffffff;
+    --text-dark: #333333;
+    --border-color: #444444;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    
+    /* Abstände */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-xxl: 3rem;
+    
+    /* Schriftarten */
+    --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --font-heading: 'Georgia', serif;
+    
+    /* Übergänge */
+    --transition-fast: 0.2s ease;
+    --transition-slow: 0.4s ease;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-main);
+    line-height: 1.6;
+    color: var(--text-light);
+    background: linear-gradient(135deg, var(--background-dark) 0%, var(--primary-dark) 100%);
+    min-height: 100vh;
+}
+
+/* ==========================================
+   HEADER - NAVIGATION
+   ========================================== */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(26, 26, 26, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 2px solid var(--accent-gold);
+    z-index: 1000;
+    padding: var(--spacing-md);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: var(--spacing-lg);
+    box-shadow: 0 4px 20px var(--shadow-color);
+}
+
+.MenuBtn {
+    transition: var(--transition-fast);
+}
+
+.MenuBtn:hover {
+    transform: translateY(-2px);
+}
+
+.MenuBtn img {
+    height: 50px;
+    width: auto;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    transition: var(--transition-fast);
+}
+
+.MenuBtn:hover img {
+    border-color: var(--accent-gold);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+}
+
+/* ==========================================
+   HERO SECTION
+   ========================================== */
+.hero {
+    position: relative;
+    height: 40vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+    margin-top: 0;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        45deg,
+        rgba(26, 26, 26, 0.8),
+        rgba(139, 69, 19, 0.6),
+        rgba(26, 26, 26, 0.8)
+    );
+    z-index: 1;
+}
+
+.hero img {
+    position: absolute;
+    /* top: 50%; */
+    /* left: 50%; */
+    /* transform: translate(-50%, -50%); */
+    /* max-width: 80%;
+    max-height: 80%; */
+    object-fit: contain;
+    opacity: 0.7;
+    z-index: 0;
+}
+
+.hero h1 {
+    font-family: var(--font-heading);
+    font-size: clamp(2.5rem, 8vw, 6rem);
+    font-weight: bold;
+    color: var(--accent-gold);
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
+    margin-bottom: var(--spacing-md);
+    z-index: 2;
+    position: relative;
+    letter-spacing: 0.1em;
+}
+
+.hero p {
+    font-size: clamp(1.1rem, 3vw, 1.5rem);
+    color: var(--text-light);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    z-index: 2;
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* ==========================================
+   MAIN SECTION - WIKI LAYOUT
+   ========================================== */
+.mainSection {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: var(--spacing-xl);
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--spacing-xxl) var(--spacing-lg);
+    min-height: 100vh;
+}
+
+/* ==========================================
+   INFOBOX - SIDEBAR
+   ========================================== */
+.infobox {
+    background: rgba(139, 69, 19, 0.1);
+    border: 2px solid var(--primary-brown);
+    border-radius: 12px;
+    padding: var(--spacing-lg);
+    height: fit-content;
+    position: sticky;
+    top: calc(70px + var(--spacing-lg));
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.infobox h1 {
+    font-family: var(--font-heading);
+    color: var(--accent-gold);
+    text-align: center;
+    margin-bottom: var(--spacing-md);
+    font-size: 1.8rem;
+    border-bottom: 2px solid var(--accent-gold);
+    padding-bottom: var(--spacing-sm);
+}
+
+.infobox img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: var(--spacing-md);
+    border: 2px solid var(--secondary-brown);
+}
+
+.infobox p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--text-light);
+    text-align: justify;
+}
+
+/* ==========================================
+   MAIN CONTENT - ARTIKEL
+   ========================================== */
+.mainContent {
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 12px;
+    padding: var(--spacing-xl);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mainContent h1 {
+    font-family: var(--font-heading);
+    color: var(--accent-gold);
+    font-size: 2.2rem;
+    margin-bottom: var(--spacing-lg);
+    margin-top: var(--spacing-xl);
+    border-bottom: 3px solid var(--accent-gold);
+    padding-bottom: var(--spacing-sm);
+}
+
+.mainContent h1:first-child {
+    margin-top: 0;
+}
+
+.mainContent h2 {
+    font-family: var(--font-heading);
+    color: var(--secondary-brown);
+    font-size: 1.8rem;
+    margin-bottom: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+}
+
+.mainContent h3 {
+    color: var(--accent-gold);
+    font-size: 1.4rem;
+    margin-bottom: var(--spacing-sm);
+    margin-top: var(--spacing-md);
+}
+
+.mainContent p {
+    margin-bottom: var(--spacing-md);
+    line-height: 1.8;
+    text-align: justify;
+    color: var(--text-light);
+}
+
+.mainContent ul {
+    margin-left: var(--spacing-lg);
+    margin-bottom: var(--spacing-md);
+}
+
+.mainContent li {
+    margin-bottom: var(--spacing-sm);
+    color: var(--text-light);
+}
+
+.mainContent a {
+    color: var(--accent-gold);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: var(--transition-fast);
+}
+
+.mainContent a:hover {
+    border-bottom-color: var(--accent-gold);
+    text-shadow: 0 0 8px rgba(212, 175, 55, 0.5);
+}
+
+/* ==========================================
+   BILD-KOMPONENTEN
+   ========================================== */
+.midTextImg {
+    margin: var(--spacing-xl) 0;
+    text-align: center;
+    background: rgba(139, 69, 19, 0.05);
+    border-radius: 12px;
+    padding: var(--spacing-lg);
+    border: 1px solid var(--primary-brown);
+}
+
+.midTextImg h1 {
+    font-size: 1.6rem;
+    margin-bottom: var(--spacing-md);
+    color: var(--accent-gold);
+}
+
+.midTextImg img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: var(--spacing-md);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    border: 2px solid var(--secondary-brown);
+}
+
+.midTextImg p {
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+}
+
+/* ==========================================
+   RESPONSIVE DESIGN
+   ========================================== */
+@media (max-width: 768px) {
+    .header {
+        padding: var(--spacing-sm) var(--spacing-md);
+        gap: var(--spacing-md);
+    }
+    
+    .MenuBtn img {
+        height: 40px;
+    }
+    
+    .hero h1 {
+        font-size: clamp(2rem, 6vw, 4rem);
+    }
+    
+    .hero img {
+        /* max-width: 95%;
+        max-height: 70%; */
+    }
+    
+    .mainSection {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-lg);
+        padding: var(--spacing-lg) var(--spacing-md);
+    }
+    
+    .infobox {
+        position: static;
+        order: 1;
+        margin-top: var(--spacing-lg);
+    }
+    
+    .mainContent {
+        order: 2;
+        padding: var(--spacing-lg);
+    }
+    
+    .mainContent h1 {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        height: 80vh;
+        padding: var(--spacing-md);
+    }
+    
+    .mainContent {
+        padding: var(--spacing-md);
+    }
+    
+    .mainContent h1 {
+        font-size: 1.6rem;
+    }
+    
+    .infobox {
+        padding: var(--spacing-md);
+    }
+}
+
+/* ==========================================
+   UTILITY CLASSES - WIEDERVERWENDBAR
+   ========================================== */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.mb-sm { margin-bottom: var(--spacing-sm); }
+.mb-md { margin-bottom: var(--spacing-md); }
+.mb-lg { margin-bottom: var(--spacing-lg); }
+
+.mt-sm { margin-top: var(--spacing-sm); }
+.mt-md { margin-top: var(--spacing-md); }
+.mt-lg { margin-top: var(--spacing-lg); }
+
+.p-sm { padding: var(--spacing-sm); }
+.p-md { padding: var(--spacing-md); }
+.p-lg { padding: var(--spacing-lg); }
+
+.gold-text { color: var(--accent-gold); }
+.brown-text { color: var(--secondary-brown); }
+
+.highlight-box {
+    background: rgba(212, 175, 55, 0.1);
+    border-left: 4px solid var(--accent-gold);
+    padding: var(--spacing-md);
+    margin: var(--spacing-md) 0;
+    border-radius: 0 8px 8px 0;
+}
+
+.shadow-box {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    padding: var(--spacing-md);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+/* ==========================================
+   ANIMATIONEN
+   ========================================== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* ==========================================
+   PRINT STYLES
+   ========================================== */
+@media print {
+    .header {
+        position: static;
+        background: white;
+        color: black;
+        border-bottom: 2px solid black;
+    }
+    
+    .hero {
+        height: auto;
+        background: white;
+        color: black;
+    }
+    
+    .mainSection {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md);
+    }
+    
+    .infobox,
+    .mainContent {
+        background: white;
+        color: black;
+        border: 1px solid black;
+    }
+}
+
+/* =========== */
+footer {
+    background-color: var(--primary-dark);
+    color: var(--text-light);
+    text-align: center;
+    padding: 1rem;
+    /* position: fixed; */
+    bottom: 0;
+    width: 100%;
+    z-index: 10;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.3);
+}
+
+footer p {
+    margin: 0;
+    font-size: 0.9rem;
+}
