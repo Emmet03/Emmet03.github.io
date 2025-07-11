@@ -24,7 +24,7 @@ for letter in sorted(grouped.keys()):
     html_output.append(f'            <h2>{letter}...</h2>')
     html_output.append('            <ul>')
     for file, name in grouped[letter]:
-        html_output.append(f'                <li><a href="Pages/{file}">{name}</a></li>')
+        html_output.append(f'                <li><a href="{file}">{name}</a></li>')
     html_output.append('            </ul>')
 
 # Ausgabe als Text (einfach in dein HTML einfügen)
