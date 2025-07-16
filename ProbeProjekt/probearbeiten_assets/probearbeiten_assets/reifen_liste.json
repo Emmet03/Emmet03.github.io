@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Michelin Pilot Sport 4",
+    "beschreibung": "Hochleistungsreifen für sportliche Fahrzeuge.",
+    "preis": "189,99 €",
+    "bild": "michelin.jpg"
+  },
+  {
+    "name": "Continental AllSeasonContact",
+    "beschreibung": "Ganzjahresreifen mit hervorragender Performance.",
+    "preis": "159,99 €",
+    "bild": "continental.jpg"
+  },
+  {
+    "name": "Pirelli Powergy 22",
+    "beschreibung": "Der absolute Renner. Nicht straßentauglich, nur für Rennstrecken gedacht.",
+    "preis": "259,99 €",
+    "bild": "pirelli.jpg"
+  },
+  {
+    "name": "Fulda Kristall Control SUV",
+    "beschreibung": "Letzte Auflage aus den Fuldaer Gummiwerken. Haltbare Allwetter-Reifen für SUVs.",
+    "preis": "174,99 €",
+    "bild": "fuldareifen.jpg"
+  }
+]
