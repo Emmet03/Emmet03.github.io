@@ -1,4 +1,8 @@
 /* ========== Basis-Setup ========== */
+html {
+  scroll-behavior: smooth;
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -59,7 +63,7 @@ header .Logo img {
 .hero {
     position: relative;
     text-align: center;
-    height: 100vh; 
+    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -80,7 +84,7 @@ header .Logo img {
 }
 
 .hero .HeroLogo {
-    width: 300px; 
+    width: 300px;
     margin-bottom: 1rem;
 }
 
@@ -88,13 +92,15 @@ header .Logo img {
     color: #ffcc00;
     font-size: clamp(2rem, 6vw, 5rem);
     margin: 1rem 0;
+    text-shadow: 4px 4px 15px rgb(0 0 0 / 100%);
 }
 
 .hero p {
     color: #ffffff;
-    font-size: clamp(1rem, 2.5vw, 2rem); 
+    font-size: clamp(1rem, 2.5vw, 2rem);
     max-width: 900px;
     margin: 1rem auto;
+    text-shadow: 4px 4px 15px rgb(0 0 0 / 100%);
 }
 
 
@@ -116,21 +122,22 @@ section h1 {
     padding: 2rem;
 }
 
-.sbsContainer > div {
+.sbsContainer>div {
     flex: 1 1 400px;
 }
 
 /* ========== Team Section ========== */
 .teamImg img {
     border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
 }
 
 .teamTxt h2 {
     color: #ffcc00;
     margin-bottom: 1rem;
-    font-size: clamp(2rem, 3vw, 4rem); 
+    font-size: clamp(2rem, 3vw, 4rem);
 }
+
 .teamTxt p {
     font-size: clamp(1rem, 2vw, 1.5rem);
     line-height: 1.6;
@@ -170,23 +177,25 @@ section h1 {
     width: 100%;
     height: auto;
     border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
     transition: cubic-bezier(1, 0, 0, 1);
 }
+
 .Leistungen h2 {
     /* color: #ffcc00; */
     margin-bottom: 1rem;
-    font-size: clamp(1.6rem, 2.4vw, 3.2rem); 
+    font-size: clamp(1.6rem, 2.4vw, 3.2rem);
 }
 
 .Leistungen p {
-    font-size: clamp(0.8rem, 1.6vw, 1.2rem); 
+    font-size: clamp(0.8rem, 1.6vw, 1.2rem);
     line-height: 1.6;
     margin-bottom: 1rem;
 }
+
 .Leistungen .textBelow {
     text-align: center;
-    font-size: clamp(1rem, 2vw, 1.5rem); 
+    font-size: clamp(1rem, 2vw, 1.5rem);
     line-height: 1.6;
     margin-top: 1rem;
     margin: 2rem auto;
@@ -214,6 +223,7 @@ section h1 {
     font-size: 2rem;
 
 }
+
 .pagination button {
     padding: 0.5rem 1rem;
     font-size: 1.2rem;
@@ -236,23 +246,27 @@ section h1 {
 .katalogItem {
     background-color: #fff;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     padding: 1.5rem;
-    max-width: 300px;
+    width: 300px;
+    height: 650px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     text-align: center;
     transition: transform 0.3s ease;
 }
 
-.katalogItem:hover {
-    transform: translateY(-5px);
-}
-
 .katalogItem img {
-    width: 100%;
-    max-height: 500px;
+    height: 500px;
+    object-fit: cover;
     border-radius: 8px;
     margin-bottom: 1rem;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.katalogItem:hover {
+    transform: translateY(-5px);
 }
 
 .katalogItem h3 {
@@ -275,11 +289,13 @@ section h1 {
     border: none;
     border-radius: 6px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s;
 }
 
-.katalogItem button:hover {
-    background-color: #e6b800;
+.pagination button:hover {
+    background-color: #ffcc00;
+    color: #000;
+    transform: scale(1.1);
 }
 
 .Katalog .sbsContainer {
@@ -302,13 +318,98 @@ section h1 {
     background-color: #555;
 }
 
+/* ========== Galerie ========== */
+.Galerie {
+    background-color: #fff;
+    padding: 4rem 2rem;
+}
+
+.Galerie h1 {
+    color: #ffcc00;
+    text-align: center;
+    font-size: clamp(2rem, 6vw, 4rem);
+    margin-bottom: 2rem;
+}
+
+.Galerie .sbsContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.GalerieContent {
+    width: 700px;
+    height: 400px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.GalerieContent img {
+    height: 100%;
+    width: auto;
+    object-fit: cover;
+    border-radius: 12px;
+    transition: transform 0.4s ease;
+}
+
+
+.GalerieContent img:hover {
+    transform: scale(1.02);
+}
+
+.ButtonPrev,
+.ButtonNext {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ButtonPrev button,
+.ButtonNext button {
+    background-color: #333;
+    color: #fff;
+    font-size: 2rem;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s;
+}
+
+.ButtonPrev button:hover,
+.ButtonNext button:hover {
+    background-color: #ffcc00;
+    color: #000;
+    transform: scale(1.1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .Galerie .sbsContainer {
+        flex-direction: column;
+    }
+
+    .ButtonPrev button,
+    .ButtonNext button {
+        font-size: 1.8rem;
+    }
+}
+
 
 /* ========== Kontakt & Footer ========== */
 .Kontakt {
-    
+
     background-color: #444;
 }
-.Kontakt, .kontakt {
+
+.Kontakt,
+.kontakt {
     color: #fff;
     padding: 3rem 2rem;
     /* max-width: 800px; */
@@ -369,6 +470,7 @@ section h1 {
     background-color: #ffcc00;
 
 }
+
 .map {
     max-width: 1000px;
     margin: 3rem auto;
@@ -393,19 +495,32 @@ footer .kontakt p {
     font-size: 1.2rem;
 }
 
-.legal, .social {
+.legal,
+.social {
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 0.5rem;
 }
 
-.legal a {
+.legal a, .social a {
     color: #ccc;
 }
 
-.legal a:hover {
+.legal a:hover, .social a:hover {
     color: #fff;
+}
+
+.copyright {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+}
+
+.copyright img {
+    height: 300px;
+    margin-left: 10px;
+    vertical-align: middle;
 }
 
 /* ========== Responsive Design ========== */
