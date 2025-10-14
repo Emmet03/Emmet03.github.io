@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Ebene_1" data-name="Ebene 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1010.55 1012.93">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-2 {
+        fill: url(#Unbenannter_Verlauf_4);
+      }
+
+      .cls-3 {
+        clip-path: url(#clippath);
+      }
+    </style>
+    <clipPath id="clippath">
+      <path class="cls-1" d="M437.6,489.26c0-34.72,32.11-62.87,71.71-62.87s71.71,28.15,71.71,62.87-32.1,62.87-71.71,62.87-71.71-28.15-71.71-62.87M560.95,181.11c-146.51,55.58-166.24,130.15-156.37,188.97-15.5-16.63-21.83-9.88-28.18-58.81-50.8,75.71-53.75,132.81-35.35,175.24,12.81,93.08,168.57,345.32,168.57,345.32,0,0,133.18-215.68,163.38-321.76,10.42-22.61,14.82-47.53,14.9-72.06v-1.47c-.16-45.21-14.85-88.89-33.27-114,7.04,39.52-13.38,71.63-28.88,95.1-13.38-55.58-26.76-62.37-45.08-92.01-18.31-29.64-72.55-75.34-19.72-144.5Z"/>
+    </clipPath>
+    <linearGradient id="Unbenannter_Verlauf_4" data-name="Unbenannter Verlauf 4" x1="-447.24" y1="1096.4" x2="-444.85" y2="1096.4" gradientTransform="translate(137240.28 336598.06) scale(306.54 -306.54)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="lime"/>
+      <stop offset=".98" stop-color="blue"/>
+      <stop offset="1" stop-color="blue"/>
+    </linearGradient>
+  </defs>
+  <g class="cls-3">
+    <rect class="cls-2" x="153.34" y="141.5" width="703.88" height="729.93" transform="translate(-208.59 459.46) rotate(-41.3)"/>
+  </g>
+</svg>
