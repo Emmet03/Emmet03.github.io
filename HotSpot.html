@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HotSpot</title>
+  <style>
+:root {
+  --brand: #28a745; /* Hauptfarbe Grün */
+  --accent: #007bff; /* Blau als Highlight */
+  --bg-1: #f3fff7;
+  --bg-2: #e8f8ec;
+  --text: #1a1a1a;
+  --muted: #555;
+  --card: rgba(255, 255, 255, 0.95);
+  --border: rgba(40, 167, 69, 0.25);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  color: var(--text);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", Arial;
+  background: linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 50%, #ffffff 100%);
+  min-height: 100vh;
+}
+
+/* Container & Header */
+.container { max-width: 1080px; margin: 0 auto; padding: 0 16px; }
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.85);
+  border-bottom: 1px solid var(--border);
+}
+.row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.title { font-weight: 800; font-size: 28px; color: var(--brand); }
+
+/* Buttons */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 16px; border-radius: 999px; border: 0;
+  cursor: pointer; font-weight: 700;
+}
+.btn-primary { background: var(--brand); color: #fff; }
+.btn-primary:hover { background: #218838; }
+
+.icon { width: 20px; height: 20px; }
+
+/* Inputs */
+.input {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 10px;
+  padding: 12px 14px 12px 40px;
+  outline: none;
+}
+.input:focus { box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.25); }
+.input-wrap { position: relative; margin: 14px 0; }
+.input-wrap .i { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--brand); }
+
+/* Kategorien */
+.cats { display: flex; gap: 12px; overflow: auto; padding: 20px 0; }
+.cat {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 16px; border-radius: 999px; border: 0;
+  cursor: pointer; font-weight: 700;
+  background: rgba(40, 167, 69, 0.1); color: var(--text);
+  white-space: nowrap; transition: .2s;
+}
+.cat:hover { background: rgba(40, 167, 69, 0.2); }
+.cat.active {
+  background: var(--brand); color: #fff;
+  box-shadow: 0 8px 20px rgba(40, 167, 69, 0.35);
+}
+
+/* Grid */
+.grid { display: grid; gap: 24px; }
+@media (min-width: 768px) {
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* Karten */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  overflow: hidden;
+  transition: .25s;
+  position: relative;
+}
+.card:hover {
+  box-shadow: 0 10px 25px rgba(40, 167, 69, 0.25);
+  border-color: rgba(40, 167, 69, 0.5);
+}
+.hero { height: 200px; position: relative; background-size: cover; background-position: center; }
+.hero::after { content: ""; position: absolute; inset: 0; background: rgba(0, 0, 0, .25); }
+
+/* Badge – grün normal, blau bei „Sehr voll“ */
+.badge {
+  position: absolute; left: 12px; bottom: 12px;
+  background: var(--brand); color: #fff;
+  font-weight: 800; font-size: 12px;
+  padding: 6px 10px; border-radius: 999px;
+}
+.badge[data-status="Sehr voll"] {
+  background: var(--accent);
+}
+
+.like {
+  position: absolute; right: 12px; top: 12px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 0; border-radius: 999px; padding: 9px;
+  cursor: pointer; transition: transform .15s;
+}
+.like:hover { transform: scale(1.08); }
+.like svg { width: 20px; height: 20px; stroke: var(--brand); }
+.like.liked svg { fill: #dc3545; stroke: #dc3545; }
+
+.content { padding: 18px; }
+.muted { color: var(--muted); }
+.tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 16px; }
+.tag {
+  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(40, 167, 69, 0.15);
+  color: #1a1a1a;
+}
+.split { display: flex; align-items: center; justify-content: space-between; gap: 8px; border-top: 1px solid #ddd; padding-top: 12px; }
+
+.location:hover { text-decoration: underline; cursor: pointer; }
+
+/* CTA */
+.cta { width: 100%; margin-top: 14px; padding: 12px; border-radius: 10px; background: var(--brand); color: #fff; border: 0; cursor: pointer; font-weight: 800; transition: .2s; }
+.cta:hover { background: #218838; }
+
+/* Floating Button */
+.fab { position: fixed; right: 24px; bottom: 24px; background: var(--brand); color: #fff; border: 0; border-radius: 999px; padding: 16px; box-shadow: 0 10px 25px rgba(40, 167, 69, 0.4); cursor: pointer; transition: transform .15s; }
+.fab:hover { transform: scale(1.08); }
+
+.flex { display: flex; align-items: center; gap: 8px; }
+.space { height: 8px; }
+.hidden { display: none; }
+a.clean { color: inherit; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container" style="padding:16px 16px 18px">
+      <div class="row" style="margin-bottom:12px">
+        <h1 class="title">HotSpot</h1>
+        <button class="btn btn-primary" id="profileBtn">Mein Profil</button>
+      </div>
+
+      <div class="input-wrap">
+        <span class="i" aria-hidden="true"><svg data-lucide="map-pin" class="icon"></svg></span>
+        <input id="locationInput" class="input" placeholder="Dein Standort..." value="Fulda, Deutschland" />
+      </div>
+
+      <div class="input-wrap">
+        <span class="i" aria-hidden="true"><svg data-lucide="mic" class="icon"></svg></span>
+        <input id="searchInput" class="input" placeholder="Sag mir was du suchst . . ." />
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Categories -->
+    <div class="cats" id="cats"></div>
+
+    <!-- Grid -->
+    <div class="grid" id="grid"></div>
+  </main>
+
+  <button class="fab" title="Standort setzen"><svg data-lucide="map-pin" class="icon"></svg></button>
+
+  <!-- Lucide icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    const categories = [
+      { id: 'alle', label: 'Alle', icon: 'filter' },
+      { id: 'clubs', label: 'Clubs', icon: 'music' },
+      { id: 'bars', label: 'Bars', icon: 'coffee' },
+      { id: 'events', label: 'Events', icon: 'calendar' },
+      { id: 'lounges', label: 'Lounges', icon: 'users' },
+    ];
+
+    const hotspots = [
+      {
+        id: 1,
+        name: 'Eck',
+        category: 'clubs',
+        distance: '0.8 km',
+        rating: 4.7,
+        visitors: 234,
+        status: 'Sehr voll',
+        tags: ['Techno', 'House', '18+'],
+        openUntil: '05:00',
+        image: 'https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?q=80&w=1600&auto=format&fit=crop',
+        event: 'Jam Seassion – im Eck'
+      },
+      {
+        id: 2,
+        name: 'S Club',
+        category: 'bars',
+        distance: '1.2 km',
+        rating: 4.9,
+        visitors: 87,
+        status: 'Moderat',
+        tags: ['Cocktails', 'Aussicht', 'Live DJ'],
+        openUntil: '03:00',
+        image: 'https://images.unsplash.com/photo-1544145945-f90425340c7e?q=80&w=1600&auto=format&fit=crop',
+        event: 'Live DJ – ab 22:00'
+      },
+      {
+        id: 3,
+        name: 'Illerswald Festival',
+        category: 'events',
+        distance: '3.5 km',
+        rating: 4.8,
+        visitors: 1240,
+        status: 'Event heute',
+        tags: ['Festival', 'Outdoor', 'EDM'],
+        openUntil: '23:59',
+        image: 'https://images.unsplash.com/photo-1508609349937-5ec4ae374ebf?q=80&w=1600&auto=format&fit=crop',
+        event: 'Mainstage: 22:00 Uhr'
+      },
+      {
+        id: 4,
+        name: 'Shisha Bar',
+        category: 'lounges',
+        distance: '0.5 km',
+        rating: 4.6,
+        visitors: 56,
+        status: 'Noch Plätze frei',
+        tags: ['Shisha', 'Chill', 'R&B'],
+        openUntil: '02:00',
+        image: 'TestHomepage/Bilder/bck.png',
+        event: 'R&B Night – ab 21:00'
+      }
+    ];
+
+    let selectedCategory = 'alle';
+    const liked = new Set();
+
+    const catsEl = document.getElementById('cats');
+    const gridEl = document.getElementById('grid');
+    const searchEl = document.getElementById('searchInput');
+
+    function renderCategories(){
+      catsEl.innerHTML = '';
+      categories.forEach(cat => {
+        const btn = document.createElement('button');
+        btn.className = 'cat' + (selectedCategory === cat.id ? ' active' : '');
+        btn.innerHTML = `<svg data-lucide="${cat.icon}" class="icon"></svg> ${cat.label}`;
+        btn.addEventListener('click', () => { selectedCategory = cat.id; renderCategories(); renderGrid(); });
+        catsEl.appendChild(btn);
+      });
+      lucide.createIcons();
+    }
+
+    function includesText(spot, q){
+      if(!q) return true;
+      const hay = `${spot.name} ${spot.tags.join(' ')} ${spot.event ?? ''}`.toLowerCase();
+      return hay.includes(q.toLowerCase());
+    }
+
+    function renderGrid(){
+      gridEl.innerHTML = '';
+      const q = searchEl.value.trim();
+      const list = hotspots.filter(s => (selectedCategory === 'alle' || s.category === selectedCategory) && includesText(s, q));
+
+      list.forEach(spot => {
+        const card = document.createElement('article');
+        card.className = 'card';
+        card.innerHTML = `
+          <div class="hero" style="background-image:url('${spot.image}')">
+            <button class="like ${liked.has(spot.id) ? 'liked' : ''}" aria-label="Favorit">
+              <svg data-lucide="heart"></svg>
+            </button>
+            <span class="badge" data-status="${spot.status}">${spot.status}</span>
+          </div>
+          <div class="content">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:8px">
+              <div>
+                ${spot.event ? `
+                  <div class="flex" style="margin-top:6px;font-size:14px">
+                    <svg data-lucide="calendar" class="icon"></svg>
+                    <span style="margin:0 0 6px;font-size:20px;font-weight:800"><strong>Event:</strong> ${spot.event}</span>
+                  </div>` : ''}
+                <span class="location"><strong>Location:</strong> ${spot.name}</span>
+                <div class="flex muted" style="font-size:14px">
+                  <svg data-lucide="map-pin" class="icon"></svg>
+                  <span>${spot.distance}</span>
+                  <span style="margin-left:10px">⭐ ${spot.rating}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="tags">
+              ${spot.tags.map(t => `<span class="tag">${t}</span>`).join('')}
+            </div>
+
+            <div class="split muted" style="font-size:14px">
+              <div class="flex"><svg data-lucide="users" class="icon"></svg><span>${spot.visitors} Leute</span></div>
+              <div class="flex"><svg data-lucide="clock" class="icon"></svg><span>bis ${spot.openUntil}</span></div>
+            </div>
+
+            <button class="cta">Details anzeigen</button>
+          </div>
+        `;
+
+        const likeBtn = card.querySelector('.like');
+        likeBtn.addEventListener('click', e => {
+          e.stopPropagation();
+          if(liked.has(spot.id)) liked.delete(spot.id); else liked.add(spot.id);
+          renderGrid();
+        });
+
+        gridEl.appendChild(card);
+      });
+
+      lucide.createIcons();
+    }
+
+    searchEl.addEventListener('input', renderGrid);
+
+    renderCategories();
+    renderGrid();
+    lucide.createIcons();
+  </script>
+</body>
+</html>
