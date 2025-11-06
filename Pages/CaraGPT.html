@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cara GPT</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #434343;
+        }
+
+        .Logo {
+            text-align: center;
+            margin-bottom: 20px;
+
+        }
+
+        .Logo img {
+            width: 150px;
+            height: auto;
+            border-radius: 50%;
+            background-color: #43434300;
+        }
+
+        .Logo h1 {
+            color: black;
+            margin-top: 10px
+        }
+
+        .chat {
+            border: 1px solid #434343;
+            padding: 10px;
+            height: 60vh;
+            overflow-y: scroll;
+            background-color: #434343;
+            margin-bottom: 10px;
+        }
+
+        .chatMessageCara {
+            color: white;
+            background-color: #282828;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            max-width: 70%;
+        }
+
+        .chatMessageUser {
+            background-color: #4a4a4a;
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            max-width: 70%;
+            align-self: flex-end;
+            margin-left: auto;
+        }
+
+        .chatInput {
+            display: flex;
+            position: absolute;
+            bottom: 5%;
+            width: 90%;
+
+        }
+
+        .chatInput input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #454545;
+            border-radius: 5px;
+            background-color: #545454;
+            color: white;
+            box-shadow: #282828 0px 0px 10px;
+        }
+
+        .chatInput button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #545454;
+            color: white;
+            border-radius: 5px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        .mainContainer {
+            max-width: 600px;
+        }
+    </style>
+    <script>
+        let CaraMessageBuildingBlocks = [
+            "Meow moew",
+            "Rrrrrrr",
+            "Chhhhhhh",
+            "Mraaa",
+            "Mrrrowww",
+            ". . ."
+        ];
+        let chatContainer;
+        window.onload = function () {
+            chatContainer = document.querySelector('.chat');
+            const sendButton = document.querySelector('.chatInput button');
+            const inputField = document.querySelector('.chatInput input');
+
+            sendButton.addEventListener('click', function () {
+                const userMessage = inputField.value.trim();
+                if (userMessage) {
+                    addUserMessage(userMessage);
+                    inputField.value = '';
+                    // Here you can add the logic to get Cara's response
+                    setTimeout(() => {
+                        addCaraMessage(CaraMessageBuildingBlocks[Math.floor(Math.random() * CaraMessageBuildingBlocks.length)]);
+                    }, 1000);
+                }
+            });
+        };
+        addUserMessage = function (message) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'chatMessageUser';
+            messageDiv.innerHTML = `<p>${message}</p>`;
+            chatContainer.appendChild(messageDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        };
+        addCaraMessage = function (message) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'chatMessageCara';
+            messageDiv.innerHTML = `<p>${message}</p>`;
+            chatContainer.appendChild(messageDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        };
+    </script>
+</head>
+
+<body>
+    <div class="mainContainer">
+        <div class="Logo">
+            <img src="../img/CaraFrei.png" alt="">
+            <h1>CaraGPT</h1>
+        </div>
+        <div class="chat">
+            <!-- <div class="chatMessageCara">
+            <p>Meow moew</p>
+        </div>
+        <div class="chatMessageUser">
+            <p>Hi Cara!</p>
+        </div> -->
+        </div>
+        <div class="chatInput">
+            <input type="text" placeholder="Type your message here..." />
+            <button>Send</button>
+        </div>
+    </div>
+</body>
+
+</html>
