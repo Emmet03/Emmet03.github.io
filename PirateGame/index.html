@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pirate Seas</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="panel hero-panel">
+        <p class="eyebrow">Open-Sea Strategy</p>
+        <h1>Pirate Seas</h1>
+        <p class="lede">
+          Segle zwischen Inseln, pluendere Beute und ueberlebe feindliche Begegnungen
+          in rundenbasierten Seegefechten.
+        </p>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Schiff</h2>
+          <span id="shipTier">Sloop</span>
+        </div>
+        <div class="stat-grid">
+          <div class="stat-card">
+            <span>Huelle</span>
+            <strong id="hullStat">0 / 0</strong>
+          </div>
+          <div class="stat-card">
+            <span>Kanonen</span>
+            <strong id="cannonStat">0</strong>
+          </div>
+          <div class="stat-card">
+            <span>Holz</span>
+            <strong id="woodStat">0</strong>
+          </div>
+          <div class="stat-card">
+            <span>Munition</span>
+            <strong id="ammoStat">0</strong>
+          </div>
+          <div class="stat-card">
+            <span>Gold</span>
+            <strong id="goldStat">0</strong>
+          </div>
+          <div class="stat-card">
+            <span>Ruf</span>
+            <strong id="fameStat">0</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Steuerung</h2>
+        </div>
+        <ul class="instruction-list">
+          <li>`WASD` oder Pfeiltasten zum Segeln</li>
+          <li>`E` an Inseln zum Interagieren</li>
+          <li>`R` auf See zum Reparieren mit Holz</li>
+          <li>Piratenhaefen oeffnen ein eigenes Werft-Modal</li>
+          <li>Im Kampf Zuege bewusst planen</li>
+        </ul>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Deck</h2>
+        </div>
+        <div class="button-stack">
+          <button id="repairShipBtn" class="action-button">Auf See reparieren (1 Holz)</button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Piratenhafen</h2>
+        </div>
+        <p id="shipyardStatus" class="panel-copy">
+          Lege an einer Pirateninsel an und druecke `E`, um die Werft zu oeffnen.
+        </p>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Wetter</h2>
+        </div>
+        <p id="weatherTitle" class="panel-copy">Klares Wetter</p>
+        <p id="weatherDescription" class="panel-copy">Ruhige See und gute Sicht.</p>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Aktiver Auftrag</h2>
+        </div>
+        <p id="activeQuestTitle" class="panel-copy">Kein Auftrag aktiv</p>
+        <p id="activeQuestDescription" class="panel-copy">Im Piratenhafen kannst du neue Vertraege annehmen.</p>
+        <p id="activeQuestProgress" class="panel-copy">Noch kein Fortschritt</p>
+      </div>
+    </aside>
+
+    <main class="main-stage">
+      <section class="top-bar">
+        <div class="banner">
+          <span class="banner-label">Ziel</span>
+          <strong>Inseln pluendern, Kaempfe gewinnen, die See dominieren.</strong>
+        </div>
+        <div class="encounter-pill" id="seaState">Ruhige Gewaesser</div>
+      </section>
+
+      <section class="game-wrap">
+        <canvas id="gameCanvas" width="960" height="640" aria-label="Piratenkarte"></canvas>
+
+        <div class="overlay-card info-card">
+          <div class="panel-header">
+            <h2>Kapitaenslog</h2>
+          </div>
+          <div id="logEntries" class="log-entries"></div>
+        </div>
+
+        <div class="overlay-card island-card hidden" id="islandCard">
+          <div class="panel-header">
+            <h2 id="islandName">Insel</h2>
+            <span>Landgang</span>
+          </div>
+          <p id="islandDescription"></p>
+          <button id="plunderBtn" class="action-button wide">Pluendern</button>
+        </div>
+
+        <div class="battle-modal hidden" id="shipyardModal">
+          <div class="battle-panel shipyard-panel">
+            <div class="battle-header">
+              <div>
+                <p class="eyebrow">Piratenhafen</p>
+                <h2 id="shipyardTitle">Werft</h2>
+              </div>
+              <button id="closeShipyardBtn" class="ghost-button">Schliessen</button>
+            </div>
+            <p id="shipyardDescription" class="panel-copy">
+              Schmuggler, Zimmerleute und Waffenmeister warten auf Gold.
+            </p>
+            <div class="button-stack">
+              <button id="upgradeHullBtn" class="action-button">Rumpf +12 HP (45 Gold)</button>
+              <button id="upgradeCannonsBtn" class="action-button">Kanonen +1 (60 Gold)</button>
+              <button id="upgradeSailsBtn" class="action-button">Segel +8% Tempo (55 Gold)</button>
+              <button id="refillAmmoBtn" class="action-button">Munition +8 (20 Gold)</button>
+            </div>
+            <div class="quest-section">
+              <div class="panel-header">
+                <h3>Auftraege</h3>
+              </div>
+              <p id="questOfferTitle" class="panel-copy">Keine Vertraege verfuegbar</p>
+              <p id="questOfferDescription" class="panel-copy">Schau spaeter wieder vorbei.</p>
+              <div class="button-stack">
+                <button id="acceptQuestBtn" class="action-button">Auftrag annehmen</button>
+                <button id="completeQuestBtn" class="action-button">Auftrag abschliessen</button>
+                <button id="rerollQuestBtn" class="ghost-button">Neue Vertraege</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="battle-modal hidden" id="battleModal">
+          <div class="battle-panel">
+            <div class="battle-header">
+              <div>
+                <p class="eyebrow">Begegnung</p>
+                <h2 id="enemyName">Feindliches Schiff</h2>
+              </div>
+              <span id="battleTurnLabel">Dein Zug</span>
+            </div>
+
+            <div class="battle-board">
+              <div class="combatant player-side">
+                <h3>Dein Schiff</h3>
+                <img id="playerBattleShip" class="battle-ship battle-ship-player" alt="Spielerschiff">
+                <div class="health-track">
+                  <div id="playerHpBar" class="health-bar"></div>
+                </div>
+                <p id="playerBattleStats">0 / 0 HP</p>
+              </div>
+
+              <div class="battle-center">
+                <div class="battle-wave"></div>
+                <p id="battleMessage">Ein Gegner naehrt sich.</p>
+                <div class="battle-indicator">
+                  <strong id="battleRiskLabel">Ausgeglichen</strong>
+                  <span id="battleRewardPreview">Moegliche Beute wird geprueft</span>
+                </div>
+              </div>
+
+              <div class="combatant enemy-side">
+                <h3>Gegner</h3>
+                <img id="enemyBattleShip" class="battle-ship battle-ship-enemy" alt="Gegnerschiff">
+                <div class="health-track">
+                  <div id="enemyHpBar" class="health-bar enemy"></div>
+                </div>
+                <p id="enemyBattleStats">0 / 0 HP</p>
+              </div>
+            </div>
+
+            <div class="battle-actions">
+              <button data-action="broadside" class="action-button battle-action">Breitseite</button>
+              <button data-action="repair" class="action-button battle-action">Reparieren</button>
+              <button data-action="brace" class="action-button battle-action">Abwehren</button>
+              <button data-action="flee" class="action-button battle-action">Fliehen</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="battle-modal hidden" id="gameOverModal">
+          <div class="battle-panel shipyard-panel">
+            <div class="battle-header">
+              <div>
+                <p class="eyebrow">Niederlage</p>
+                <h2>Game Over</h2>
+              </div>
+            </div>
+            <p id="gameOverText" class="panel-copy">
+              Dein Schiff ist gesunken. Sammle deine Crew und wage einen neuen Versuch.
+            </p>
+            <div class="button-stack">
+              <button id="restartGameBtn" class="action-button">Neue Reise beginnen</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
