@@ -34,6 +34,10 @@ canvas {
   font: inherit;
 }
 
+input {
+  font: inherit;
+}
+
 .app-shell {
   display: grid;
   grid-template-columns: 360px minmax(0, 1fr);
@@ -69,6 +73,10 @@ canvas {
 
 .panel {
   padding: 18px;
+}
+
+.panel-body {
+  display: block;
 }
 
 .hero-panel {
@@ -110,6 +118,21 @@ h1 {
   margin-bottom: 14px;
 }
 
+.ship-heading {
+  min-width: 0;
+}
+
+.ship-heading h2 {
+  line-height: 1.05;
+}
+
+.ship-caption {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.2;
+}
+
 .panel-header span,
 .banner-label {
   color: var(--gold);
@@ -122,6 +145,41 @@ h1 {
   margin: 0 0 14px;
   color: var(--muted);
   line-height: 1.5;
+}
+
+.fleet-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.fleet-card {
+  padding: 12px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.fleet-card-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.fleet-card-header span {
+  color: var(--gold);
+  font-size: 0.82rem;
+}
+
+.fleet-meta {
+  margin-bottom: 10px;
+}
+
+.fleet-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 .stat-grid {
@@ -190,6 +248,26 @@ h1 {
   padding: 10px 14px;
   background: rgba(255, 255, 255, 0.05);
   color: var(--text);
+  cursor: pointer;
+}
+
+.text-input {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 14px;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text);
+}
+
+.icon-button {
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--gold);
+  font-weight: 700;
   cursor: pointer;
 }
 
@@ -397,17 +475,54 @@ h1 {
 }
 
 .battle-action {
-  flex: 1 1 180px;
+  flex: 1 1 160px;
 }
 
 .shipyard-panel {
-  width: min(540px, 100%);
+  width: min(1040px, 100%);
+  max-height: min(92vh, 860px);
+  overflow: auto;
 }
 
-.quest-section {
-  margin-top: 18px;
-  padding-top: 18px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+.shipyard-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  align-items: start;
+}
+
+.shipyard-section {
+  min-width: 0;
+  padding: 18px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.shipyard-section-wide {
+  grid-column: 1 / -1;
+}
+
+.shipyard-actions-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.shipyard-mini-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.shipyard-actions-grid .action-button,
+.shipyard-mini-actions .action-button,
+.shipyard-mini-actions .ghost-button {
+  width: 100%;
+}
+
+.shipyard-mini-actions .ghost-button:last-child {
+  grid-column: 1 / -1;
 }
 
 #gameCanvas {
@@ -484,5 +599,11 @@ h1 {
 
   .battle-modal {
     overflow: auto;
+  }
+
+  .shipyard-grid,
+  .shipyard-actions-grid,
+  .shipyard-mini-actions {
+    grid-template-columns: 1fr;
   }
 }

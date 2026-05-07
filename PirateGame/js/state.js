@@ -1,4 +1,19 @@
-import { encounterNames, islandNamePrefixes, islandNameSuffixes, mapSize } from "./constants.js";
+import {
+  captainFirstNames,
+  captainTitles,
+  enemyLayout,
+  islandNamePrefixes,
+  islandNameSuffixes,
+  mapSize,
+  pirateIslandNames,
+  playerDefaults,
+  shipConfigs,
+  shipPrefixes,
+  shipSuffixes,
+  weatherConfig,
+  windConfig,
+  worldConfig,
+} from "./constants.js";
 import { randomInt } from "./utils.js";
 
 export function loadImage(src) {
@@ -18,11 +33,9 @@ export function createTextures() {
 
 export function createIslands() {
   const islands = [];
-  const islandCount = 12;
-  const pirateCount = 3;
 
-  for (let id = 1; id <= islandCount; id += 1) {
-    const kind = id <= pirateCount ? "pirate" : "wild";
+  for (let id = 1; id <= worldConfig.islandCount; id += 1) {
+    const kind = id <= worldConfig.pirateIslandCount ? "pirate" : "wild";
     const radius = kind === "pirate" ? randomInt(108, 152) : randomInt(82, 176);
     const placed = placeIsland(id, kind, radius, islands);
     if (placed) {
@@ -34,8 +47,8 @@ export function createIslands() {
     const startIsland = islands.reduce((best, current) => (
       current.x + current.y < best.x + best.y ? current : best
     ), islands[0]);
-    startIsland.x = 420;
-    startIsland.y = 320;
+    startIsland.x = worldConfig.islandStartPosition.x;
+    startIsland.y = worldConfig.islandStartPosition.y;
   }
 
   return islands;
@@ -44,8 +57,8 @@ export function createIslands() {
 export function createWindState() {
   return {
     angle: Math.random() * Math.PI * 2,
-    strength: randomInt(10, 22) / 100,
-    nextShiftAt: Date.now() + randomInt(14000, 24000),
+    strength: randomInt(windConfig.strengthMin, windConfig.strengthMax) / 100,
+    nextShiftAt: Date.now() + randomInt(windConfig.shiftDelayMinMs, windConfig.shiftDelayMaxMs),
   };
 }
 
@@ -59,10 +72,18 @@ export function createWeatherState() {
     accelFactor: 1,
     driftFactor: 1,
     overlayAlpha: 0,
-    nextShiftAt: Date.now() + randomInt(18000, 32000),
+    nextShiftAt: Date.now() + randomInt(weatherConfig.defaultNextShiftMinMs, weatherConfig.defaultNextShiftMaxMs),
     flashUntil: 0,
     zone: null,
   };
+}
+
+export function randomCaptainName() {
+  return `${captainFirstNames[randomInt(0, captainFirstNames.length - 1)]} ${captainTitles[randomInt(0, captainTitles.length - 1)]}`;
+}
+
+export function randomShipName() {
+  return `${shipPrefixes[randomInt(0, shipPrefixes.length - 1)]} ${shipSuffixes[randomInt(0, shipSuffixes.length - 1)]}`;
 }
 
 export function spawnEnemy(id, x, y) {
@@ -70,40 +91,11 @@ export function spawnEnemy(id, x, y) {
 }
 
 export function spawnShip(id, x, y, kind = "hostile") {
-  const shipConfigs = {
-    hostile: {
-      names: encounterNames,
-      speedMin: 40,
-      speedMax: 72,
-      hullMin: 55,
-      hullMax: 85,
-      cannonMin: 1,
-      cannonMax: 3,
-    },
-    merchant: {
-      names: ["Bernstein Handel", "Salzkrone", "Kupfermoeve", "Blue Ledger"],
-      speedMin: 34,
-      speedMax: 58,
-      hullMin: 42,
-      hullMax: 62,
-      cannonMin: 0,
-      cannonMax: 1,
-    },
-    civilian: {
-      names: ["Morgenstern", "Lagunenfisch", "Mira", "Seewind"],
-      speedMin: 28,
-      speedMax: 50,
-      hullMin: 34,
-      hullMax: 52,
-      cannonMin: 0,
-      cannonMax: 0,
-    },
-  };
-
   const config = shipConfigs[kind] ?? shipConfigs.hostile;
   const shipClass = kind === "hostile"
     ? ["raider", "corsair", "warship"][randomInt(0, 2)]
     : kind;
+
   return {
     id,
     kind,
@@ -121,23 +113,11 @@ export function spawnShip(id, x, y, kind = "hostile") {
 }
 
 export function createEnemies() {
-  const layout = [
-    "hostile",
-    "merchant",
-    "civilian",
-    "hostile",
-    "merchant",
-    "civilian",
-    "hostile",
-    "merchant",
-    "civilian",
-  ];
-
-  return layout.map((kind, index) => (
+  return enemyLayout.map((kind, index) => (
     spawnShip(
       index + 1,
-      randomInt(280, mapSize.width - 280),
-      randomInt(280, mapSize.height - 280),
+      randomInt(worldConfig.enemySpawnMargin, mapSize.width - worldConfig.enemySpawnMargin),
+      randomInt(worldConfig.enemySpawnMargin, mapSize.height - worldConfig.enemySpawnMargin),
       kind,
     )
   ));
@@ -146,40 +126,49 @@ export function createEnemies() {
 export function createGameState() {
   return {
     player: {
-      x: 480,
-      y: 300,
+      captainName: randomCaptainName(),
+      shipName: randomShipName(),
+      x: worldConfig.playerStart.x,
+      y: worldConfig.playerStart.y,
       angle: 0,
       speed: 0,
       driftX: 0,
       driftY: 0,
-      maxHull: 100,
-      hull: 100,
-      wood: 12,
-      ammo: 16,
-      gold: 60,
-      cannons: 2,
-      sailLevel: 0,
-      sailSpeedBonus: 1,
-      fame: 0,
-      tier: "Sloop",
+      maxHull: playerDefaults.maxHull,
+      hull: playerDefaults.hull,
+      wood: playerDefaults.wood,
+      ammo: playerDefaults.ammo,
+      gold: playerDefaults.gold,
+      cannons: playerDefaults.cannons,
+      sailLevel: playerDefaults.sailLevel,
+      sailSpeedBonus: playerDefaults.sailSpeedBonus,
+      fame: playerDefaults.fame,
+      tier: playerDefaults.tier,
       braceActive: false,
+      modules: {
+        armoredProw: false,
+        fireAmmo: false,
+      },
     },
     camera: { x: 0, y: 0 },
     islands: createIslands(),
     enemies: createEnemies(),
+    allies: [],
+    allyCounter: 1,
     nearIslandId: null,
     logs: [],
     battle: null,
     gameOver: false,
     particles: [],
     encounterMeter: 0,
-    seaState: "Ruhige Gewaesser",
+    seaState: "Ruhige Gewässer",
     wind: createWindState(),
     weather: createWeatherState(),
     quests: {
       offers: [],
       active: null,
     },
+    started: false,
     lastTime: performance.now(),
   };
 }
@@ -193,12 +182,12 @@ export function resetGameState(game) {
 }
 
 function placeIsland(id, kind, radius, islands) {
-  for (let attempt = 0; attempt < 500; attempt += 1) {
+  for (let attempt = 0; attempt < worldConfig.islandPlacementAttempts; attempt += 1) {
     const candidate = {
       id,
       name: generateIslandName(kind, id),
-      x: randomInt(260, mapSize.width - 260),
-      y: randomInt(260, mapSize.height - 260),
+      x: randomInt(worldConfig.islandPlacementMargin, mapSize.width - worldConfig.islandPlacementMargin),
+      y: randomInt(worldConfig.islandPlacementMargin, mapSize.height - worldConfig.islandPlacementMargin),
       radius,
       plunderedAt: 0,
       kind,
@@ -214,8 +203,7 @@ function placeIsland(id, kind, radius, islands) {
 
 function generateIslandName(kind, id) {
   if (kind === "pirate") {
-    const pirateNames = ["Blacktide Haven", "Ravenrock Port", "Skullmoor Anchorage", "Redwake Den"];
-    return pirateNames[(id - 1) % pirateNames.length];
+    return pirateIslandNames[(id - 1) % pirateIslandNames.length];
   }
 
   const prefix = islandNamePrefixes[randomInt(0, islandNamePrefixes.length - 1)];
@@ -224,14 +212,20 @@ function generateIslandName(kind, id) {
 }
 
 function isValidIslandPlacement(candidate, islands) {
-  const safeFromSpawn = Math.hypot(candidate.x - 480, candidate.y - 300) > 260;
+  const safeFromSpawn = Math.hypot(
+    candidate.x - worldConfig.playerStart.x,
+    candidate.y - worldConfig.playerStart.y,
+  ) > worldConfig.islandPlacementMargin;
+
   if (!safeFromSpawn) {
     return false;
   }
 
   return islands.every((island) => {
     const distance = Math.hypot(candidate.x - island.x, candidate.y - island.y);
-    const padding = candidate.kind === "pirate" || island.kind === "pirate" ? 180 : 140;
+    const padding = candidate.kind === "pirate" || island.kind === "pirate"
+      ? worldConfig.islandPlacementPadding.pirate
+      : worldConfig.islandPlacementPadding.wild;
     return distance > candidate.radius + island.radius + padding;
   });
 }

@@ -18,7 +18,7 @@ export function normalizeAngle(angle) {
 }
 
 export function cardinalDirection(angle) {
-  const directions = ["Ost", "Sued", "West", "Nord"];
+  const directions = ["Ost", "Süd", "West", "Nord"];
   const normalized = (angle + Math.PI * 2) % (Math.PI * 2);
   const index = Math.round(normalized / (Math.PI / 2)) % 4;
   return directions[index];

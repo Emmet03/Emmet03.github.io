@@ -1,7 +1,7 @@
 import { spawnEnemy } from "./state.js";
 import { randomInt, clamp } from "./utils.js";
 import { addLog, updateHud, setSeaState, showGameOver } from "./ui.js";
-import { findNearbyIsland } from "./world.js";
+import { findNearbyIsland, recruitEnemyShip } from "./world.js";
 import { mapSize } from "./constants.js";
 import { spawnLootParticles } from "./particles.js";
 import { notifyQuestEvent } from "./quests.js";
@@ -56,7 +56,7 @@ export function updateBattleUi(game, ui) {
   ui.playerHpBar.style.width = `${clamp((player.hull / player.maxHull) * 100, 0, 100)}%`;
   ui.enemyHpBar.style.width = `${clamp((enemy.hull / enemy.maxHull) * 100, 0, 100)}%`;
   ui.battleRiskLabel.textContent = battleRiskLabel(player, enemy);
-  ui.battleRewardPreview.textContent = battleRewardPreview(enemy);
+  ui.battleRewardPreview.textContent = battleRewardPreview(game, enemy);
 
   document.querySelectorAll(".battle-action").forEach((button) => {
     button.disabled = turn !== "player" || locked;
@@ -82,14 +82,18 @@ export function resolveBattleAction(game, ui, action) {
       return;
     }
     player.ammo -= 1;
-    const damage = randomInt(12, 20) + player.cannons * 4;
+    const damage = randomInt(12, 20) + player.cannons * 4 + (player.modules?.fireAmmo ? 3 : 0);
     enemy.hull = Math.max(0, enemy.hull - damage);
     battle.message = `Deine Breitseite trifft und verursacht ${damage} Schaden.`;
+    if (player.modules?.fireAmmo && Math.random() < 0.4) {
+      battle.enemy.burning = Math.max(battle.enemy.burning ?? 0, 2);
+      battle.message = `Deine Breitseite trifft und setzt ${enemy.name} in Brand.`;
+    }
   }
 
   if (action === "repair") {
     if (player.wood <= 0) {
-      battle.message = "Kein Holz an Bord. Reparaturen sind unmoeglich.";
+      battle.message = "Kein Holz an Bord. Reparaturen sind unmöglich.";
       battle.locked = false;
       updateBattleUi(game, ui);
       return;
@@ -102,7 +106,15 @@ export function resolveBattleAction(game, ui, action) {
 
   if (action === "brace") {
     player.braceActive = true;
-    battle.message = "Die Crew geht in Deckung. Der naechste Treffer wird abgeschwaecht.";
+    battle.message = "Die Crew geht in Deckung. Der nächste Treffer wird abgeschwächt.";
+  }
+
+  if (action === "recruit") {
+    const recruitAttempt = tryRecruitEnemy(game, ui);
+    if (recruitAttempt.finished) {
+      return;
+    }
+    battle.message = recruitAttempt.message;
   }
 
   if (action === "flee") {
@@ -139,7 +151,7 @@ export function enemyTurn(game, ui) {
   const enemy = battle.enemy;
 
   if (enemy.kind === "civilian") {
-    battle.message = `${enemy.name} geraet in Panik und versucht nur zu entkommen.`;
+    battle.message = `${enemy.name} gerät in Panik und versucht nur zu entkommen.`;
     battle.turn = "player";
     battle.locked = false;
     updateHud(game, ui);
@@ -163,9 +175,12 @@ export function enemyTurn(game, ui) {
   if (player.braceActive) {
     damage = Math.floor(damage * 0.55);
   }
+  if (player.modules?.armoredProw) {
+    damage = Math.max(0, damage - 3);
+  }
 
   player.hull = Math.max(0, player.hull - damage);
-  battle.message = `${enemy.name} feuert zurueck und verursacht ${damage} Schaden.`;
+  battle.message = `${enemy.name} feuert zurück und verursacht ${damage} Schaden.`;
   player.braceActive = false;
 
   if (player.hull <= 0) {
@@ -177,6 +192,18 @@ export function enemyTurn(game, ui) {
 
   battle.turn = "player";
   battle.locked = false;
+  if ((enemy.burning ?? 0) > 0) {
+    const fireDamage = randomInt(4, 7);
+    enemy.hull = Math.max(0, enemy.hull - fireDamage);
+    enemy.burning -= 1;
+    battle.message = `${enemy.name} brennt weiter und erleidet ${fireDamage} Schaden.`;
+    if (enemy.hull <= 0) {
+      updateHud(game, ui);
+      updateBattleUi(game, ui);
+      endBattle(game, ui, "won");
+      return;
+    }
+  }
   updateHud(game, ui);
   updateBattleUi(game, ui);
 }
@@ -188,7 +215,14 @@ export function endBattle(game, ui, result) {
   }
 
   const enemyName = battle.enemy.name;
-  if (battle.enemyRef) {
+  if (result === "recruited") {
+    const ally = recruitEnemyShip(game, battle, battle.enemyRef);
+    if (battle.enemyRef) {
+      game.enemies = game.enemies.filter((enemy) => enemy.id !== battle.enemyRef.id);
+    }
+    addLog(game, ui, `${enemyName} wechselt die Flagge. ${ally.name} plündert nun für dich Inseln.`, "success");
+    setSeaState(game, ui, "Ein neues Schiff schließt sich dir an");
+  } else if (battle.enemyRef) {
     battle.enemyRef.inactiveUntil = Date.now() + 15000;
     battle.enemyRef.hull = battle.enemy.maxHull;
     battle.enemyRef.maxHull = battle.enemy.maxHull;
@@ -221,7 +255,7 @@ export function endBattle(game, ui, result) {
     showGameOver(ui, `${enemyName} hat dein Schiff versenkt. Dein letzter Ruf lag bei ${game.player.fame}.`);
   } else if (result === "fled") {
     addLog(game, ui, `Du entkommst ${enemyName} im Nebel.`, "normal");
-    setSeaState(game, ui, "Verfolgung abgeschuettelt");
+    setSeaState(game, ui, "Verfolgung abgeschüttelt");
   }
 
   game.battle = null;
@@ -245,7 +279,7 @@ function createBattleProfile(enemySource, fame) {
         ammoMin: 1,
         ammoMax: 4,
         fame: 1,
-        seaState: "Beute aus einem Haendler",
+        seaState: "Beute aus einem Händler",
       },
     };
   }
@@ -262,7 +296,7 @@ function createBattleProfile(enemySource, fame) {
         ammoMin: 0,
         ammoMax: 2,
         fame: 0,
-        seaState: "Ein ziviles Schiff ueberrumpelt",
+        seaState: "Ein ziviles Schiff überrumpelt",
       },
     };
   }
@@ -278,17 +312,17 @@ function createBattleProfile(enemySource, fame) {
       ammoMin: 2,
       ammoMax: 6,
       fame: shipClass === "captain" ? 4 : 2,
-      seaState: shipClass === "captain" ? "Ein beruechtigter Kapitaen faellt" : "Sieg auf offener See",
+      seaState: shipClass === "captain" ? "Ein berüchtigter Kapitän fällt" : "Sieg auf offener See",
     },
   };
 }
 
 function battleIntroMessage(enemySource) {
   if (enemySource.kind === "merchant") {
-    return "Ein Haendlerschiff versucht auszuweichen und bereitet nur eine schwache Verteidigung vor.";
+    return "Ein Händlerschiff versucht auszuweichen und bereitet nur eine schwache Verteidigung vor.";
   }
   if (enemySource.kind === "civilian") {
-    return "Ein ziviles Schiff geraet in Panik. Es kann sich kaum wehren.";
+    return "Ein ziviles Schiff gerät in Panik. Es kann sich kaum wehren.";
   }
   return "Ein feindliches Schiff kreuzt deinen Kurs.";
 }
@@ -302,20 +336,66 @@ function battleRiskLabel(player, enemy) {
     return "Gute Chancen auf Sieg";
   }
   if (ratio > 1.05) {
-    return "Leichter Vorteil fuer dich";
+    return "Leichter Vorteil für dich";
   }
   if (ratio > 0.8) {
     return "Riskanter, aber machbar";
   }
-  return "Gefaehrlicher Kampf";
+  return "Gefährlicher Kampf";
 }
 
-function battleRewardPreview(enemy) {
+function battleRewardPreview(game, enemy) {
+  const recruitHint = canRecruitEnemy(game, enemy) ? " | Rekrutierung möglich" : "";
   if (enemy.kind === "merchant") {
-    return "Reiche Beute, aber wenig Gegenwehr";
+    return `Reiche Beute, aber wenig Gegenwehr${recruitHint}`;
   }
   if (enemy.kind === "civilian") {
-    return "Kleine Beute, kaum Gefahr";
+    return `Kleine Beute, kaum Gefahr${recruitHint}`;
   }
-  return "Standardbeute, dafuer harte Gegenwehr";
+  return `Standardbeute, dafür harte Gegenwehr${recruitHint}`;
+}
+
+function canRecruitEnemy(game, enemy) {
+  if (game.allies.length >= 3) {
+    return false;
+  }
+  if (enemy.shipClass === "captain") {
+    return false;
+  }
+  return enemy.hull / enemy.maxHull <= 0.35;
+}
+
+function tryRecruitEnemy(game, ui) {
+  const battle = game.battle;
+  const enemy = battle.enemy;
+
+  if (game.allies.length >= 3) {
+    battle.locked = false;
+    updateBattleUi(game, ui);
+    return { finished: false, message: "Deine kleine Flotte ist bereits voll ausgelastet." };
+  }
+  if (enemy.shipClass === "captain") {
+    battle.locked = false;
+    updateBattleUi(game, ui);
+    return { finished: false, message: "Berüchtigte Kapitäne lassen sich nicht so leicht anwerben." };
+  }
+  if (enemy.hull / enemy.maxHull > 0.35) {
+    battle.locked = false;
+    updateBattleUi(game, ui);
+    return { finished: false, message: "Das gegnerische Schiff ist noch zu kampfstark für eine Rekrutierung." };
+  }
+
+  const desperation = 1 - enemy.hull / enemy.maxHull;
+  const kindBonus = enemy.kind === "civilian" ? 0.28 : enemy.kind === "merchant" ? 0.14 : 0;
+  const chance = 0.24 + desperation * 0.52 + kindBonus - game.allies.length * 0.08;
+  if (Math.random() < chance) {
+    battle.message = `${enemy.name} streicht die Flagge und bietet seine Dienste an.`;
+    updateBattleUi(game, ui);
+    endBattle(game, ui, "recruited");
+    return { finished: true, message: battle.message };
+  }
+
+  battle.locked = false;
+  updateBattleUi(game, ui);
+  return { finished: false, message: `${enemy.name} zögert, bleibt aber vorerst feindlich.` };
 }

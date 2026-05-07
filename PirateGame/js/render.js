@@ -1,5 +1,6 @@
 import { mapSize } from "./constants.js";
-import { cardinalDirection, playerShipSize } from "./utils.js";
+import { cardinalDirection, clamp, playerShipSize } from "./utils.js";
+import { questMarkerTargets } from "./quests.js";
 
 export function drawSea(ctx, canvas, game, textures) {
   if (textures.sea.complete && textures.sea.naturalWidth) {
@@ -32,12 +33,17 @@ export function drawIslands(ctx, game, textures) {
     if (distanceToPlayer > game.weather.visibilityRange && game.nearIslandId !== island.id) {
       continue;
     }
+    const alpha = visibilityAlpha(distanceToPlayer, game.weather.visibilityRange, game.nearIslandId === island.id);
+    if (alpha <= 0) {
+      continue;
+    }
     const screenX = island.x - game.camera.x;
     const screenY = island.y - game.camera.y;
     const size = island.kind === "pirate" ? island.radius * 2.55 : island.radius * 2.2;
     const texture = island.kind === "pirate" ? textures.pirateIsland : textures.island;
 
     ctx.save();
+    ctx.globalAlpha = alpha;
     ctx.translate(screenX, screenY);
     if (texture.complete && texture.naturalWidth) {
       ctx.drawImage(texture, -size / 2, -size / 2, size, size);
@@ -65,7 +71,12 @@ export function drawEnemies(ctx, game, textures) {
     if (enemy.inactiveUntil > now) {
       continue;
     }
-    if (Math.hypot(game.player.x - enemy.x, game.player.y - enemy.y) > game.weather.visibilityRange) {
+    const distanceToPlayer = Math.hypot(game.player.x - enemy.x, game.player.y - enemy.y);
+    if (distanceToPlayer > game.weather.visibilityRange) {
+      continue;
+    }
+    const alpha = visibilityAlpha(distanceToPlayer, game.weather.visibilityRange);
+    if (alpha <= 0) {
       continue;
     }
 
@@ -76,7 +87,7 @@ export function drawEnemies(ctx, game, textures) {
     ctx.save();
     ctx.translate(screenX, screenY);
     ctx.rotate(enemy.angle);
-    ctx.globalAlpha = 0.92;
+    ctx.globalAlpha = 0.92 * alpha;
 
     if (textures.ship.complete && textures.ship.naturalWidth) {
       ctx.drawImage(textures.ship, -size / 2, -size / 2, size, size);
@@ -93,6 +104,50 @@ export function drawEnemies(ctx, game, textures) {
 
     ctx.fillStyle = enemyMarkerColor(enemy.kind);
     ctx.fillRect(-20, -44, 40, 5);
+    ctx.restore();
+  }
+}
+
+export function drawAllies(ctx, game, textures) {
+  for (const ally of game.allies) {
+    const screenX = ally.x - game.camera.x;
+    const screenY = ally.y - game.camera.y;
+    const size = 88;
+
+    ctx.save();
+    ctx.translate(screenX, screenY);
+    ctx.rotate(ally.angle);
+    ctx.globalAlpha = 0.92;
+
+    if (textures.ship.complete && textures.ship.naturalWidth) {
+      ctx.drawImage(textures.ship, -size / 2, -size / 2, size, size);
+    } else {
+      ctx.fillStyle = "#48776a";
+      ctx.beginPath();
+      ctx.moveTo(28, 0);
+      ctx.lineTo(-16, -12);
+      ctx.lineTo(-26, 0);
+      ctx.lineTo(-16, 12);
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    ctx.fillStyle = "rgba(114, 202, 142, 0.95)";
+    ctx.fillRect(-20, -44, 40, 5);
+    ctx.strokeStyle = "rgba(114, 202, 142, 0.95)";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.arc(0, 0, 40, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.restore();
+
+    ctx.save();
+    ctx.fillStyle = "rgba(8, 18, 25, 0.78)";
+    ctx.fillRect(screenX - 52, screenY + 42, 104, 18);
+    ctx.fillStyle = "#72ca8e";
+    ctx.font = "12px Trebuchet MS";
+    ctx.textAlign = "center";
+    ctx.fillText(ally.name, screenX, screenY + 55);
     ctx.restore();
   }
 }
@@ -198,6 +253,8 @@ export function draw(ctx, canvas, game, textures) {
   drawWeatherZone(ctx, game);
   drawIslands(ctx, game, textures);
   drawEnemies(ctx, game, textures);
+  drawAllies(ctx, game, textures);
+  drawQuestMarkers(ctx, canvas, game);
   drawPlayer(ctx, game, textures);
   drawParticles(ctx, game);
   drawMinimap(ctx, canvas, game);
@@ -229,7 +286,7 @@ function enemyMarkerColor(kind) {
     return "rgba(239, 193, 90, 0.95)";
   }
   if (kind === "civilian") {
-    return "rgba(114, 202, 142, 0.95)";
+    return "rgba(171, 178, 187, 0.95)";
   }
   return "rgba(210, 91, 71, 0.95)";
 }
@@ -239,7 +296,7 @@ function enemyFillColor(kind) {
     return "#8d6a2b";
   }
   if (kind === "civilian") {
-    return "#4f775f";
+    return "#6d747d";
   }
   return "#6e4a29";
 }
@@ -277,6 +334,30 @@ function drawMinimap(ctx, canvas, game) {
     const py = y + (enemy.y / mapSize.height) * height;
     ctx.fillStyle = enemyMarkerColor(enemy.kind);
     ctx.fillRect(px - 1.5, py - 1.5, 3, 3);
+  }
+
+  for (const ally of game.allies) {
+    const px = x + (ally.x / mapSize.width) * width;
+    const py = y + (ally.y / mapSize.height) * height;
+    ctx.strokeStyle = "#72ca8e";
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.arc(px, py, 4.5, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.fillStyle = "#72ca8e";
+    ctx.beginPath();
+    ctx.arc(px, py, 2.4, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  for (const marker of questMarkerTargets(game)) {
+    const px = x + (marker.x / mapSize.width) * width;
+    const py = y + (marker.y / mapSize.height) * height;
+    ctx.strokeStyle = marker.type === "ship" ? "#f08f61" : "#efc15a";
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.arc(px, py, 6, 0, Math.PI * 2);
+    ctx.stroke();
   }
 
   const playerX = x + (game.player.x / mapSize.width) * width;
@@ -329,7 +410,7 @@ function drawWeatherOverlay(ctx, canvas, game) {
     ctx.save();
     ctx.strokeStyle = weather.type === "storm" ? "rgba(210, 230, 255, 0.16)" : "rgba(210, 230, 255, 0.12)";
     for (let i = 0; i < 44; i += 1) {
-      const x = (i * 43 + game.lastTime * 0.06) % (canvas.width + 60);
+      const x = (i * 43 - game.lastTime * 0.06) % (canvas.width + 60);
       const y = (i * 27 + game.lastTime * 0.1) % (canvas.height + 80);
       ctx.beginPath();
       ctx.moveTo(x, y);
@@ -345,4 +426,57 @@ function drawWeatherOverlay(ctx, canvas, game) {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.restore();
   }
+}
+
+function drawQuestMarkers(ctx, canvas, game) {
+  const markers = questMarkerTargets(game);
+  const pulse = 0.7 + Math.sin(game.lastTime * 0.008) * 0.18;
+
+  for (const marker of markers) {
+    const screenX = marker.x - game.camera.x;
+    const screenY = marker.y - game.camera.y;
+    if (screenX < -80 || screenX > canvas.width + 80 || screenY < -80 || screenY > canvas.height + 80) {
+      continue;
+    }
+
+    const color = marker.type === "ship" ? "#f08f61" : marker.type === "harbor" ? "#72ca8e" : "#efc15a";
+    ctx.save();
+    ctx.translate(screenX, screenY - 36);
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 2;
+    ctx.globalAlpha = 0.92;
+    ctx.beginPath();
+    ctx.arc(0, 0, 12 * pulse, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.moveTo(0, -14);
+    ctx.lineTo(8, 0);
+    ctx.lineTo(0, 14);
+    ctx.lineTo(-8, 0);
+    ctx.closePath();
+    ctx.fill();
+    ctx.fillStyle = "#f4ead0";
+    ctx.font = "12px Trebuchet MS";
+    ctx.textAlign = "center";
+    ctx.fillText(marker.label, 0, -20);
+    ctx.restore();
+  }
+}
+
+function visibilityAlpha(distance, visibilityRange, alwaysVisible = false) {
+  if (alwaysVisible || visibilityRange >= 99999) {
+    return 1;
+  }
+
+  const fadeBand = Math.min(220, visibilityRange * 0.35);
+  const fadeStart = Math.max(0, visibilityRange - fadeBand);
+  if (distance <= fadeStart) {
+    return 1;
+  }
+  if (distance >= visibilityRange) {
+    return 0;
+  }
+
+  return 1 - (distance - fadeStart) / Math.max(1, visibilityRange - fadeStart);
 }

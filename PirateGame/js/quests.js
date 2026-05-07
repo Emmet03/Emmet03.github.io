@@ -34,11 +34,23 @@ export function renderQuestUi(game, ui) {
   }
 
   ui.activeQuestTitle.textContent = active ? active.title : "Kein Auftrag aktiv";
-  ui.activeQuestDescription.textContent = active ? describeQuest(active) : "Im Piratenhafen kannst du einen Auftrag annehmen.";
+  ui.activeQuestDescription.textContent = active ? describeQuest(active) : "Im Piratenhafen kannst du neue Verträge annehmen.";
   ui.activeQuestProgress.textContent = active ? progressText(active) : "Noch kein Fortschritt";
+  ui.activeQuestReward.textContent = active ? `Belohnung: ${rewardText(active.reward)}` : "Noch keine Belohnung";
 
-  ui.questOfferTitle.textContent = offer ? offer.title : "Keine Vertraege verfuegbar";
-  ui.questOfferDescription.textContent = offer ? describeQuest(offer) : "Schau spaeter wieder vorbei.";
+  if (active) {
+    ui.questSectionTitle.textContent = "Aktiver Auftrag";
+    ui.questSectionStatus.textContent = canTurnInActiveQuest(game) ? "Abgabebereit" : "Unterwegs";
+    ui.questOfferTitle.textContent = active.title;
+    ui.questOfferDescription.textContent = describeQuest(active);
+    ui.questOfferReward.textContent = `${progressText(active)} | ${rewardText(active.reward)}`;
+  } else {
+    ui.questSectionTitle.textContent = "Aufträge";
+    ui.questSectionStatus.textContent = offer ? "Aushang" : "Leer";
+    ui.questOfferTitle.textContent = offer ? offer.title : "Keine Verträge verfügbar";
+    ui.questOfferDescription.textContent = offer ? describeQuest(offer) : "Schau später wieder vorbei.";
+    ui.questOfferReward.textContent = offer ? `Belohnung: ${rewardText(offer.reward)}` : "Keine Belohnung sichtbar";
+  }
 
   ui.acceptQuestBtn.disabled = !offer || Boolean(active);
   ui.rerollQuestBtn.disabled = Boolean(active);
@@ -64,7 +76,7 @@ export function acceptQuest(game, ui) {
 
 export function rerollQuestOffers(game, ui) {
   game.quests.offers = createQuestOffers(game, game.nearIslandId);
-  addLog(game, ui, "Die Schmuggler bieten neue Vertraege an.", "normal");
+  addLog(game, ui, "Die Schmuggler bieten neue Verträge an.", "normal");
   renderQuestUi(game, ui);
 }
 
@@ -87,7 +99,7 @@ export function tryTurnInQuest(game, ui) {
   game.player.fame += quest.reward.fame;
 
   addLog(game, ui, `Auftrag abgeschlossen: ${quest.title}.`, "success");
-  addLog(game, ui, `Belohnung: +${quest.reward.gold} Gold, +${quest.reward.wood} Holz, +${quest.reward.ammo} Munition.`, "success");
+  addLog(game, ui, `Belohnung: ${rewardText(quest.reward)}.`, "success");
   game.quests.active = null;
   game.quests.offers = createQuestOffers(game, game.nearIslandId);
   renderQuestUi(game, ui);
@@ -110,7 +122,7 @@ export function handleQuestIslandInteraction(game, ui, island) {
     }
     if (quest.pickedUp && island.id === quest.destinationIslandId) {
       quest.completed = true;
-      addLog(game, ui, `Die Nachricht wurde auf ${island.name} uebergeben. Kehre zum Piratenhafen zurueck oder kassiere spaeter neue Vertraege.`, "success");
+      addLog(game, ui, `Die Nachricht wurde auf ${island.name} übergeben. Kehre zum Piratenhafen zurück oder kassiere später neue Verträge.`, "success");
       renderQuestUi(game, ui);
       return true;
     }
@@ -139,11 +151,9 @@ export function notifyQuestEvent(game, ui, event) {
     quest.completed = true;
   }
 
-  if (quest.type === "gather_delivery" && event.type === "collect_resource") {
-    if (event.resource === quest.resource) {
-      quest.progress = Math.min(quest.required, (quest.progress ?? 0) + event.amount);
-      quest.completed = quest.progress >= quest.required;
-    }
+  if (quest.type === "gather_delivery" && event.type === "collect_resource" && event.resource === quest.resource) {
+    quest.progress = Math.min(quest.required, (quest.progress ?? 0) + event.amount);
+    quest.completed = quest.progress >= quest.required;
   }
 
   if (quest.type === "gold_delivery" && event.type === "visit_harbor" && event.harborId === quest.targetHarborId && game.player.gold >= quest.required) {
@@ -181,12 +191,50 @@ export function canTurnInActiveQuest(game) {
   return false;
 }
 
+export function questMarkerTargets(game) {
+  const quest = game.quests?.active;
+  if (!quest) {
+    return [];
+  }
+
+  if (quest.type === "gold_delivery" || quest.type === "gather_delivery") {
+    const harbor = game.islands.find((entry) => entry.id === quest.targetHarborId);
+    return harbor ? [markerFromIsland(harbor, "Abgabe")] : [];
+  }
+
+  if (quest.type === "plunder_islands") {
+    return (quest.targetIslandIds ?? [])
+      .filter((id) => !(quest.completedIds ?? []).includes(id))
+      .map((id) => game.islands.find((entry) => entry.id === id))
+      .filter(Boolean)
+      .map((island) => markerFromIsland(island, "Plündern"));
+  }
+
+  if (quest.type === "sink_warship") {
+    const warship = game.enemies.find((enemy) => enemy.kind === "hostile" && enemy.shipClass === "warship");
+    return warship ? [markerFromShip(warship, "Jagen")] : [];
+  }
+
+  if (quest.type === "captain_hunt") {
+    const target = game.enemies.find((enemy) => enemy.id === quest.targetEnemyId);
+    return target ? [markerFromShip(target, "Kapitän")] : [];
+  }
+
+  if (quest.type === "message_run") {
+    const islandId = quest.pickedUp ? quest.destinationIslandId : quest.sourceIslandId;
+    const island = game.islands.find((entry) => entry.id === islandId);
+    return island ? [markerFromIsland(island, quest.pickedUp ? "Abgeben" : "Abholen")] : [];
+  }
+
+  return [];
+}
+
 function describeQuest(quest) {
   if (quest.type === "gold_delivery") {
     return `Bringe ${quest.required} Gold nach ${quest.targetHarborName}.`;
   }
   if (quest.type === "plunder_islands") {
-    return `Pluendere ${quest.targetIslandNames.join(" und ")}.`;
+    return `Plündere ${quest.targetIslandNames.join(" und ")}.`;
   }
   if (quest.type === "sink_warship") {
     return `Versenke ${quest.required} feindliches Kriegsschiff.`;
@@ -208,7 +256,7 @@ function progressText(quest) {
     return `An Bord: ${quest.currentGold ?? 0} / ${quest.required} Gold`;
   }
   if (quest.type === "plunder_islands") {
-    return `Gepluendert: ${(quest.completedIds ?? []).length} / ${quest.targetIslandIds.length}`;
+    return `Geplündert: ${(quest.completedIds ?? []).length} / ${quest.targetIslandIds.length}`;
   }
   if (quest.type === "sink_warship") {
     return `Versenkt: ${quest.kills ?? 0} / ${quest.required}`;
@@ -223,7 +271,7 @@ function progressText(quest) {
     if (!quest.pickedUp) {
       return `Nachricht noch nicht abgeholt: ${quest.sourceIslandName}`;
     }
-    return quest.completed ? "Nachricht uebergeben" : `Bringe die Nachricht nach ${quest.destinationIslandName}`;
+    return quest.completed ? "Nachricht übergeben" : `Bringe die Nachricht nach ${quest.destinationIslandName}`;
   }
   return "";
 }
@@ -241,7 +289,7 @@ function createGoldDeliveryQuest(game, harborId) {
     targetHarborId: target.id,
     targetHarborName: target.name,
     required: randomInt(55, 110),
-    reward: rewardPack(36, 72, 2),
+    reward: rewardPack(game, 36, 72, 2),
   };
 }
 
@@ -254,26 +302,26 @@ function createPlunderQuest(game) {
   return {
     id: `plunder-${shuffled.map((entry) => entry.id).join("-")}`,
     type: "plunder_islands",
-    title: "Zwei schnelle Ueberfaelle",
+    title: "Zwei schnelle Überfälle",
     targetIslandIds: shuffled.map((entry) => entry.id),
     targetIslandNames: shuffled.map((entry) => entry.name),
     completedIds: [],
-    reward: rewardPack(44, 82, 2),
+    reward: rewardPack(game, 44, 82, 2),
   };
 }
 
-function createWarshipQuest() {
+function createWarshipQuest(game) {
   return {
     id: `warship-${randomInt(100, 999)}`,
     type: "sink_warship",
     title: "Kriegsschiff jagen",
     required: 1,
     kills: 0,
-    reward: rewardPack(52, 88, 3),
+    reward: rewardPack(game, 52, 88, 3),
   };
 }
 
-function createCaptainQuest() {
+function createCaptainQuest(game) {
   const captainNames = ["Captain Blackwake", "Captain Rotzahn", "Captain Vane", "Captain Moorcliff"];
   const targetName = captainNames[randomInt(0, captainNames.length - 1)];
   return {
@@ -283,7 +331,7 @@ function createCaptainQuest() {
     targetName,
     targetEnemyId: null,
     completed: false,
-    reward: rewardPack(70, 110, 4),
+    reward: rewardPack(game, 70, 110, 4),
   };
 }
 
@@ -304,7 +352,7 @@ function createGatherDeliveryQuest(game, harborId) {
     progress: 0,
     targetHarborId: target.id,
     targetHarborName: target.name,
-    reward: rewardPack(40, 76, 2),
+    reward: rewardPack(game, 40, 76, 2),
   };
 }
 
@@ -324,7 +372,7 @@ function createMessageQuest(game) {
     destinationIslandName: destination.name,
     pickedUp: false,
     completed: false,
-    reward: rewardPack(38, 70, 2),
+    reward: rewardPack(game, 38, 70, 2),
   };
 }
 
@@ -332,13 +380,23 @@ function pirateHarbors(game) {
   return game.islands.filter((entry) => entry.kind === "pirate");
 }
 
-function rewardPack(minGold, maxGold, fame) {
+function rewardPack(game, minGold, maxGold, fame) {
+  const multiplier = questRewardMultiplier(game);
   return {
-    gold: randomInt(minGold, maxGold),
-    wood: randomInt(1, 4),
-    ammo: randomInt(2, 6),
-    fame,
+    gold: Math.round(randomInt(minGold, maxGold) * multiplier),
+    wood: Math.max(1, Math.round(randomInt(1, 4) * (0.9 + multiplier * 0.35))),
+    ammo: Math.max(2, Math.round(randomInt(2, 6) * (0.9 + multiplier * 0.35))),
+    fame: Math.max(fame, Math.round(fame * (0.85 + multiplier * 0.25))),
   };
+}
+
+function questRewardMultiplier(game) {
+  const level = Math.floor((game.player.fame + game.player.cannons + game.player.sailLevel + Math.max(0, game.player.maxHull - 100) / 12) / 4);
+  return 1 + Math.min(1.4, level * 0.12);
+}
+
+function rewardText(reward) {
+  return `+${reward.gold} Gold, +${reward.wood} Holz, +${reward.ammo} Munition, +${reward.fame} Ruf`;
 }
 
 function resourceLabel(resource) {
@@ -362,4 +420,24 @@ function assignCaptainTarget(game, quest) {
   target.maxHull += 22;
   target.cannons += 1;
   quest.targetEnemyId = target.id;
+}
+
+function markerFromIsland(island, label) {
+  return {
+    id: `island-${island.id}`,
+    x: island.x,
+    y: island.y,
+    label,
+    type: island.kind === "pirate" ? "harbor" : "island",
+  };
+}
+
+function markerFromShip(ship, label) {
+  return {
+    id: `ship-${ship.id}`,
+    x: ship.x,
+    y: ship.y,
+    label,
+    type: "ship",
+  };
 }

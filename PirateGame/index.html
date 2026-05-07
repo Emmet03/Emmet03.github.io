@@ -12,20 +12,19 @@
       <div class="panel hero-panel">
         <p class="eyebrow">Open-Sea Strategy</p>
         <h1>Pirate Seas</h1>
-        <p class="lede">
-          Segle zwischen Inseln, pluendere Beute und ueberlebe feindliche Begegnungen
-          in rundenbasierten Seegefechten.
-        </p>
       </div>
 
       <div class="panel">
         <div class="panel-header">
-          <h2>Schiff</h2>
+          <div class="ship-heading">
+            <h2 id="shipNameStat">Schiff</h2>
+            <p id="captainNameStat" class="ship-caption">Kapitän</p>
+          </div>
           <span id="shipTier">Sloop</span>
         </div>
         <div class="stat-grid">
           <div class="stat-card">
-            <span>Huelle</span>
+            <span>Hülle</span>
             <strong id="hullStat">0 / 0</strong>
           </div>
           <div class="stat-card">
@@ -49,37 +48,10 @@
             <strong id="fameStat">0</strong>
           </div>
         </div>
-      </div>
-
-      <div class="panel">
-        <div class="panel-header">
-          <h2>Steuerung</h2>
-        </div>
-        <ul class="instruction-list">
-          <li>`WASD` oder Pfeiltasten zum Segeln</li>
-          <li>`E` an Inseln zum Interagieren</li>
-          <li>`R` auf See zum Reparieren mit Holz</li>
-          <li>Piratenhaefen oeffnen ein eigenes Werft-Modal</li>
-          <li>Im Kampf Zuege bewusst planen</li>
-        </ul>
-      </div>
-
-      <div class="panel">
-        <div class="panel-header">
-          <h2>Deck</h2>
-        </div>
+        <br>
         <div class="button-stack">
           <button id="repairShipBtn" class="action-button">Auf See reparieren (1 Holz)</button>
         </div>
-      </div>
-
-      <div class="panel">
-        <div class="panel-header">
-          <h2>Piratenhafen</h2>
-        </div>
-        <p id="shipyardStatus" class="panel-copy">
-          Lege an einer Pirateninsel an und druecke `E`, um die Werft zu oeffnen.
-        </p>
       </div>
 
       <div class="panel">
@@ -95,8 +67,49 @@
           <h2>Aktiver Auftrag</h2>
         </div>
         <p id="activeQuestTitle" class="panel-copy">Kein Auftrag aktiv</p>
-        <p id="activeQuestDescription" class="panel-copy">Im Piratenhafen kannst du neue Vertraege annehmen.</p>
+        <p id="activeQuestDescription" class="panel-copy">Im Piratenhafen kannst du neue Verträge annehmen.</p>
         <p id="activeQuestProgress" class="panel-copy">Noch kein Fortschritt</p>
+        <p id="activeQuestReward" class="panel-copy">Noch keine Belohnung</p>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Flotte</h2>
+          <span id="fleetSummary">Keine Begleiter</span>
+        </div>
+        <p class="panel-copy">Hier siehst du nur den Status deiner Flotte. Umbauten und Umbenennungen laufen in der Werft.</p>
+        <div id="fleetList" class="fleet-list">
+          <p class="panel-copy">Noch keine verbündeten Schiffe.</p>
+        </div>
+      </div>
+
+      <div class="panel panel-collapsible">
+        <div class="panel-header">
+          <h2>Steuerung</h2>
+          <button id="toggleControlsBtn" class="icon-button" type="button" aria-expanded="false" aria-controls="controlsPanelBody">i</button>
+        </div>
+        <div id="controlsPanelBody" class="panel-body hidden">
+          <ul class="instruction-list">
+            <li>`WASD` oder Pfeiltasten zum Segeln</li>
+            <li>`E` an Inseln zum Interagieren</li>
+            <li>`R` auf See zum Reparieren mit Holz</li>
+            <li>Piratenhäfen öffnen ein eigenes Werft-Modal</li>
+            <li>Im Kampf Züge bewusst planen</li>
+            <li>Fast besiegte Schiffe lassen sich manchmal rekrutieren</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="panel panel-collapsible">
+        <div class="panel-header">
+          <h2>Piratenhafen</h2>
+          <button id="toggleHarborBtn" class="icon-button" type="button" aria-expanded="false" aria-controls="harborPanelBody">i</button>
+        </div>
+        <div id="harborPanelBody" class="panel-body hidden">
+          <p id="shipyardStatus" class="panel-copy">
+            Lege an einer Pirateninsel an und drücke `E`, um die Werft zu öffnen.
+          </p>
+        </div>
       </div>
     </aside>
 
@@ -104,9 +117,9 @@
       <section class="top-bar">
         <div class="banner">
           <span class="banner-label">Ziel</span>
-          <strong>Inseln pluendern, Kaempfe gewinnen, die See dominieren.</strong>
+          <strong>Inseln plündern, Kämpfe gewinnen, die See dominieren.</strong>
         </div>
-        <div class="encounter-pill" id="seaState">Ruhige Gewaesser</div>
+        <div class="encounter-pill" id="seaState">Ruhige Gewässer</div>
       </section>
 
       <section class="game-wrap">
@@ -114,7 +127,7 @@
 
         <div class="overlay-card info-card">
           <div class="panel-header">
-            <h2>Kapitaenslog</h2>
+            <h2>Kapitänslog</h2>
           </div>
           <div id="logEntries" class="log-entries"></div>
         </div>
@@ -125,7 +138,7 @@
             <span>Landgang</span>
           </div>
           <p id="islandDescription"></p>
-          <button id="plunderBtn" class="action-button wide">Pluendern</button>
+          <button id="plunderBtn" class="action-button wide">Plündern</button>
         </div>
 
         <div class="battle-modal hidden" id="shipyardModal">
@@ -135,28 +148,53 @@
                 <p class="eyebrow">Piratenhafen</p>
                 <h2 id="shipyardTitle">Werft</h2>
               </div>
-              <button id="closeShipyardBtn" class="ghost-button">Schliessen</button>
+              <button id="closeShipyardBtn" class="ghost-button">Schließen</button>
             </div>
             <p id="shipyardDescription" class="panel-copy">
               Schmuggler, Zimmerleute und Waffenmeister warten auf Gold.
             </p>
-            <div class="button-stack">
-              <button id="upgradeHullBtn" class="action-button">Rumpf +12 HP (45 Gold)</button>
-              <button id="upgradeCannonsBtn" class="action-button">Kanonen +1 (60 Gold)</button>
-              <button id="upgradeSailsBtn" class="action-button">Segel +8% Tempo (55 Gold)</button>
-              <button id="refillAmmoBtn" class="action-button">Munition +8 (20 Gold)</button>
-            </div>
-            <div class="quest-section">
-              <div class="panel-header">
-                <h3>Auftraege</h3>
-              </div>
-              <p id="questOfferTitle" class="panel-copy">Keine Vertraege verfuegbar</p>
-              <p id="questOfferDescription" class="panel-copy">Schau spaeter wieder vorbei.</p>
-              <div class="button-stack">
-                <button id="acceptQuestBtn" class="action-button">Auftrag annehmen</button>
-                <button id="completeQuestBtn" class="action-button">Auftrag abschliessen</button>
-                <button id="rerollQuestBtn" class="ghost-button">Neue Vertraege</button>
-              </div>
+
+            <div class="shipyard-grid">
+              <section class="shipyard-section">
+                <div class="panel-header">
+                  <h3>Werft</h3>
+                  <span>Upgrades</span>
+                </div>
+                <div class="shipyard-actions-grid">
+                  <button id="upgradeHullBtn" class="action-button">Rumpf +12 HP (45 Gold)</button>
+                  <button id="upgradeCannonsBtn" class="action-button">Kanonen +1 (60 Gold)</button>
+                  <button id="upgradeSailsBtn" class="action-button">Segel +8% Tempo (55 Gold)</button>
+                  <button id="refillAmmoBtn" class="action-button">Munition +8 (20 Gold)</button>
+                  <button id="upgradeProwBtn" class="action-button">Gepanzerter Bug (85 Gold)</button>
+                  <button id="upgradeFireAmmoBtn" class="action-button">Brandmunition (90 Gold)</button>
+                </div>
+              </section>
+
+              <section class="shipyard-section">
+                <div class="panel-header">
+                  <h3 id="questSectionTitle">Aufträge</h3>
+                  <span id="questSectionStatus">Aushang</span>
+                </div>
+                <p id="questOfferTitle" class="panel-copy">Keine Verträge verfügbar</p>
+                <p id="questOfferDescription" class="panel-copy">Schau später wieder vorbei.</p>
+                <p id="questOfferReward" class="panel-copy">Keine Belohnung sichtbar</p>
+                <div class="shipyard-mini-actions">
+                  <button id="acceptQuestBtn" class="action-button">Auftrag annehmen</button>
+                  <button id="completeQuestBtn" class="action-button">Auftrag abschließen</button>
+                  <button id="rerollQuestBtn" class="ghost-button">Neue Verträge</button>
+                </div>
+              </section>
+
+              <section class="shipyard-section shipyard-section-wide">
+                <div class="panel-header">
+                  <h3>Flottenkontor</h3>
+                  <span>Hafenservice</span>
+                </div>
+                <p class="panel-copy">Hier kannst du verbündete Schiffe umbauen und neu taufen.</p>
+                <div id="shipyardFleetList" class="fleet-list">
+                  <p class="panel-copy">Noch keine verbündeten Schiffe.</p>
+                </div>
+              </section>
             </div>
           </div>
         </div>
@@ -183,10 +221,10 @@
 
               <div class="battle-center">
                 <div class="battle-wave"></div>
-                <p id="battleMessage">Ein Gegner naehrt sich.</p>
+                <p id="battleMessage">Ein Gegner nähert sich.</p>
                 <div class="battle-indicator">
                   <strong id="battleRiskLabel">Ausgeglichen</strong>
-                  <span id="battleRewardPreview">Moegliche Beute wird geprueft</span>
+                  <span id="battleRewardPreview">Mögliche Beute wird geprüft</span>
                 </div>
               </div>
 
@@ -204,6 +242,7 @@
               <button data-action="broadside" class="action-button battle-action">Breitseite</button>
               <button data-action="repair" class="action-button battle-action">Reparieren</button>
               <button data-action="brace" class="action-button battle-action">Abwehren</button>
+              <button data-action="recruit" class="action-button battle-action">Rekrutieren</button>
               <button data-action="flee" class="action-button battle-action">Fliehen</button>
             </div>
           </div>
@@ -222,6 +261,26 @@
             </p>
             <div class="button-stack">
               <button id="restartGameBtn" class="action-button">Neue Reise beginnen</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="battle-modal" id="startModal">
+          <div class="battle-panel shipyard-panel">
+            <div class="battle-header">
+              <div>
+                <p class="eyebrow">Neue Reise</p>
+                <h2>Namen festlegen</h2>
+              </div>
+            </div>
+            <p class="panel-copy">Benenne deinen Kapitän und dein Schiff oder nimm zufällige Vorschläge.</p>
+            <div class="button-stack">
+              <label class="panel-copy" for="captainNameInput">Kapitän</label>
+              <input id="captainNameInput" class="text-input" type="text" maxlength="28">
+              <label class="panel-copy" for="shipNameInput">Schiffsname</label>
+              <input id="shipNameInput" class="text-input" type="text" maxlength="28">
+              <button id="randomizeNamesBtn" class="ghost-button" type="button">Zufällige Namen</button>
+              <button id="startGameBtn" class="action-button" type="button">In See stechen</button>
             </div>
           </div>
         </div>
