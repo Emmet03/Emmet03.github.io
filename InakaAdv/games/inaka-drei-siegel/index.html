@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inaka: Die drei Siegel</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <main class="game-shell">
+    <section class="game-frame">
+      <canvas
+        id="gameCanvas"
+        width="640"
+        height="360"
+        aria-label="Inaka: Die drei Siegel"
+      ></canvas>
+    </section>
+    <aside class="game-help">
+      <h1>Inaka: Die drei Siegel</h1>
+      <p>Retro-Top-Down-Adventure MVP mit Canvas, Tiles, Dialogen und Map-Wechsel.</p>
+      <p><strong>Steuerung:</strong> WASD / Pfeiltasten, <strong>E</strong> fuer Interaktion, <strong>Leertaste</strong> fuer Angriff, <strong>F1</strong> Debug, <strong>F2</strong> Tile-Koordinaten.</p>
+    </aside>
+  </main>
+
+  <script src="./src/data/tiles.js"></script>
+  <script src="./src/data/dialogues.js"></script>
+  <script src="./src/data/quests.js"></script>
+  <script src="./src/data/enemies.js"></script>
+  <script src="./src/data/items.js"></script>
+  <script src="./src/data/maps.js"></script>
+  <script src="./src/engine/input.js"></script>
+  <script src="./src/engine/camera.js"></script>
+  <script src="./src/engine/collision.js"></script>
+  <script src="./src/engine/sceneManager.js"></script>
+  <script src="./src/engine/renderer.js"></script>
+  <script src="./src/game/player.js"></script>
+  <script src="./src/game/enemy.js"></script>
+  <script src="./src/game/npc.js"></script>
+  <script src="./src/game/dialogue.js"></script>
+  <script src="./src/game/quest.js"></script>
+  <script src="./src/game/interaction.js"></script>
+  <script src="./src/game/save.js"></script>
+  <script src="./src/main.js"></script>
+</body>
+</html>
