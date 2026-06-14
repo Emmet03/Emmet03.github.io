@@ -1,19 +1,40 @@
 
-<style>
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+  /* Responsive base */
+  html,body{box-sizing:border-box;height:100%;margin:0;padding:0;font-family:var(--font-englbesh, system-ui), system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial}
+  *,*:before,*:after{box-sizing:inherit}
+  body{background:#050000;padding:12px}
+
   :root {
-    --sith-red: #c0392b;
-    --sith-red-dark: #96281b;
-    --sith-red-dim: rgba(192,57,43,0.15);
-    --sith-red-border: rgba(192,57,43,0.4);
+    --sith-red: #2b6fb3; /* imperial blue */
+    --sith-red-dark: #184a78; /* darker blue */
+    --sith-red-dim: rgba(43,111,179,0.12);
+    --sith-red-border: rgba(43,111,179,0.35);
     --panel-bg: rgba(10,0,0,0.85);
     --scanline: rgba(0,0,0,0.08);
+    --font-englbesh: 'Englbesh', sans-serif;
+    --font-mono: var(--font-englbesh);
+  }
+  @font-face {
+    font-family: 'Englbesh';
+    src: url('fonts/englbesh.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
   }
   .sw-app {
     background: #0a0000;
     color: #e8d5c4;
     font-family: var(--font-mono), monospace;
-    min-height: 600px;
-    border-radius: var(--border-radius-lg);
+    min-height: auto;
+    max-width: 920px;
+    margin: 8px auto;
+    border-radius: 12px;
     overflow: hidden;
     border: 1px solid var(--sith-red-border);
   }
@@ -29,6 +50,7 @@
     font-size: 11px;
     letter-spacing: 0.15em;
     color: var(--sith-red);
+    font-family: var(--font-englbesh);
     text-transform: uppercase;
   }
   .sw-header-name {
@@ -47,10 +69,12 @@
     display: flex;
     background: #0f0000;
     border-bottom: 1px solid var(--sith-red-border);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
   .sw-nav-btn {
-    flex: 1;
-    padding: 10px 4px;
+    flex: 1 0 auto;
+    padding: 10px 8px;
     background: none;
     border: none;
     border-bottom: 2px solid transparent;
@@ -65,6 +89,7 @@
     flex-direction: column;
     align-items: center;
     gap: 3px;
+    min-width: 84px;
   }
   .sw-nav-btn.active {
     color: var(--sith-red);
@@ -265,6 +290,7 @@
     border: 1px solid var(--sith-red-border);
     display: flex; align-items: center; justify-content: center;
     font-size: 10px;
+    font-family: var(--font-englbesh);
     color: var(--sith-red);
     flex-shrink: 0;
     letter-spacing: 0;
@@ -340,6 +366,31 @@
     cursor: pointer;
   }
   .sw-mode-btn.active { background: var(--sith-red-dim); color: var(--sith-red); border-color: var(--sith-red); }
+
+  /* Mobile / Responsive tweaks */
+  @media (max-width: 720px) {
+    .sw-app{margin:6px; border-radius:10px}
+    .sw-header{padding:10px}
+    .sw-header-title{font-size:10px}
+    .sw-header-name{font-size:12px}
+    .sw-time-digits{font-size:40px}
+    .sw-sw-digits{font-size:28px}
+    .sw-timer-actions{grid-template-columns:1fr;}
+    .sw-timer-presets{grid-template-columns:1fr 1fr}
+    .sw-action-btn{min-height:44px;padding:12px}
+    .sw-nav-btn{font-size:11px;padding:8px 10px;min-width:72px}
+    .sw-note-input-area textarea{min-height:120px}
+    .hn-input-row textarea{min-height:48px}
+  }
+
+  @media (max-width:420px) {
+    .sw-time-digits{font-size:32px}
+    .sw-sw-digits{font-size:22px}
+    .sw-preset-btn{font-size:12px;padding:10px}
+    .sw-note-tag-row{gap:4px}
+    .sw-nav-btn i{font-size:16px}
+  }
+
 </style>
 
 <div class="sw-app" role="main" aria-label="Sith LARP App für Kean Rendar">
@@ -351,9 +402,9 @@
       <div class="sw-header-name">Kean Rendar</div>
     </div>
     <svg width="28" height="28" viewBox="0 0 100 100" fill="none" aria-hidden="true">
-      <circle cx="50" cy="50" r="46" stroke="#c0392b" stroke-width="4"/>
-      <circle cx="50" cy="50" r="22" fill="#c0392b"/>
-      <circle cx="50" cy="50" r="34" stroke="#c0392b" stroke-width="2" fill="none"/>
+      <circle cx="50" cy="50" r="46" stroke="#2b6fb3" stroke-width="4"/>
+      <circle cx="50" cy="50" r="22" fill="#2b6fb3"/>
+      <circle cx="50" cy="50" r="34" stroke="#2b6fb3" stroke-width="2" fill="none"/>
     </svg>
   </div>
 
@@ -590,3 +641,5 @@ $('hn-send').addEventListener('click', sendHN);
 $('hn-input').addEventListener('keydown', e => { if (e.key==='Enter' && !e.shiftKey) { e.preventDefault(); sendHN(); } });
 $('hn-input').addEventListener('input', function() { this.style.height=''; this.style.height = Math.min(this.scrollHeight, 80)+'px'; });
 </script>
+</body>
+</html>
