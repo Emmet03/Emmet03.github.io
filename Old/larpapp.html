@@ -1,0 +1,592 @@
+
+<style>
+  :root {
+    --sith-red: #c0392b;
+    --sith-red-dark: #96281b;
+    --sith-red-dim: rgba(192,57,43,0.15);
+    --sith-red-border: rgba(192,57,43,0.4);
+    --panel-bg: rgba(10,0,0,0.85);
+    --scanline: rgba(0,0,0,0.08);
+  }
+  .sw-app {
+    background: #0a0000;
+    color: #e8d5c4;
+    font-family: var(--font-mono), monospace;
+    min-height: 600px;
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--sith-red-border);
+  }
+  .sw-header {
+    background: #1a0000;
+    border-bottom: 1px solid var(--sith-red-border);
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .sw-header-title {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--sith-red);
+    text-transform: uppercase;
+  }
+  .sw-header-name {
+    font-size: 13px;
+    color: #e8d5c4;
+    font-weight: 500;
+  }
+  .sw-status-dot {
+    width: 8px; height: 8px;
+    background: var(--sith-red);
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 6px;
+  }
+  .sw-nav {
+    display: flex;
+    background: #0f0000;
+    border-bottom: 1px solid var(--sith-red-border);
+  }
+  .sw-nav-btn {
+    flex: 1;
+    padding: 10px 4px;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: #8a7060;
+    font-family: var(--font-mono), monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: color 0.15s, border-color 0.15s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+  }
+  .sw-nav-btn.active {
+    color: var(--sith-red);
+    border-bottom: 2px solid var(--sith-red);
+  }
+  .sw-nav-btn i { font-size: 18px; }
+  .sw-content { padding: 16px; }
+  .sw-panel {
+    display: none;
+  }
+  .sw-panel.active { display: block; }
+  .sw-section-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--sith-red);
+    text-transform: uppercase;
+    margin: 0 0 10px;
+    border-bottom: 1px solid var(--sith-red-border);
+    padding-bottom: 6px;
+  }
+  .sw-timer-display {
+    text-align: center;
+    padding: 24px 0 16px;
+  }
+  .sw-time-digits {
+    font-size: 52px;
+    font-weight: 500;
+    color: var(--sith-red);
+    letter-spacing: 0.05em;
+    font-family: var(--font-mono), monospace;
+    line-height: 1;
+  }
+  .sw-time-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: #8a7060;
+    margin-top: 6px;
+    text-transform: uppercase;
+  }
+  .sw-timer-presets {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin: 12px 0;
+  }
+  .sw-preset-btn {
+    background: #1a0000;
+    border: 1px solid var(--sith-red-border);
+    border-radius: var(--border-radius-md);
+    color: #e8d5c4;
+    font-family: var(--font-mono), monospace;
+    font-size: 11px;
+    padding: 8px;
+    cursor: pointer;
+    text-align: center;
+    letter-spacing: 0.05em;
+  }
+  .sw-preset-btn:hover { border-color: var(--sith-red); color: var(--sith-red); }
+  .sw-timer-custom {
+    display: flex;
+    gap: 8px;
+    margin: 8px 0 16px;
+    align-items: center;
+  }
+  .sw-timer-custom input {
+    flex: 1;
+    background: #1a0000;
+    border: 1px solid var(--sith-red-border);
+    border-radius: var(--border-radius-md);
+    color: #e8d5c4;
+    font-family: var(--font-mono), monospace;
+    font-size: 13px;
+    padding: 8px 10px;
+    width: 100%;
+  }
+  .sw-timer-custom input:focus { outline: none; border-color: var(--sith-red); }
+  .sw-timer-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+  }
+  .sw-action-btn {
+    padding: 10px 8px;
+    border-radius: var(--border-radius-md);
+    border: 1px solid var(--sith-red-border);
+    background: #1a0000;
+    color: var(--sith-red);
+    font-family: var(--font-mono), monospace;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+  }
+  .sw-action-btn:hover { background: var(--sith-red-dim); }
+  .sw-action-btn.primary {
+    background: var(--sith-red);
+    color: #fff;
+    border-color: var(--sith-red-dark);
+  }
+  .sw-action-btn.primary:hover { background: var(--sith-red-dark); }
+  .sw-stopwatch-display {
+    text-align: center;
+    padding: 16px 0;
+  }
+  .sw-sw-digits {
+    font-size: 40px;
+    font-weight: 500;
+    color: #e8d5c4;
+    letter-spacing: 0.05em;
+    font-family: var(--font-mono), monospace;
+  }
+  .sw-note-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px; }
+  .sw-note-card {
+    background: #1a0000;
+    border: 1px solid var(--sith-red-border);
+    border-radius: var(--border-radius-md);
+    padding: 10px 12px;
+  }
+  .sw-note-meta {
+    font-size: 10px;
+    color: #8a7060;
+    letter-spacing: 0.1em;
+    margin-bottom: 4px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .sw-note-text {
+    font-size: 13px;
+    color: #e8d5c4;
+    line-height: 1.5;
+  }
+  .sw-note-del {
+    background: none;
+    border: none;
+    color: #8a7060;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 0;
+  }
+  .sw-note-del:hover { color: var(--sith-red); }
+  .sw-note-input-area {
+    margin-top: 4px;
+  }
+  .sw-note-input-area textarea {
+    width: 100%;
+    background: #1a0000;
+    border: 1px solid var(--sith-red-border);
+    border-radius: var(--border-radius-md);
+    color: #e8d5c4;
+    font-family: var(--font-mono), monospace;
+    font-size: 13px;
+    padding: 10px;
+    resize: vertical;
+    min-height: 80px;
+    box-sizing: border-box;
+  }
+  .sw-note-input-area textarea:focus { outline: none; border-color: var(--sith-red); }
+  .sw-note-tag-row {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin: 8px 0;
+  }
+  .sw-tag {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    padding: 3px 10px;
+    border-radius: 20px;
+    border: 1px solid var(--sith-red-border);
+    background: #1a0000;
+    color: #8a7060;
+    cursor: pointer;
+    text-transform: uppercase;
+  }
+  .sw-tag.sel { background: var(--sith-red-dim); color: var(--sith-red); border-color: var(--sith-red); }
+  .holonet-messages {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 14px;
+    max-height: 320px;
+    overflow-y: auto;
+  }
+  .hn-msg {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  .hn-msg.user { flex-direction: row-reverse; }
+  .hn-avatar {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--sith-red-dim);
+    border: 1px solid var(--sith-red-border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px;
+    color: var(--sith-red);
+    flex-shrink: 0;
+    letter-spacing: 0;
+  }
+  .hn-bubble {
+    background: #1a0000;
+    border: 1px solid var(--sith-red-border);
+    border-radius: var(--border-radius-md);
+    padding: 8px 12px;
+    font-size: 12px;
+    color: #e8d5c4;
+    line-height: 1.5;
+    max-width: 78%;
+  }
+  .hn-msg.user .hn-bubble {
+    background: #2a0000;
+    border-color: var(--sith-red);
+    color: #ffeedd;
+  }
+  .hn-typing {
+    display: flex; gap: 4px; align-items: center; padding: 4px 0;
+  }
+  .hn-dot {
+    width: 5px; height: 5px;
+    background: var(--sith-red);
+    border-radius: 50%;
+    animation: pulse 1s infinite;
+  }
+  .hn-dot:nth-child(2) { animation-delay: 0.2s; }
+  .hn-dot:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes pulse { 0%,100%{opacity:0.3} 50%{opacity:1} }
+  .hn-input-row {
+    display: flex; gap: 8px; align-items: flex-end;
+  }
+  .hn-input-row textarea {
+    flex: 1;
+    background: #1a0000;
+    border: 1px solid var(--sith-red-border);
+    border-radius: var(--border-radius-md);
+    color: #e8d5c4;
+    font-family: var(--font-mono), monospace;
+    font-size: 12px;
+    padding: 8px 10px;
+    resize: none;
+    min-height: 40px;
+    max-height: 80px;
+  }
+  .hn-input-row textarea:focus { outline: none; border-color: var(--sith-red); }
+  .hn-send {
+    background: var(--sith-red);
+    border: none;
+    border-radius: var(--border-radius-md);
+    color: #fff;
+    width: 38px; height: 38px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .hn-send:hover { background: var(--sith-red-dark); }
+  .sw-divider { border: none; border-top: 1px solid var(--sith-red-border); margin: 14px 0; }
+  .sw-mode-row { display: flex; gap: 8px; margin-bottom: 12px; }
+  .sw-mode-btn {
+    flex: 1;
+    padding: 7px;
+    background: #1a0000;
+    border: 1px solid var(--sith-red-border);
+    border-radius: var(--border-radius-md);
+    color: #8a7060;
+    font-family: var(--font-mono), monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  .sw-mode-btn.active { background: var(--sith-red-dim); color: var(--sith-red); border-color: var(--sith-red); }
+</style>
+
+<div class="sw-app" role="main" aria-label="Sith LARP App für Kean Rendar">
+  <h2 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Sith LARP-Interface für Kean Rendar — Timer, Notizen, Holonet</h2>
+
+  <div class="sw-header">
+    <div>
+      <div class="sw-header-title"><span class="sw-status-dot"></span>Imperialer Zugang</div>
+      <div class="sw-header-name">Kean Rendar</div>
+    </div>
+    <svg width="28" height="28" viewBox="0 0 100 100" fill="none" aria-hidden="true">
+      <circle cx="50" cy="50" r="46" stroke="#c0392b" stroke-width="4"/>
+      <circle cx="50" cy="50" r="22" fill="#c0392b"/>
+      <circle cx="50" cy="50" r="34" stroke="#c0392b" stroke-width="2" fill="none"/>
+    </svg>
+  </div>
+
+  <div class="sw-nav">
+    <button class="sw-nav-btn active" data-panel="timer" aria-label="Timer">
+      <i class="ti ti-clock" aria-hidden="true"></i>Timer
+    </button>
+    <button class="sw-nav-btn" data-panel="notizen" aria-label="Notizen">
+      <i class="ti ti-notes" aria-hidden="true"></i>Notizen
+    </button>
+    <button class="sw-nav-btn" data-panel="holonet" aria-label="Holonet">
+      <i class="ti ti-message-chatbot" aria-hidden="true"></i>Holonet
+    </button>
+  </div>
+
+  <div class="sw-content">
+
+    <div class="sw-panel active" id="panel-timer">
+      <div class="sw-mode-row">
+        <button class="sw-mode-btn active" id="mode-countdown">Countdown</button>
+        <button class="sw-mode-btn" id="mode-stopwatch">Stoppuhr</button>
+      </div>
+
+      <div id="countdown-ui">
+        <p class="sw-section-label">Missionszeit</p>
+        <div class="sw-timer-display">
+          <div class="sw-time-digits" id="timer-display">05:00</div>
+          <div class="sw-time-label" id="timer-status">Bereit</div>
+        </div>
+        <div class="sw-timer-presets">
+          <button class="sw-preset-btn" data-secs="60">01:00 — Schusslinie</button>
+          <button class="sw-preset-btn" data-secs="300">05:00 — Patrouille</button>
+          <button class="sw-preset-btn" data-secs="600">10:00 — Infiltration</button>
+          <button class="sw-preset-btn" data-secs="1800">30:00 — Kampfphase</button>
+        </div>
+        <div class="sw-timer-custom">
+          <input type="number" id="custom-min" placeholder="Min" min="0" max="99" style="width:50%">
+          <input type="number" id="custom-sec" placeholder="Sek" min="0" max="59" style="width:50%">
+        </div>
+        <div class="sw-timer-actions">
+          <button class="sw-action-btn primary" id="btn-start"><i class="ti ti-player-play" aria-hidden="true"></i>Start</button>
+          <button class="sw-action-btn" id="btn-pause"><i class="ti ti-player-pause" aria-hidden="true"></i>Pause</button>
+          <button class="sw-action-btn" id="btn-reset"><i class="ti ti-refresh" aria-hidden="true"></i>Reset</button>
+        </div>
+      </div>
+
+      <div id="stopwatch-ui" style="display:none">
+        <p class="sw-section-label">Stoppuhr</p>
+        <div class="sw-stopwatch-display">
+          <div class="sw-sw-digits" id="sw-display">00:00.0</div>
+          <div class="sw-time-label" id="sw-status">Bereit</div>
+        </div>
+        <div class="sw-timer-actions" style="margin-top:16px">
+          <button class="sw-action-btn primary" id="sw-start"><i class="ti ti-player-play" aria-hidden="true"></i>Start</button>
+          <button class="sw-action-btn" id="sw-pause"><i class="ti ti-player-pause" aria-hidden="true"></i>Pause</button>
+          <button class="sw-action-btn" id="sw-reset"><i class="ti ti-refresh" aria-hidden="true"></i>Reset</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="sw-panel" id="panel-notizen">
+      <p class="sw-section-label">Geheimarchiv</p>
+      <div id="note-list" class="sw-note-list"></div>
+      <hr class="sw-divider">
+      <p class="sw-section-label">Neue Meldung</p>
+      <div class="sw-note-input-area">
+        <div class="sw-note-tag-row" id="tag-row">
+          <span class="sw-tag sel" data-tag="Mission">Mission</span>
+          <span class="sw-tag" data-tag="Intel">Intel</span>
+          <span class="sw-tag" data-tag="Feind">Feind</span>
+          <span class="sw-tag" data-tag="Allianz">Allianz</span>
+          <span class="sw-tag" data-tag="Persönlich">Persönlich</span>
+        </div>
+        <textarea id="note-input" placeholder="Nachricht eingeben… z.B. Treffen mit Inquisitor um 18:00 Uhr im Westkorridor."></textarea>
+        <div style="display:flex;gap:8px;margin-top:8px">
+          <button class="sw-action-btn primary" id="note-save" style="flex:1"><i class="ti ti-check" aria-hidden="true"></i>Speichern</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="sw-panel" id="panel-holonet">
+      <p class="sw-section-label">Holonet — Imperialer Assistent</p>
+      <div class="holonet-messages" id="hn-messages">
+        <div class="hn-msg">
+          <div class="hn-avatar">HK</div>
+          <div class="hn-bubble">Verbindung hergestellt. Ich bin HK-Protokoll, Imperialer Datenassistent. Wie kann ich Euch dienen, Kean Rendar?</div>
+        </div>
+      </div>
+      <div class="hn-input-row">
+        <textarea id="hn-input" placeholder="Nachricht ans Holonet…" rows="1"></textarea>
+        <button class="hn-send" id="hn-send" aria-label="Senden"><i class="ti ti-send" aria-hidden="true"></i></button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+
+const navBtns = document.querySelectorAll('.sw-nav-btn');
+const panels = document.querySelectorAll('.sw-panel');
+navBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    navBtns.forEach(b => b.classList.remove('active'));
+    panels.forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('panel-' + btn.dataset.panel).classList.add('active');
+  });
+});
+
+$('mode-countdown').addEventListener('click', () => {
+  $('mode-countdown').classList.add('active'); $('mode-stopwatch').classList.remove('active');
+  $('countdown-ui').style.display = ''; $('stopwatch-ui').style.display = 'none';
+});
+$('mode-stopwatch').addEventListener('click', () => {
+  $('mode-stopwatch').classList.add('active'); $('mode-countdown').classList.remove('active');
+  $('stopwatch-ui').style.display = ''; $('countdown-ui').style.display = 'none';
+});
+
+let cdTotal = 300, cdRemain = 300, cdInterval = null, cdRunning = false;
+function fmtCD(s) {
+  const m = Math.floor(s/60), sec = s%60;
+  return String(m).padStart(2,'0') + ':' + String(sec).padStart(2,'0');
+}
+function updateCD() {
+  $('timer-display').textContent = fmtCD(cdRemain);
+  $('timer-status').textContent = cdRunning ? 'Läuft…' : (cdRemain === 0 ? 'Zeit abgelaufen!' : 'Bereit');
+}
+document.querySelectorAll('.sw-preset-btn').forEach(b => {
+  b.addEventListener('click', () => {
+    clearInterval(cdInterval); cdRunning = false;
+    cdTotal = +b.dataset.secs; cdRemain = cdTotal;
+    updateCD();
+  });
+});
+$('btn-start').addEventListener('click', () => {
+  if (cdRunning || cdRemain === 0) return;
+  const mins = parseInt($('custom-min').value)||0, secs = parseInt($('custom-sec').value)||0;
+  if (mins || secs) { cdRemain = mins*60+secs; cdTotal = cdRemain; $('custom-min').value=''; $('custom-sec').value=''; }
+  cdRunning = true;
+  cdInterval = setInterval(() => {
+    if (cdRemain > 0) { cdRemain--; updateCD(); }
+    else { clearInterval(cdInterval); cdRunning = false; $('timer-status').textContent = '[ ZEIT ABGELAUFEN ]'; }
+  }, 1000);
+  updateCD();
+});
+$('btn-pause').addEventListener('click', () => { clearInterval(cdInterval); cdRunning = false; $('timer-status').textContent = 'Pausiert'; });
+$('btn-reset').addEventListener('click', () => { clearInterval(cdInterval); cdRunning = false; cdRemain = cdTotal; updateCD(); });
+updateCD();
+
+let swMs = 0, swStart = null, swInterval = null, swRunning = false;
+function fmtSW(ms) {
+  const m = Math.floor(ms/60000), s = Math.floor((ms%60000)/1000), t = Math.floor((ms%1000)/100);
+  return String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0') + '.' + t;
+}
+$('sw-start').addEventListener('click', () => {
+  if (swRunning) return; swRunning = true;
+  swStart = Date.now() - swMs;
+  swInterval = setInterval(() => { swMs = Date.now() - swStart; $('sw-display').textContent = fmtSW(swMs); }, 100);
+  $('sw-status').textContent = 'Läuft…';
+});
+$('sw-pause').addEventListener('click', () => { clearInterval(swInterval); swRunning = false; $('sw-status').textContent = 'Pausiert'; });
+$('sw-reset').addEventListener('click', () => { clearInterval(swInterval); swRunning = false; swMs = 0; $('sw-display').textContent = '00:00.0'; $('sw-status').textContent = 'Bereit'; });
+
+let selectedTag = 'Mission';
+document.querySelectorAll('.sw-tag').forEach(t => {
+  t.addEventListener('click', () => {
+    document.querySelectorAll('.sw-tag').forEach(x => x.classList.remove('sel'));
+    t.classList.add('sel'); selectedTag = t.dataset.tag;
+  });
+});
+let notes = [];
+function renderNotes() {
+  const list = $('note-list');
+  list.innerHTML = '';
+  if (!notes.length) { list.innerHTML = '<p style="font-size:12px;color:#8a7060;text-align:center;padding:16px 0">Keine Einträge</p>'; return; }
+  notes.forEach((n,i) => {
+    const card = document.createElement('div'); card.className = 'sw-note-card';
+    card.innerHTML = `<div class="sw-note-meta"><span style="color:var(--sith-red)">[${n.tag}]</span><span style="display:flex;align-items:center;gap:6px">${n.time}<button class="sw-note-del" data-i="${i}" aria-label="Löschen"><i class="ti ti-trash" aria-hidden="true"></i></button></span></div><div class="sw-note-text">${n.text}</div>`;
+    list.appendChild(card);
+  });
+  list.querySelectorAll('.sw-note-del').forEach(b => b.addEventListener('click', () => { notes.splice(+b.dataset.i,1); renderNotes(); }));
+}
+$('note-save').addEventListener('click', () => {
+  const t = $('note-input').value.trim(); if (!t) return;
+  const now = new Date(); const time = now.getHours().toString().padStart(2,'0')+':'+now.getMinutes().toString().padStart(2,'0');
+  notes.unshift({tag: selectedTag, text: t, time});
+  $('note-input').value = '';
+  renderNotes();
+});
+renderNotes();
+
+const HN_SYSTEM = `Du bist HK-Protokoll, ein imperialer Datenassistent aus dem Star Wars Universum. Du sprichst Kean Rendar, einen Sith-Agenten, respektvoll an. Antworte immer auf Deutsch, im Stil des Imperiums: knapp, präzise, leicht bedrohlich. Nutze gelegentlich In-Universe-Begriffe (Holonet, Hyperraum, Imperialer Senat, dunkle Seite). Gib hilfreiche LARP-Tipps, wenn gefragt, aber immer in der Rolle. Halte Antworten unter 80 Wörtern.`;
+let hnHistory = [];
+function addMsg(role, text) {
+  const box = $('hn-messages');
+  const div = document.createElement('div'); div.className = 'hn-msg' + (role==='user'?' user':'');
+  div.innerHTML = `<div class="hn-avatar">${role==='user'?'KR':'HK'}</div><div class="hn-bubble">${text}</div>`;
+  box.appendChild(div); box.scrollTop = box.scrollHeight;
+}
+function showTyping() {
+  const box = $('hn-messages');
+  const div = document.createElement('div'); div.className = 'hn-msg'; div.id = 'typing-ind';
+  div.innerHTML = `<div class="hn-avatar">HK</div><div class="hn-bubble"><div class="hn-typing"><div class="hn-dot"></div><div class="hn-dot"></div><div class="hn-dot"></div></div></div>`;
+  box.appendChild(div); box.scrollTop = box.scrollHeight;
+}
+function removeTyping() { const t = $('typing-ind'); if(t) t.remove(); }
+async function sendHN() {
+  const input = $('hn-input'); const text = input.value.trim(); if (!text) return;
+  input.value = ''; input.style.height = '';
+  addMsg('user', text);
+  hnHistory.push({role:'user', content: text});
+  showTyping();
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 1000,
+        system: HN_SYSTEM,
+        messages: hnHistory
+      })
+    });
+    const data = await res.json();
+    removeTyping();
+    const reply = data.content && data.content[0] && data.content[0].text ? data.content[0].text : 'Verbindungsabbruch. Holonet instabil.';
+    hnHistory.push({role:'assistant', content: reply});
+    addMsg('assistant', reply);
+  } catch(e) { removeTyping(); addMsg('assistant', 'Holonet-Störung erkannt. Bitte erneut versuchen.'); }
+}
+$('hn-send').addEventListener('click', sendHN);
+$('hn-input').addEventListener('keydown', e => { if (e.key==='Enter' && !e.shiftKey) { e.preventDefault(); sendHN(); } });
+$('hn-input').addEventListener('input', function() { this.style.height=''; this.style.height = Math.min(this.scrollHeight, 80)+'px'; });
+</script>
