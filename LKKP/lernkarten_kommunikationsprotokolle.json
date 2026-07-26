@@ -1,0 +1,1562 @@
+{
+  "title": "Kommunikationsprotokolle – klausurrelevante Lernkarten",
+  "language": "de",
+  "format_version": "1.0",
+  "card_count": 145,
+  "excluded_topics": [
+    "Berechnung der Übertragungsdauer aus Dateigröße und Bandbreite",
+    "Anwendung der BGP-Weiterleitungsregeln auf ein Szenario",
+    "Kapitel 10: alle Themen außer Firewalls",
+    "Kapitel 11: alle Themen außer Standards und Gesetze",
+    "Kapitel 12: Privatheit und Anonymität"
+  ],
+  "cards": [
+    {
+      "id": "karte_001",
+      "chapter": "Kapitel 1 – Einführung",
+      "question": "Nenne fünf Geräte, die an Rechnernetze angeschlossen sein können.",
+      "answer": "Zum Beispiel PC, Smartphone, Server, Drucker und IoT-Sensor. Auch Router, Smart-TV oder Spielkonsole wären gültige Beispiele.",
+      "tags": [
+        "einführung",
+        "netzwerke"
+      ]
+    },
+    {
+      "id": "karte_002",
+      "chapter": "Kapitel 1 – Einführung",
+      "question": "Was ist das Internet?",
+      "answer": "Das Internet ist ein weltweiter Verbund autonomer Rechnernetze, die über standardisierte Protokolle, insbesondere die TCP/IP-Protokollfamilie, miteinander kommunizieren.",
+      "tags": [
+        "einführung",
+        "netzwerke"
+      ]
+    },
+    {
+      "id": "karte_003",
+      "chapter": "Kapitel 1 – Einführung",
+      "question": "Nach welchen drei Eigenschaften können Rechnernetze unterschieden werden?",
+      "answer": "Typische Kriterien sind Übertragungstechnik beziehungsweise Topologie, geografische Ausdehnung und Art der Vermittlung beziehungsweise Verbindung.",
+      "tags": [
+        "einführung",
+        "netzwerke"
+      ]
+    },
+    {
+      "id": "karte_004",
+      "chapter": "Kapitel 1 – Einführung",
+      "question": "Was unterscheidet Broadcast- von Punkt-zu-Punkt-Netzwerken?",
+      "answer": "In einem Broadcast-Netz teilen sich mehrere Teilnehmer ein Medium; eine Übertragung kann grundsätzlich von mehreren empfangen werden. In Punkt-zu-Punkt-Netzen verbindet eine Leitung oder logische Verbindung jeweils zwei Teilnehmer.",
+      "tags": [
+        "einführung",
+        "netzwerke"
+      ]
+    },
+    {
+      "id": "karte_005",
+      "chapter": "Kapitel 1 – Einführung",
+      "question": "Welche drei Adressierungsarten gibt es in Broadcast-Netzen?",
+      "answer": "Unicast richtet sich an genau einen Empfänger, Broadcast an alle Teilnehmer eines Netzes und Multicast an eine ausgewählte Empfängergruppe.",
+      "tags": [
+        "einführung",
+        "netzwerke"
+      ]
+    },
+    {
+      "id": "karte_006",
+      "chapter": "Kapitel 1 – Einführung",
+      "question": "Welche Netzarten unterscheidet man nach geografischer Ausdehnung?",
+      "answer": "PAN für den persönlichen Nahbereich, LAN für lokale Netze, MAN für Stadt- oder Regionalnetze und WAN für große geografische Entfernungen.",
+      "tags": [
+        "einführung",
+        "netzwerke"
+      ]
+    },
+    {
+      "id": "karte_007",
+      "chapter": "Kapitel 1 – Einführung",
+      "question": "Wie ordnet man Beispielnetze ihrer geografischen Ausdehnung zu?",
+      "answer": "Körpernahe Geräte sind typischerweise PAN, ein Gebäude oder Campus LAN, ein Stadtgebiet MAN und länder- oder kontinentübergreifende Netze WAN.",
+      "tags": [
+        "einführung",
+        "netzwerke"
+      ]
+    },
+    {
+      "id": "karte_008",
+      "chapter": "Kapitel 1 – Einführung",
+      "question": "Was unterscheidet verbindungsorientierte und verbindungslose Vermittlung?",
+      "answer": "Verbindungsorientiert wird vor der Datenübertragung eine logische Verbindung aufgebaut und ihr Zustand verwaltet. Verbindungslos wird jedes Paket unabhängig und ohne vorherigen Verbindungsaufbau übertragen.",
+      "tags": [
+        "einführung",
+        "netzwerke"
+      ]
+    },
+    {
+      "id": "karte_009",
+      "chapter": "Kapitel 2 – Referenzmodelle",
+      "question": "Was ist ein Schichtenmodell?",
+      "answer": "Ein Schichtenmodell zerlegt eine komplexe Kommunikationsaufgabe in aufeinander aufbauende Ebenen mit klar abgegrenzten Aufgaben.",
+      "tags": [
+        "referenzmodelle",
+        "schichtenmodell"
+      ]
+    },
+    {
+      "id": "karte_010",
+      "chapter": "Kapitel 2 – Referenzmodelle",
+      "question": "Wie arbeitet ein Schichtenmodell?",
+      "answer": "Jede Schicht nutzt die Dienste der darunterliegenden Schicht, bietet der darüberliegenden Schicht eigene Dienste an und kommuniziert logisch mit der gleichrangigen Schicht des Kommunikationspartners.",
+      "tags": [
+        "referenzmodelle",
+        "schichtenmodell"
+      ]
+    },
+    {
+      "id": "karte_011",
+      "chapter": "Kapitel 2 – Referenzmodelle",
+      "question": "Definiere Dienst, Protokoll und Schnittstelle.",
+      "answer": "Ein Dienst beschreibt, was eine Schicht für die darüberliegende Schicht leistet. Ein Protokoll regelt die Kommunikation gleichrangiger Schichten. Eine Schnittstelle legt fest, wie eine Schicht den Dienst der darunterliegenden Schicht nutzt.",
+      "tags": [
+        "referenzmodelle",
+        "schichtenmodell"
+      ]
+    },
+    {
+      "id": "karte_012",
+      "chapter": "Kapitel 2 – Referenzmodelle",
+      "question": "Wie lassen sich Dienst, Protokoll und Schnittstelle an einem Beispiel unterscheiden?",
+      "answer": "Bei HTTP ist der Webabruf ein Dienst, HTTP das Protokoll zwischen Browser und Server und die Socket-API eine Schnittstelle zur Transportschicht.",
+      "tags": [
+        "referenzmodelle",
+        "schichtenmodell"
+      ]
+    },
+    {
+      "id": "karte_013",
+      "chapter": "Kapitel 2 – Referenzmodelle",
+      "question": "Was bedeuten virtuelle und physikalische Kommunikation?",
+      "answer": "Virtuelle Kommunikation findet logisch zwischen gleichrangigen Schichten statt. Physikalisch laufen die Daten beim Sender durch alle Schichten nach unten, über das Medium und beim Empfänger wieder nach oben.",
+      "tags": [
+        "referenzmodelle",
+        "schichtenmodell"
+      ]
+    },
+    {
+      "id": "karte_014",
+      "chapter": "Kapitel 2 – Referenzmodelle",
+      "question": "Welche Vorteile haben Schichtenmodelle?",
+      "answer": "Sie reduzieren Komplexität, schaffen klare Zuständigkeiten, ermöglichen den Austausch einzelner Protokolle, fördern Standardisierung und erleichtern Entwicklung sowie Fehlersuche.",
+      "tags": [
+        "referenzmodelle",
+        "schichtenmodell"
+      ]
+    },
+    {
+      "id": "karte_015",
+      "chapter": "Kapitel 2 – Referenzmodelle",
+      "question": "Wie werden Daten durch ein Schichtenmodell verarbeitet?",
+      "answer": "Beim Sender kapselt jede Schicht die Nutzdaten und ergänzt Steuerinformationen. Beim Empfänger werden diese Informationen schichtweise ausgewertet und entfernt.",
+      "tags": [
+        "referenzmodelle",
+        "schichtenmodell"
+      ]
+    },
+    {
+      "id": "karte_016",
+      "chapter": "Kapitel 2 – Referenzmodelle",
+      "question": "Was enthalten Header und Trailer?",
+      "answer": "Header enthalten meist Adressen, Protokollkennungen, Nummern und Steuerinformationen. Trailer enthalten häufig Prüfinformationen, etwa eine Prüfsumme.",
+      "tags": [
+        "referenzmodelle",
+        "schichtenmodell"
+      ]
+    },
+    {
+      "id": "karte_017",
+      "chapter": "Kapitel 2 – Referenzmodelle",
+      "question": "Wozu dienen Referenzmodelle?",
+      "answer": "Sie beschreiben herstellerunabhängig, welche Kommunikationsaufgaben auf welchen Schichten liegen, und erleichtern Vergleich, Standardisierung und Interoperabilität.",
+      "tags": [
+        "referenzmodelle",
+        "schichtenmodell"
+      ]
+    },
+    {
+      "id": "karte_018",
+      "chapter": "Kapitel 2 – Referenzmodelle",
+      "question": "Welche zwei wichtigen Referenzmodelle gibt es?",
+      "answer": "Das TCP/IP-Referenzmodell und das OSI-Referenzmodell.",
+      "tags": [
+        "referenzmodelle",
+        "schichtenmodell"
+      ]
+    },
+    {
+      "id": "karte_019",
+      "chapter": "Kapitel 2 – Referenzmodelle",
+      "question": "Nenne die Schichten des TCP/IP- und OSI-Modells.",
+      "answer": "TCP/IP: Anwendung, Transport, Internet, Netzzugang beziehungsweise Sicherung und Bitübertragung. OSI: Anwendung, Darstellung, Sitzung, Transport, Vermittlung, Sicherung, Bitübertragung.",
+      "tags": [
+        "referenzmodelle",
+        "schichtenmodell"
+      ]
+    },
+    {
+      "id": "karte_020",
+      "chapter": "Kapitel 2 – Referenzmodelle",
+      "question": "Welche Aufgaben haben die TCP/IP-Schichten?",
+      "answer": "Anwendung: Anwendungsprotokolle und Dienste. Transport: Ende-zu-Ende-Kommunikation. Internet: logische Adressierung und Routing. Sicherung: lokale Übertragung, MAC und Fehlererkennung. Bitübertragung: Übertragung einzelner Bits über ein Medium.",
+      "tags": [
+        "referenzmodelle",
+        "schichtenmodell"
+      ]
+    },
+    {
+      "id": "karte_021",
+      "chapter": "Kapitel 2 – Referenzmodelle",
+      "question": "Wie ordnet man Kommunikationsaufgaben den TCP/IP-Schichten zu?",
+      "answer": "Webzugriff und DNS gehören zur Anwendung, TCP/UDP zur Transportschicht, IP und Routing zur Internetschicht, Ethernet/MAC zur Sicherungsschicht und elektrische, optische oder Funk-Signale zur Bitübertragungsschicht.",
+      "tags": [
+        "referenzmodelle",
+        "schichtenmodell"
+      ]
+    },
+    {
+      "id": "karte_022",
+      "chapter": "Kapitel 2 – Referenzmodelle",
+      "question": "Nenne zwei Unterschiede zwischen TCP/IP- und OSI-Modell.",
+      "answer": "OSI besitzt sieben, TCP/IP meist fünf Schichten. OSI ist vor allem ein Referenzmodell, während TCP/IP eng mit praktisch eingesetzten Internetprotokollen verbunden ist.",
+      "tags": [
+        "referenzmodelle",
+        "schichtenmodell"
+      ]
+    },
+    {
+      "id": "karte_023",
+      "chapter": "Kapitel 3 – Bitübertragungsschicht",
+      "question": "Welche Funktionen hat die Bitübertragungsschicht?",
+      "answer": "Sie überträgt rohe Bits über ein physisches Medium und definiert unter anderem Signale, Anschlüsse, Frequenzen, Kodierung und Datenrate.",
+      "tags": [
+        "bitübertragung",
+        "physikalische-schicht"
+      ]
+    },
+    {
+      "id": "karte_024",
+      "chapter": "Kapitel 3 – Bitübertragungsschicht",
+      "question": "Was unterscheidet Latenz und Datenübertragungsrate?",
+      "answer": "Latenz ist die Verzögerung bis Daten ihr Ziel erreichen. Die Datenübertragungsrate gibt an, wie viele Bits pro Sekunde übertragen werden können.",
+      "tags": [
+        "bitübertragung",
+        "physikalische-schicht"
+      ]
+    },
+    {
+      "id": "karte_025",
+      "chapter": "Kapitel 3 – Bitübertragungsschicht",
+      "question": "Welche Faktoren beeinflussen die Latenz?",
+      "answer": "Ausbreitungsverzögerung, Verarbeitungszeit, Warteschlangenzeit und gegebenenfalls Übertragungszeit eines Pakets.",
+      "tags": [
+        "bitübertragung",
+        "physikalische-schicht"
+      ]
+    },
+    {
+      "id": "karte_026",
+      "chapter": "Kapitel 3 – Bitübertragungsschicht",
+      "question": "Wann ist Latenz und wann Datenrate besonders wichtig?",
+      "answer": "Bei kleinen interaktiven Daten, etwa Telefonie oder Gaming, ist geringe Latenz entscheidend. Bei großen Dateien oder Streams ist eine hohe Datenrate besonders wichtig.",
+      "tags": [
+        "bitübertragung",
+        "physikalische-schicht"
+      ]
+    },
+    {
+      "id": "karte_027",
+      "chapter": "Kapitel 3 – Bitübertragungsschicht",
+      "question": "Wie hängen Frequenz, Kodierung und Datenrate zusammen?",
+      "answer": "Die Datenrate steigt grundsätzlich mit der Symbolrate beziehungsweise Bandbreite und mit der Zahl der Bits, die pro Symbol kodiert werden. Vereinfacht: Datenrate = Symbolrate × Bits pro Symbol.",
+      "tags": [
+        "bitübertragung",
+        "physikalische-schicht"
+      ]
+    },
+    {
+      "id": "karte_028",
+      "chapter": "Kapitel 3 – Bitübertragungsschicht",
+      "question": "Wie berechnet man aus Frequenz, Kodierung und Datenrate den fehlenden Wert?",
+      "answer": "Nutze die vereinfachte Beziehung R = f × b. Also R = Datenrate, f = Symbole pro Sekunde und b = Bits pro Symbol; nach dem gesuchten Wert umstellen.",
+      "tags": [
+        "bitübertragung",
+        "physikalische-schicht"
+      ]
+    },
+    {
+      "id": "karte_029",
+      "chapter": "Kapitel 3 – Bitübertragungsschicht",
+      "question": "Warum lassen sich Frequenz und Kodierung nicht beliebig erhöhen?",
+      "answer": "Begrenzte Bandbreite, Rauschen, Dämpfung, Interferenzen und technische Grenzen erhöhen sonst die Fehlerrate und erschweren die eindeutige Erkennung der Signale.",
+      "tags": [
+        "bitübertragung",
+        "physikalische-schicht"
+      ]
+    },
+    {
+      "id": "karte_030",
+      "chapter": "Kapitel 3 – Bitübertragungsschicht",
+      "question": "Nenne vier Übertragungsmedien.",
+      "answer": "Twisted-Pair-Kabel, Koaxialkabel, Glasfaser und Funk. Weitere Beispiele sind Richtfunk oder Infrarot.",
+      "tags": [
+        "bitübertragung",
+        "physikalische-schicht"
+      ]
+    },
+    {
+      "id": "karte_031",
+      "chapter": "Kapitel 3 – Bitübertragungsschicht",
+      "question": "Wie lassen sich Übertragungsmedien grob nach Datenrate ordnen?",
+      "answer": "Typischerweise bietet Glasfaser die höchsten Datenraten, danach leistungsfähige Kupferverbindungen; Funk variiert stark je nach Standard und Entfernung.",
+      "tags": [
+        "bitübertragung",
+        "physikalische-schicht"
+      ]
+    },
+    {
+      "id": "karte_032",
+      "chapter": "Kapitel 3 – Bitübertragungsschicht",
+      "question": "Nenne drei zukünftige Anwendungsfelder von 5G.",
+      "answer": "Vernetztes und automatisiertes Fahren, industrielle Echtzeitkommunikation und massive IoT-Anwendungen beziehungsweise Smart Cities.",
+      "tags": [
+        "bitübertragung",
+        "physikalische-schicht"
+      ]
+    },
+    {
+      "id": "karte_033",
+      "chapter": "Kapitel 4 – Sicherungsschicht",
+      "question": "Welche zwei Teilschichten hat die Sicherungsschicht?",
+      "answer": "MAC, Media Access Control, und LLC, Logical Link Control.",
+      "tags": [
+        "sicherungsschicht",
+        "ethernet"
+      ]
+    },
+    {
+      "id": "karte_034",
+      "chapter": "Kapitel 4 – Sicherungsschicht",
+      "question": "Welche Aufgaben haben MAC und LLC?",
+      "answer": "MAC regelt Medienzugriff und physische Adressierung. LLC stellt der Netzwerkschicht einen einheitlichen Dienst bereit und kann Protokolle unterscheiden sowie Fluss- oder Fehlerkontrolle unterstützen.",
+      "tags": [
+        "sicherungsschicht",
+        "ethernet"
+      ]
+    },
+    {
+      "id": "karte_035",
+      "chapter": "Kapitel 4 – Sicherungsschicht",
+      "question": "Welche drei Möglichkeiten gibt es, die Senderreihenfolge auszuhandeln?",
+      "answer": "Zentrale Zuteilung, geregelter Zugriff wie Token Passing und konkurrierender Zugriff wie CSMA.",
+      "tags": [
+        "sicherungsschicht",
+        "ethernet"
+      ]
+    },
+    {
+      "id": "karte_036",
+      "chapter": "Kapitel 4 – Sicherungsschicht",
+      "question": "Was unterscheidet CSMA/CD und CSMA/CA?",
+      "answer": "CSMA/CD erkennt Kollisionen nach Beginn der Übertragung und bricht ab; es wurde bei klassischem Ethernet genutzt. CSMA/CA versucht Kollisionen vorab zu vermeiden und wird bei WLAN eingesetzt.",
+      "tags": [
+        "sicherungsschicht",
+        "ethernet"
+      ]
+    },
+    {
+      "id": "karte_037",
+      "chapter": "Kapitel 4 – Sicherungsschicht",
+      "question": "Wie läuft CSMA/CD ab?",
+      "answer": "Medium abhören, bei freiem Medium senden, währenddessen auf Kollision prüfen, bei Kollision abbrechen und Jam-Signal senden, zufällige Wartezeit wählen und erneut versuchen.",
+      "tags": [
+        "sicherungsschicht",
+        "ethernet"
+      ]
+    },
+    {
+      "id": "karte_038",
+      "chapter": "Kapitel 4 – Sicherungsschicht",
+      "question": "Wie ist eine MAC-Adresse aufgebaut und wozu dient sie?",
+      "answer": "Eine klassische MAC-Adresse ist 48 Bit lang. Sie identifiziert eine Netzwerkschnittstelle innerhalb eines lokalen Netzes und wird in Ethernet-Frames als Quell- und Zieladresse verwendet.",
+      "tags": [
+        "sicherungsschicht",
+        "ethernet"
+      ]
+    },
+    {
+      "id": "karte_039",
+      "chapter": "Kapitel 4 – Sicherungsschicht",
+      "question": "Was steht im Header und Trailer der Sicherungsschicht?",
+      "answer": "Im Header stehen typischerweise Ziel- und Quell-MAC-Adresse sowie Typ- oder Längenfelder. Im Trailer steht meist die Frame Check Sequence zur Fehlererkennung.",
+      "tags": [
+        "sicherungsschicht",
+        "ethernet"
+      ]
+    },
+    {
+      "id": "karte_040",
+      "chapter": "Kapitel 4 – Sicherungsschicht",
+      "question": "Welche Funktion hat eine Prüfsumme?",
+      "answer": "Der Sender berechnet einen Prüfwert aus den Daten. Der Empfänger berechnet ihn erneut; weichen die Werte ab, wurde die Übertragung wahrscheinlich verfälscht.",
+      "tags": [
+        "sicherungsschicht",
+        "ethernet"
+      ]
+    },
+    {
+      "id": "karte_041",
+      "chapter": "Kapitel 4 – Sicherungsschicht",
+      "question": "Wie läuft eine fehlerfreie gesicherte Übertragung ab?",
+      "answer": "Der Sender überträgt einen Frame mit Prüfinformation. Der Empfänger prüft ihn und bestätigt den korrekten Empfang, falls das eingesetzte Protokoll Bestätigungen verwendet.",
+      "tags": [
+        "sicherungsschicht",
+        "ethernet"
+      ]
+    },
+    {
+      "id": "karte_042",
+      "chapter": "Kapitel 4 – Sicherungsschicht",
+      "question": "Wie läuft eine fehlerbehaftete gesicherte Übertragung ab?",
+      "answer": "Der Empfänger erkennt den Fehler über die Prüfsumme, verwirft den Frame und fordert gegebenenfalls eine Wiederholung an oder bestätigt ihn nicht, sodass ein Timeout zur Wiederholung führt.",
+      "tags": [
+        "sicherungsschicht",
+        "ethernet"
+      ]
+    },
+    {
+      "id": "karte_043",
+      "chapter": "Kapitel 4 – Sicherungsschicht",
+      "question": "Nenne ein Verfahren zur Prüfsummenbildung.",
+      "answer": "CRC, Cyclic Redundancy Check, ist ein verbreitetes Verfahren zur Fehlererkennung auf der Sicherungsschicht.",
+      "tags": [
+        "sicherungsschicht",
+        "ethernet"
+      ]
+    },
+    {
+      "id": "karte_044",
+      "chapter": "Kapitel 4 – Sicherungsschicht",
+      "question": "Welcher Trade-off besteht bei der Länge einer Prüfsumme?",
+      "answer": "Längere Prüfsummen erkennen Fehler zuverlässiger, verursachen aber mehr Overhead und verringern den Anteil der Nutzdaten.",
+      "tags": [
+        "sicherungsschicht",
+        "ethernet"
+      ]
+    },
+    {
+      "id": "karte_045",
+      "chapter": "Kapitel 4 – Sicherungsschicht",
+      "question": "Welche Aufgabe hat ein Switch?",
+      "answer": "Ein Switch leitet Frames innerhalb eines LAN anhand der Ziel-MAC-Adresse gezielt an den passenden Port weiter und lernt Quell-MAC-Adressen in seiner MAC-Tabelle.",
+      "tags": [
+        "sicherungsschicht",
+        "ethernet"
+      ]
+    },
+    {
+      "id": "karte_046",
+      "chapter": "Kapitel 4 – Sicherungsschicht",
+      "question": "Was ist ein VLAN?",
+      "answer": "Ein VLAN teilt ein physisches Switch-Netz logisch in getrennte Broadcast-Domänen. Kommunikation zwischen VLANs benötigt Routing.",
+      "tags": [
+        "sicherungsschicht",
+        "ethernet"
+      ]
+    },
+    {
+      "id": "karte_047",
+      "chapter": "Kapitel 5.1 – Internetschicht: IPv4",
+      "question": "Welche Aufgaben hat die Internetschicht?",
+      "answer": "Sie stellt logische Adressierung bereit, transportiert Pakete über mehrere Netze und bestimmt mithilfe von Routing geeignete Wege zum Ziel.",
+      "tags": [
+        "ipv4",
+        "internetschicht"
+      ]
+    },
+    {
+      "id": "karte_048",
+      "chapter": "Kapitel 5.1 – Internetschicht: IPv4",
+      "question": "Wie unterscheiden sich Sichtweise von Internet- und Sicherungsschicht?",
+      "answer": "Die Sicherungsschicht betrachtet die Übertragung im lokalen Netz zum nächsten Hop. Die Internetschicht betrachtet die Ende-zu-Ende-Weiterleitung über mehrere Netze.",
+      "tags": [
+        "ipv4",
+        "internetschicht"
+      ]
+    },
+    {
+      "id": "karte_049",
+      "chapter": "Kapitel 5.1 – Internetschicht: IPv4",
+      "question": "Welche Aufgabe hat ein Router?",
+      "answer": "Ein Router verbindet unterschiedliche IP-Netze, liest die Ziel-IP-Adresse und wählt anhand seiner Routingtabelle den nächsten Hop beziehungsweise Ausgang.",
+      "tags": [
+        "ipv4",
+        "internetschicht"
+      ]
+    },
+    {
+      "id": "karte_050",
+      "chapter": "Kapitel 5.1 – Internetschicht: IPv4",
+      "question": "Wie ist IP bezüglich Verbindung und Zuverlässigkeit einzuordnen?",
+      "answer": "IP ist verbindungslos und unzuverlässig im Sinne von Best Effort: Es garantiert weder Zustellung noch Reihenfolge oder Fehlerkorrektur.",
+      "tags": [
+        "ipv4",
+        "internetschicht"
+      ]
+    },
+    {
+      "id": "karte_051",
+      "chapter": "Kapitel 5.1 – Internetschicht: IPv4",
+      "question": "Aus welchen Teilen besteht eine IP-Adresse?",
+      "answer": "Sie besteht aus einem Netzanteil und einem Hostanteil. Die Subnetzmaske beziehungsweise Präfixlänge legt die Grenze fest.",
+      "tags": [
+        "ipv4",
+        "internetschicht"
+      ]
+    },
+    {
+      "id": "karte_052",
+      "chapter": "Kapitel 5.1 – Internetschicht: IPv4",
+      "question": "Wie funktionieren die historischen IPv4-Klassen A, B und C?",
+      "answer": "Klasse A hatte ein /8-Präfix, Klasse B /16 und Klasse C /24. Heute wird überwiegend klassenloses CIDR verwendet.",
+      "tags": [
+        "ipv4",
+        "internetschicht"
+      ]
+    },
+    {
+      "id": "karte_053",
+      "chapter": "Kapitel 5.1 – Internetschicht: IPv4",
+      "question": "Welche speziellen IPv4-Adressbereiche sollte man kennen?",
+      "answer": "Loopback: 127.0.0.0/8. Private Netze: 10.0.0.0/8, 172.16.0.0/12 und 192.168.0.0/16.",
+      "tags": [
+        "ipv4",
+        "internetschicht"
+      ]
+    },
+    {
+      "id": "karte_054",
+      "chapter": "Kapitel 5.1 – Internetschicht: IPv4",
+      "question": "Wie bestimmt man Netz- und Broadcast-Adresse?",
+      "answer": "Netzadresse: Hostbits auf 0 setzen. Broadcast-Adresse: Hostbits auf 1 setzen. Die Präfixlänge zeigt, welche Bits Netz- beziehungsweise Hostbits sind.",
+      "tags": [
+        "ipv4",
+        "internetschicht"
+      ]
+    },
+    {
+      "id": "karte_055",
+      "chapter": "Kapitel 5.1 – Internetschicht: IPv4",
+      "question": "Wie wertet man eine CIDR-Adresse aus?",
+      "answer": "Bei /n sind n Bits Netzbits und 32−n Bits Hostbits. Theoretisch gibt es 2^(32−n) Adressen; in klassischen Subnetzen sind meist zwei für Netz- und Broadcast-Adresse reserviert.",
+      "tags": [
+        "ipv4",
+        "internetschicht"
+      ]
+    },
+    {
+      "id": "karte_056",
+      "chapter": "Kapitel 5.1 – Internetschicht: IPv4",
+      "question": "Wie prüft man, ob zwei IPv4-Rechner direkt erreichbar sind?",
+      "answer": "Beide IP-Adressen bitweise mit der jeweiligen Subnetzmaske verknüpfen. Entstehen gleiche Netzadressen, liegen sie im selben Subnetz; sonst wird ein Router benötigt.",
+      "tags": [
+        "ipv4",
+        "internetschicht"
+      ]
+    },
+    {
+      "id": "karte_057",
+      "chapter": "Kapitel 5.1 – Internetschicht: IPv4",
+      "question": "Welche Aufgabe hat die Subnetzmaske?",
+      "answer": "Sie kennzeichnet, welche Bits einer IPv4-Adresse zum Netz und welche zum Host gehören.",
+      "tags": [
+        "ipv4",
+        "internetschicht"
+      ]
+    },
+    {
+      "id": "karte_058",
+      "chapter": "Kapitel 5.1 – Internetschicht: IPv4",
+      "question": "Wie bildet man Subnetze für eine benötigte Hostzahl?",
+      "answer": "Wähle so viele Hostbits h, dass 2^h−2 mindestens der benötigten Hostzahl entspricht. Die Präfixlänge ist 32−h; anschließend Adressblöcke in dieser Blockgröße bilden.",
+      "tags": [
+        "ipv4",
+        "internetschicht"
+      ]
+    },
+    {
+      "id": "karte_059",
+      "chapter": "Kapitel 5.1 – Internetschicht: IPv4",
+      "question": "Wie läuft DHCP in vier Schritten ab?",
+      "answer": "Discover: Client sucht Server. Offer: Server bietet Adresse an. Request: Client fordert das Angebot an. Acknowledge: Server bestätigt die Zuweisung. Merkwort: DORA.",
+      "tags": [
+        "ipv4",
+        "internetschicht"
+      ]
+    },
+    {
+      "id": "karte_060",
+      "chapter": "Kapitel 5.2 – IPv6 und Routing",
+      "question": "Warum wurde IPv6 eingeführt?",
+      "answer": "Wegen der IPv4-Adressknappheit, für einfachere automatische Konfiguration und für ein moderneres, erweiterbares Protokolldesign.",
+      "tags": [
+        "ipv6",
+        "routing"
+      ]
+    },
+    {
+      "id": "karte_061",
+      "chapter": "Kapitel 5.2 – IPv6 und Routing",
+      "question": "Wie lang ist eine IPv6-Adresse?",
+      "answer": "128 Bit.",
+      "tags": [
+        "ipv6",
+        "routing"
+      ]
+    },
+    {
+      "id": "karte_062",
+      "chapter": "Kapitel 5.2 – IPv6 und Routing",
+      "question": "Wie werden IPv6-Adressen gekürzt und erweitert?",
+      "answer": "Führende Nullen eines Blocks dürfen entfallen. Eine zusammenhängende Folge aus Nullblöcken darf einmal durch :: ersetzt werden. Beim Erweitern werden wieder acht Blöcke mit je vier Hexziffern hergestellt.",
+      "tags": [
+        "ipv6",
+        "routing"
+      ]
+    },
+    {
+      "id": "karte_063",
+      "chapter": "Kapitel 5.2 – IPv6 und Routing",
+      "question": "Wie funktioniert die zustandslose IPv6-Adressvergabe?",
+      "answer": "Der Host erhält per Router Advertisement ein Netzpräfix und bildet daraus selbst eine Adresse, zum Beispiel mit zufälligem Interface Identifier. Ein DHCPv6-Server ist dafür nicht zwingend nötig.",
+      "tags": [
+        "ipv6",
+        "routing"
+      ]
+    },
+    {
+      "id": "karte_064",
+      "chapter": "Kapitel 5.2 – IPv6 und Routing",
+      "question": "Welche zwei Verfahren helfen beim Übergang von IPv4 zu IPv6?",
+      "answer": "Dual Stack, bei dem beide Protokolle parallel laufen, und Tunnel- beziehungsweise Übersetzungsverfahren, die IPv6 über IPv4 transportieren oder zwischen beiden Protokollen übersetzen.",
+      "tags": [
+        "ipv6",
+        "routing"
+      ]
+    },
+    {
+      "id": "karte_065",
+      "chapter": "Kapitel 5.2 – IPv6 und Routing",
+      "question": "Welche Optimierungsziele kann Routing verfolgen?",
+      "answer": "Zum Beispiel geringe Kosten, geringe Verzögerung, hohe Bandbreite, wenige Hops, hohe Zuverlässigkeit oder Lastverteilung.",
+      "tags": [
+        "ipv6",
+        "routing"
+      ]
+    },
+    {
+      "id": "karte_066",
+      "chapter": "Kapitel 5.2 – IPv6 und Routing",
+      "question": "Was enthält eine Routingtabelle?",
+      "answer": "Zielnetz beziehungsweise Präfix, nächsten Hop oder Ausgangsschnittstelle und meist eine Metrik beziehungsweise Priorität.",
+      "tags": [
+        "ipv6",
+        "routing"
+      ]
+    },
+    {
+      "id": "karte_067",
+      "chapter": "Kapitel 5.2 – IPv6 und Routing",
+      "question": "Was unterscheidet Intra- und Interdomain-Routing?",
+      "answer": "Intradomain-Routing arbeitet innerhalb eines autonomen Systems. Interdomain-Routing verbindet autonome Systeme miteinander.",
+      "tags": [
+        "ipv6",
+        "routing"
+      ]
+    },
+    {
+      "id": "karte_068",
+      "chapter": "Kapitel 5.2 – IPv6 und Routing",
+      "question": "Warum wird Routing in Intra- und Interdomain-Routing getrennt?",
+      "answer": "Wegen Skalierbarkeit, unterschiedlicher administrativer Zuständigkeiten und weil zwischen autonomen Systemen politische und wirtschaftliche Regeln wichtiger sind.",
+      "tags": [
+        "ipv6",
+        "routing"
+      ]
+    },
+    {
+      "id": "karte_069",
+      "chapter": "Kapitel 5.2 – IPv6 und Routing",
+      "question": "Nenne je ein Routingprotokoll für Intra- und Interdomain-Routing.",
+      "answer": "OSPF ist ein Intradomain-Protokoll; BGP ist das zentrale Interdomain-Routingprotokoll des Internets.",
+      "tags": [
+        "ipv6",
+        "routing"
+      ]
+    },
+    {
+      "id": "karte_070",
+      "chapter": "Kapitel 5.2 – IPv6 und Routing",
+      "question": "Wie arbeitet Dijkstras Algorithmus?",
+      "answer": "Startknoten mit Distanz 0 markieren, alle anderen mit unendlich. Wiederholt den unbesuchten Knoten mit kleinster Distanz wählen, Nachbarn relaxieren und ihn als besucht markieren, bis das Ziel feststeht.",
+      "tags": [
+        "ipv6",
+        "routing"
+      ]
+    },
+    {
+      "id": "karte_071",
+      "chapter": "Kapitel 5.2 – IPv6 und Routing",
+      "question": "Wie funktioniert BGP grundsätzlich?",
+      "answer": "BGP tauscht Erreichbarkeitsinformationen und AS-Pfade zwischen autonomen Systemen aus. Die Routenauswahl folgt nicht nur der Kürze, sondern lokalen Policies, Geschäftsbeziehungen und weiteren Attributen.",
+      "tags": [
+        "ipv6",
+        "routing"
+      ]
+    },
+    {
+      "id": "karte_072",
+      "chapter": "Kapitel 5.2 – IPv6 und Routing",
+      "question": "Wozu dient ARP?",
+      "answer": "ARP ermittelt im lokalen IPv4-Netz die MAC-Adresse zu einer bekannten IP-Adresse. Eine Anfrage wird als Broadcast gesendet, die Antwort enthält die passende MAC-Adresse.",
+      "tags": [
+        "ipv6",
+        "routing"
+      ]
+    },
+    {
+      "id": "karte_073",
+      "chapter": "Kapitel 6 – Transportschicht",
+      "question": "Welche Dienste bietet die Transportschicht?",
+      "answer": "Sie ermöglicht Ende-zu-Ende-Kommunikation zwischen Prozessen, nutzt Ports zur Zuordnung und kann Zuverlässigkeit, Reihenfolge, Fluss- und Überlaststeuerung bereitstellen.",
+      "tags": [
+        "transport",
+        "tcp",
+        "udp"
+      ]
+    },
+    {
+      "id": "karte_074",
+      "chapter": "Kapitel 6 – Transportschicht",
+      "question": "Was ist ein Socket?",
+      "answer": "Ein Socket ist ein Kommunikationsendpunkt, typischerweise beschrieben durch IP-Adresse, Portnummer und Transportprotokoll.",
+      "tags": [
+        "transport",
+        "tcp",
+        "udp"
+      ]
+    },
+    {
+      "id": "karte_075",
+      "chapter": "Kapitel 6 – Transportschicht",
+      "question": "Wie unterscheiden sich die Ports von Client und Server?",
+      "answer": "Der Server lauscht meist auf einem bekannten festen Port. Der Client verwendet üblicherweise einen vorübergehend vergebenen dynamischen Port.",
+      "tags": [
+        "transport",
+        "tcp",
+        "udp"
+      ]
+    },
+    {
+      "id": "karte_076",
+      "chapter": "Kapitel 6 – Transportschicht",
+      "question": "Nenne drei bekannte Ports und Dienste.",
+      "answer": "HTTP 80/TCP, HTTPS 443/TCP und DNS 53/UDP beziehungsweise 53/TCP.",
+      "tags": [
+        "transport",
+        "tcp",
+        "udp"
+      ]
+    },
+    {
+      "id": "karte_077",
+      "chapter": "Kapitel 6 – Transportschicht",
+      "question": "Was unterscheidet TCP und UDP?",
+      "answer": "TCP ist verbindungsorientiert, zuverlässig, geordnet und besitzt Fluss- sowie Überlaststeuerung. UDP ist verbindungslos, hat wenig Overhead und garantiert weder Zustellung noch Reihenfolge.",
+      "tags": [
+        "transport",
+        "tcp",
+        "udp"
+      ]
+    },
+    {
+      "id": "karte_078",
+      "chapter": "Kapitel 6 – Transportschicht",
+      "question": "Wie werden TCP-Folgenummern bestimmt?",
+      "answer": "Die Folgenummer bezeichnet die Nummer des ersten Datenbytes eines Segments. Die nächste erwartete Nummer erhöht sich um die Zahl der übertragenen Nutzdatenbytes; SYN und FIN verbrauchen jeweils eine Nummer.",
+      "tags": [
+        "transport",
+        "tcp",
+        "udp"
+      ]
+    },
+    {
+      "id": "karte_079",
+      "chapter": "Kapitel 6 – Transportschicht",
+      "question": "Wie läuft der TCP-Verbindungsaufbau ab?",
+      "answer": "Drei-Wege-Handshake: Client sendet SYN, Server antwortet SYN-ACK, Client bestätigt mit ACK.",
+      "tags": [
+        "transport",
+        "tcp",
+        "udp"
+      ]
+    },
+    {
+      "id": "karte_080",
+      "chapter": "Kapitel 6 – Transportschicht",
+      "question": "Wie funktioniert TCP-Flusssteuerung am Empfänger?",
+      "answer": "Der Empfänger teilt über das Receive Window mit, wie viele Bytes er noch puffern kann. Der Sender begrenzt die unbestätigten Daten entsprechend.",
+      "tags": [
+        "transport",
+        "tcp",
+        "udp"
+      ]
+    },
+    {
+      "id": "karte_081",
+      "chapter": "Kapitel 6 – Transportschicht",
+      "question": "Wie steuert TCP Überlastung im Netz?",
+      "answer": "TCP passt das Congestion Window an. Es erhöht die Senderate vorsichtig und reduziert sie deutlich bei Paketverlust oder anderen Überlastungsanzeichen.",
+      "tags": [
+        "transport",
+        "tcp",
+        "udp"
+      ]
+    },
+    {
+      "id": "karte_082",
+      "chapter": "Kapitel 6 – Transportschicht",
+      "question": "Was ist der Unterschied zwischen NAT und PAT?",
+      "answer": "NAT ersetzt private durch öffentliche IP-Adressen. PAT unterscheidet zusätzlich Verbindungen über Portnummern, sodass viele interne Hosts eine öffentliche IP-Adresse teilen können.",
+      "tags": [
+        "transport",
+        "tcp",
+        "udp"
+      ]
+    },
+    {
+      "id": "karte_083",
+      "chapter": "Kapitel 7.1 – Sockets, DNS und HTTP",
+      "question": "Welche sechs typischen Operationen hat eine TCP-Socket-Verbindung?",
+      "answer": "Server: socket, bind, listen, accept. Client: socket, connect. Danach verwenden beide send/receive und schließen mit close; je nach Zählweise werden die zentralen sechs Aufbauoperationen betrachtet.",
+      "tags": [
+        "anwendung",
+        "dns",
+        "http",
+        "sockets"
+      ]
+    },
+    {
+      "id": "karte_084",
+      "chapter": "Kapitel 7.1 – Sockets, DNS und HTTP",
+      "question": "In welcher Reihenfolge wird eine TCP-Socket-Verbindung aufgebaut?",
+      "answer": "Server: socket → bind → listen → accept. Client: socket → connect. Nach erfolgreichem Aufbau folgen Datenaustausch und close.",
+      "tags": [
+        "anwendung",
+        "dns",
+        "http",
+        "sockets"
+      ]
+    },
+    {
+      "id": "karte_085",
+      "chapter": "Kapitel 7.1 – Sockets, DNS und HTTP",
+      "question": "Wie unterscheidet sich eine UDP- von einer TCP-Socket-Verbindung?",
+      "answer": "UDP benötigt keinen Verbindungsaufbau und kein listen/accept. Datagramme werden direkt mit Zieladresse und Zielport gesendet; Reihenfolge und Zustellung sind nicht garantiert.",
+      "tags": [
+        "anwendung",
+        "dns",
+        "http",
+        "sockets"
+      ]
+    },
+    {
+      "id": "karte_086",
+      "chapter": "Kapitel 7.1 – Sockets, DNS und HTTP",
+      "question": "Welche Funktion hat DNS?",
+      "answer": "DNS übersetzt hierarchische Domainnamen in IP-Adressen und kann weitere Informationen wie Mailserver oder Aliasnamen bereitstellen.",
+      "tags": [
+        "anwendung",
+        "dns",
+        "http",
+        "sockets"
+      ]
+    },
+    {
+      "id": "karte_087",
+      "chapter": "Kapitel 7.1 – Sockets, DNS und HTTP",
+      "question": "Wie ist ein Domainname hierarchisch aufgebaut?",
+      "answer": "Von rechts nach links: Root, Top-Level-Domain, Second-Level-Domain und optional weitere Subdomains beziehungsweise Hostname.",
+      "tags": [
+        "anwendung",
+        "dns",
+        "http",
+        "sockets"
+      ]
+    },
+    {
+      "id": "karte_088",
+      "chapter": "Kapitel 7.1 – Sockets, DNS und HTTP",
+      "question": "Wie läuft eine DNS-Namensauflösung ab?",
+      "answer": "Der Client fragt seinen lokalen Resolver. Dieser nutzt Cache oder fragt rekursiv beziehungsweise iterativ Root-, TLD- und autoritative Nameserver und liefert die gefundene Adresse zurück.",
+      "tags": [
+        "anwendung",
+        "dns",
+        "http",
+        "sockets"
+      ]
+    },
+    {
+      "id": "karte_089",
+      "chapter": "Kapitel 7.1 – Sockets, DNS und HTTP",
+      "question": "Wie funktioniert eine Webseitensperre über DNS?",
+      "answer": "Der verwendete Resolver liefert für eine gesperrte Domain keine korrekte IP-Adresse, eine Fehlerantwort oder eine Umleitungsadresse. Ein anderer Resolver kann die Sperre gegebenenfalls umgehen.",
+      "tags": [
+        "anwendung",
+        "dns",
+        "http",
+        "sockets"
+      ]
+    },
+    {
+      "id": "karte_090",
+      "chapter": "Kapitel 7.1 – Sockets, DNS und HTTP",
+      "question": "Wie ist HTTP bezüglich Verbindung und Zuverlässigkeit einzuordnen?",
+      "answer": "HTTP ist als Anwendungsprotokoll zustandslos. Klassisches HTTP läuft meist über TCP und erhält dadurch eine zuverlässige, verbindungsorientierte Übertragung; HTTP/3 nutzt QUIC über UDP.",
+      "tags": [
+        "anwendung",
+        "dns",
+        "http",
+        "sockets"
+      ]
+    },
+    {
+      "id": "karte_091",
+      "chapter": "Kapitel 7.1 – Sockets, DNS und HTTP",
+      "question": "Nenne und erkläre drei HTTP-Methoden.",
+      "answer": "GET liest eine Ressource, POST übermittelt Daten zur Verarbeitung oder erstellt etwas, PUT ersetzt beziehungsweise erstellt eine Ressource an einer festgelegten URI.",
+      "tags": [
+        "anwendung",
+        "dns",
+        "http",
+        "sockets"
+      ]
+    },
+    {
+      "id": "karte_092",
+      "chapter": "Kapitel 7.1 – Sockets, DNS und HTTP",
+      "question": "Nenne drei HTTP-Statuscodes.",
+      "answer": "200 OK: Anfrage erfolgreich. 404 Not Found: Ressource nicht gefunden. 500 Internal Server Error: Fehler auf dem Server.",
+      "tags": [
+        "anwendung",
+        "dns",
+        "http",
+        "sockets"
+      ]
+    },
+    {
+      "id": "karte_093",
+      "chapter": "Kapitel 7.1 – Sockets, DNS und HTTP",
+      "question": "Warum enthält ein HTTP-Request den Host-Header?",
+      "answer": "Mehrere Domains können dieselbe IP-Adresse nutzen. Der Host-Header zeigt dem Server, für welche Domain die Anfrage bestimmt ist.",
+      "tags": [
+        "anwendung",
+        "dns",
+        "http",
+        "sockets"
+      ]
+    },
+    {
+      "id": "karte_094",
+      "chapter": "Kapitel 7.1 – Sockets, DNS und HTTP",
+      "question": "Wie läuft der Abruf einer Webseite mit externen Objekten ab?",
+      "answer": "Zuerst wird das HTML-Dokument angefordert. Der Browser analysiert es und sendet weitere Requests für referenzierte Bilder, CSS-, JavaScript- und andere Dateien.",
+      "tags": [
+        "anwendung",
+        "dns",
+        "http",
+        "sockets"
+      ]
+    },
+    {
+      "id": "karte_095",
+      "chapter": "Kapitel 7.1 – Sockets, DNS und HTTP",
+      "question": "Was unterscheidet Pipelining und Multiplexing?",
+      "answer": "HTTP/1.1-Pipelining sendet mehrere Requests hintereinander, Antworten bleiben aber grundsätzlich geordnet. HTTP/2-Multiplexing zerlegt Nachrichten in Frames und überträgt mehrere Streams parallel über eine Verbindung.",
+      "tags": [
+        "anwendung",
+        "dns",
+        "http",
+        "sockets"
+      ]
+    },
+    {
+      "id": "karte_096",
+      "chapter": "Kapitel 7.2 – Sitzungen, Echtzeit, CDN und P2P",
+      "question": "Welche drei Methoden gibt es zur HTTP-Sitzungssteuerung?",
+      "answer": "Cookies, sitzungsbezogene beziehungsweise umgeschriebene URIs und versteckte Formularfelder.",
+      "tags": [
+        "cookies",
+        "cdn",
+        "p2p",
+        "echtzeit"
+      ]
+    },
+    {
+      "id": "karte_097",
+      "chapter": "Kapitel 7.2 – Sitzungen, Echtzeit, CDN und P2P",
+      "question": "Welche Vor- und Nachteile haben Cookies, URI-Rewriting und versteckte Formularfelder?",
+      "answer": "Cookies sind bequem, können aber blockiert oder datenschutzkritisch sein. URI-Rewriting funktioniert ohne Cookies, kann aber Sitzungsdaten in Links offenlegen. Versteckte Felder funktionieren nur innerhalb von Formularabläufen und sind leicht manipulierbar.",
+      "tags": [
+        "cookies",
+        "cdn",
+        "p2p",
+        "echtzeit"
+      ]
+    },
+    {
+      "id": "karte_098",
+      "chapter": "Kapitel 7.2 – Sitzungen, Echtzeit, CDN und P2P",
+      "question": "Wie funktioniert Sitzungssteuerung mit Cookies?",
+      "answer": "Der Server sendet eine Sitzungskennung im Set-Cookie-Header. Der Browser speichert sie und sendet sie bei passenden späteren Requests im Cookie-Header zurück.",
+      "tags": [
+        "cookies",
+        "cdn",
+        "p2p",
+        "echtzeit"
+      ]
+    },
+    {
+      "id": "karte_099",
+      "chapter": "Kapitel 7.2 – Sitzungen, Echtzeit, CDN und P2P",
+      "question": "Wie funktioniert Sitzungssteuerung mit sitzungsbezogenen URIs?",
+      "answer": "Die Sitzungskennung wird in Links beziehungsweise URLs eingebettet und bei jedem Request mitgesendet.",
+      "tags": [
+        "cookies",
+        "cdn",
+        "p2p",
+        "echtzeit"
+      ]
+    },
+    {
+      "id": "karte_100",
+      "chapter": "Kapitel 7.2 – Sitzungen, Echtzeit, CDN und P2P",
+      "question": "Was ist Jitter und wie wird es ausgeglichen?",
+      "answer": "Jitter sind schwankende Paketlaufzeiten. Ein Wiedergabe- beziehungsweise Jitterpuffer sammelt Pakete kurz und gibt sie zeitlich geglättet aus.",
+      "tags": [
+        "cookies",
+        "cdn",
+        "p2p",
+        "echtzeit"
+      ]
+    },
+    {
+      "id": "karte_101",
+      "chapter": "Kapitel 7.2 – Sitzungen, Echtzeit, CDN und P2P",
+      "question": "Welche zwei Lösungen gibt es für die Übertragung umfangreicher Daten?",
+      "answer": "Leistungsfähige verteilte Serverstrukturen wie CDNs und verteilte Peer-to-Peer-Systeme.",
+      "tags": [
+        "cookies",
+        "cdn",
+        "p2p",
+        "echtzeit"
+      ]
+    },
+    {
+      "id": "karte_102",
+      "chapter": "Kapitel 7.2 – Sitzungen, Echtzeit, CDN und P2P",
+      "question": "Wie arbeitet ein CDN?",
+      "answer": "Inhalte werden auf geografisch verteilten Edge-Servern zwischengespeichert. Nutzer werden zu einem geeigneten nahen oder wenig belasteten Server geleitet.",
+      "tags": [
+        "cookies",
+        "cdn",
+        "p2p",
+        "echtzeit"
+      ]
+    },
+    {
+      "id": "karte_103",
+      "chapter": "Kapitel 7.2 – Sitzungen, Echtzeit, CDN und P2P",
+      "question": "Wie findet ein Client einen geeigneten CDN-Server?",
+      "answer": "Zum Beispiel durch DNS-basierte Auswahl oder durch Anycast beziehungsweise eine anwendungsseitige Weiterleitung.",
+      "tags": [
+        "cookies",
+        "cdn",
+        "p2p",
+        "echtzeit"
+      ]
+    },
+    {
+      "id": "karte_104",
+      "chapter": "Kapitel 7.2 – Sitzungen, Echtzeit, CDN und P2P",
+      "question": "Welche Probleme müssen P2P-Netze lösen?",
+      "answer": "Peers mit gewünschten Inhalten finden, wechselnde Teilnehmer und Verfügbarkeit behandeln sowie Last, Fairness und Anreize organisieren.",
+      "tags": [
+        "cookies",
+        "cdn",
+        "p2p",
+        "echtzeit"
+      ]
+    },
+    {
+      "id": "karte_105",
+      "chapter": "Kapitel 7.2 – Sitzungen, Echtzeit, CDN und P2P",
+      "question": "Wie können Peers andere Peers mit gesuchten Inhalten finden?",
+      "answer": "Über einen zentralen Tracker, über Flooding beziehungsweise verteilte Suche oder über strukturierte Distributed Hash Tables.",
+      "tags": [
+        "cookies",
+        "cdn",
+        "p2p",
+        "echtzeit"
+      ]
+    },
+    {
+      "id": "karte_106",
+      "chapter": "Kapitel 7.2 – Sitzungen, Echtzeit, CDN und P2P",
+      "question": "Wie werden Lastverteilung und Anreize in P2P-Netzen umgesetzt?",
+      "answer": "Daten werden von mehreren Quellen parallel geladen und Anfragen verteilt. Anreize entstehen etwa durch Tit-for-Tat, Quoten oder Reputationssysteme.",
+      "tags": [
+        "cookies",
+        "cdn",
+        "p2p",
+        "echtzeit"
+      ]
+    },
+    {
+      "id": "karte_107",
+      "chapter": "Kapitel 8 – Grundlagen der IT-Sicherheit",
+      "question": "Welche Ereignisse gehören zur IT-Sicherheit?",
+      "answer": "Alle Ereignisse, die Vertraulichkeit, Integrität, Verfügbarkeit, Authentizität, Zurechenbarkeit oder Verbindlichkeit von Informationen und Systemen beeinträchtigen.",
+      "tags": [
+        "it-sicherheit",
+        "grundlagen"
+      ]
+    },
+    {
+      "id": "karte_108",
+      "chapter": "Kapitel 8 – Grundlagen der IT-Sicherheit",
+      "question": "Wie unterscheiden sich IT-Sicherheit, Datenschutz und Business Continuity Management?",
+      "answer": "IT-Sicherheit schützt Informationen und Systeme. Datenschutz schützt personenbezogene Daten und Rechte betroffener Personen. BCM stellt den Fortbestand kritischer Geschäftsprozesse bei Störungen sicher.",
+      "tags": [
+        "it-sicherheit",
+        "grundlagen"
+      ]
+    },
+    {
+      "id": "karte_109",
+      "chapter": "Kapitel 8 – Grundlagen der IT-Sicherheit",
+      "question": "Warum ist IT-Sicherheit eine Systemeigenschaft?",
+      "answer": "Sicherheit entsteht aus dem Zusammenspiel von Technik, Konfiguration, Prozessen und Menschen. Ein einzelnes sicheres Bauteil macht das Gesamtsystem nicht automatisch sicher.",
+      "tags": [
+        "it-sicherheit",
+        "grundlagen"
+      ]
+    },
+    {
+      "id": "karte_110",
+      "chapter": "Kapitel 8 – Grundlagen der IT-Sicherheit",
+      "question": "Was unterscheidet Schwachstelle, Bedrohung und Gefährdung?",
+      "answer": "Eine Schwachstelle ist eine ausnutzbare Schwäche. Eine Bedrohung ist ein möglicher schädigender Umstand oder Akteur. Eine Gefährdung entsteht, wenn eine Bedrohung auf eine vorhandene Schwachstelle trifft.",
+      "tags": [
+        "it-sicherheit",
+        "grundlagen"
+      ]
+    },
+    {
+      "id": "karte_111",
+      "chapter": "Kapitel 8 – Grundlagen der IT-Sicherheit",
+      "question": "Welche Herausforderungen gibt es bei der Absicherung von IT-Systemen?",
+      "answer": "Komplexität und Abhängigkeiten, menschliche Fehler, sich ständig verändernde Angriffe sowie der Zielkonflikt zwischen Sicherheit, Kosten und Benutzbarkeit.",
+      "tags": [
+        "it-sicherheit",
+        "grundlagen"
+      ]
+    },
+    {
+      "id": "karte_112",
+      "chapter": "Kapitel 8 – Grundlagen der IT-Sicherheit",
+      "question": "Welche sechs Sicherheitsziele gibt es?",
+      "answer": "Vertraulichkeit, Integrität, Verfügbarkeit, Authentizität, Zurechenbarkeit und Verbindlichkeit beziehungsweise Nichtabstreitbarkeit.",
+      "tags": [
+        "it-sicherheit",
+        "grundlagen"
+      ]
+    },
+    {
+      "id": "karte_113",
+      "chapter": "Kapitel 8 – Grundlagen der IT-Sicherheit",
+      "question": "Wie ordnet man Angriffe Sicherheitszielen zu?",
+      "answer": "Abhören verletzt Vertraulichkeit, Manipulation Integrität, DDoS Verfügbarkeit, Identitätsfälschung Authentizität, fehlende Protokollierung Zurechenbarkeit und Abstreiten einer Signatur Verbindlichkeit.",
+      "tags": [
+        "it-sicherheit",
+        "grundlagen"
+      ]
+    },
+    {
+      "id": "karte_114",
+      "chapter": "Kapitel 8 – Grundlagen der IT-Sicherheit",
+      "question": "Wie findet man einen Beispielangriff zu einem Sicherheitsziel?",
+      "answer": "Frage, was das Ziel garantiert, und konstruiere eine Handlung, die genau diese Garantie bricht, etwa unbefugtes Lesen für Vertraulichkeit.",
+      "tags": [
+        "it-sicherheit",
+        "grundlagen"
+      ]
+    },
+    {
+      "id": "karte_115",
+      "chapter": "Kapitel 8 – Grundlagen der IT-Sicherheit",
+      "question": "Welche Angreifertypen und Motivationen gibt es?",
+      "answer": "Cyberkriminelle handeln meist finanziell, staatliche Akteure strategisch oder geheimdienstlich, Hacktivisten ideologisch. Insider können aus Rache, Vorteil oder Fahrlässigkeit handeln.",
+      "tags": [
+        "it-sicherheit",
+        "grundlagen"
+      ]
+    },
+    {
+      "id": "karte_116",
+      "chapter": "Kapitel 8 – Grundlagen der IT-Sicherheit",
+      "question": "Welche drei groben Schritte verfolgen Kriminelle bei Angriffen?",
+      "answer": "Informationen sammeln und Ziel auswählen, eindringen beziehungsweise Rechte erweitern, anschließend Daten stehlen, Systeme missbrauchen oder den Angriff monetarisieren.",
+      "tags": [
+        "it-sicherheit",
+        "grundlagen"
+      ]
+    },
+    {
+      "id": "karte_117",
+      "chapter": "Kapitel 8 – Grundlagen der IT-Sicherheit",
+      "question": "Welche Möglichkeiten gibt es, in ein System einzudringen?",
+      "answer": "Ausnutzen technischer Schwachstellen, gestohlene Zugangsdaten, Social Engineering beziehungsweise Phishing und infizierte Dateien oder Lieferketten.",
+      "tags": [
+        "it-sicherheit",
+        "grundlagen"
+      ]
+    },
+    {
+      "id": "karte_118",
+      "chapter": "Kapitel 8 – Grundlagen der IT-Sicherheit",
+      "question": "Welche vier Malware-Unterklassen gibt es?",
+      "answer": "Virus: hängt sich an Dateien. Wurm: verbreitet sich selbstständig. Trojaner: tarnt sich als legitime Software. Ransomware: verschlüsselt oder sperrt Daten zur Erpressung.",
+      "tags": [
+        "it-sicherheit",
+        "grundlagen"
+      ]
+    },
+    {
+      "id": "karte_119",
+      "chapter": "Kapitel 8 – Grundlagen der IT-Sicherheit",
+      "question": "Wie werden Angriffe monetarisiert?",
+      "answer": "Durch Erpressung, Verkauf gestohlener Daten oder Zugangsdaten sowie Betrug, Kryptomining oder Vermietung kompromittierter Systeme.",
+      "tags": [
+        "it-sicherheit",
+        "grundlagen"
+      ]
+    },
+    {
+      "id": "karte_120",
+      "chapter": "Kapitel 9 – Authentifikation und sichere Kommunikation",
+      "question": "Was bedeutet rechnerische Sicherheit?",
+      "answer": "Ein Verfahren gilt praktisch als sicher, wenn ein Angriff mit realistisch verfügbaren Rechenressourcen und innerhalb sinnvoller Zeit nicht durchführbar ist.",
+      "tags": [
+        "kryptografie",
+        "authentifikation",
+        "tls",
+        "pki"
+      ]
+    },
+    {
+      "id": "karte_121",
+      "chapter": "Kapitel 9 – Authentifikation und sichere Kommunikation",
+      "question": "Ab welcher Länge gilt ein symmetrischer Schlüssel typischerweise als sicher?",
+      "answer": "128 Bit gelten bei modernen etablierten Algorithmen wie AES grundsätzlich als ausreichend sicher; 256 Bit bieten zusätzliche Reserve.",
+      "tags": [
+        "kryptografie",
+        "authentifikation",
+        "tls",
+        "pki"
+      ]
+    },
+    {
+      "id": "karte_122",
+      "chapter": "Kapitel 9 – Authentifikation und sichere Kommunikation",
+      "question": "Wie funktioniert symmetrische Verschlüsselung?",
+      "answer": "Sender und Empfänger verwenden denselben geheimen Schlüssel zum Ver- und Entschlüsseln. Sie ist schnell, erfordert aber einen sicheren Schlüsselaustausch.",
+      "tags": [
+        "kryptografie",
+        "authentifikation",
+        "tls",
+        "pki"
+      ]
+    },
+    {
+      "id": "karte_123",
+      "chapter": "Kapitel 9 – Authentifikation und sichere Kommunikation",
+      "question": "Wie funktioniert asymmetrische Verschlüsselung?",
+      "answer": "Es gibt ein Schlüsselpaar aus öffentlichem und privatem Schlüssel. Mit dem öffentlichen Schlüssel verschlüsselte Daten können nur mit dem privaten Schlüssel entschlüsselt werden.",
+      "tags": [
+        "kryptografie",
+        "authentifikation",
+        "tls",
+        "pki"
+      ]
+    },
+    {
+      "id": "karte_124",
+      "chapter": "Kapitel 9 – Authentifikation und sichere Kommunikation",
+      "question": "Wie unterscheiden sich symmetrische und asymmetrische Verschlüsselung?",
+      "answer": "Symmetrische Verfahren sind schneller, benötigen aber einen vorab geteilten geheimen Schlüssel. Asymmetrische Verfahren erleichtern Schlüsselaustausch und Signaturen, sind jedoch rechenintensiver.",
+      "tags": [
+        "kryptografie",
+        "authentifikation",
+        "tls",
+        "pki"
+      ]
+    },
+    {
+      "id": "karte_125",
+      "chapter": "Kapitel 9 – Authentifikation und sichere Kommunikation",
+      "question": "Welches zentrale Problem hat symmetrische Verschlüsselung?",
+      "answer": "Der geheime Schlüssel muss vor der Kommunikation sicher zwischen den Parteien verteilt werden.",
+      "tags": [
+        "kryptografie",
+        "authentifikation",
+        "tls",
+        "pki"
+      ]
+    },
+    {
+      "id": "karte_126",
+      "chapter": "Kapitel 9 – Authentifikation und sichere Kommunikation",
+      "question": "Welche Eigenschaften muss eine kryptografische Hashfunktion haben?",
+      "answer": "Einweg-Eigenschaft: Aus dem Hash soll die Eingabe nicht berechenbar sein. Kollisionsresistenz: Es soll praktisch unmöglich sein, zwei Eingaben mit demselben Hash zu finden.",
+      "tags": [
+        "kryptografie",
+        "authentifikation",
+        "tls",
+        "pki"
+      ]
+    },
+    {
+      "id": "karte_127",
+      "chapter": "Kapitel 9 – Authentifikation und sichere Kommunikation",
+      "question": "Welche Sicherheitsziele erreichen Verschlüsselung, Hash und Signatur?",
+      "answer": "Verschlüsselung schützt vor allem Vertraulichkeit. Hashes unterstützen Integritätsprüfung. Digitale Signaturen liefern Integrität, Authentizität und Nichtabstreitbarkeit.",
+      "tags": [
+        "kryptografie",
+        "authentifikation",
+        "tls",
+        "pki"
+      ]
+    },
+    {
+      "id": "karte_128",
+      "chapter": "Kapitel 9 – Authentifikation und sichere Kommunikation",
+      "question": "Wie funktioniert eine digitale Signatur?",
+      "answer": "Der Sender bildet einen Hash der Nachricht und signiert ihn mit seinem privaten Schlüssel. Der Empfänger prüft die Signatur mit dem öffentlichen Schlüssel und vergleicht den Hash.",
+      "tags": [
+        "kryptografie",
+        "authentifikation",
+        "tls",
+        "pki"
+      ]
+    },
+    {
+      "id": "karte_129",
+      "chapter": "Kapitel 9 – Authentifikation und sichere Kommunikation",
+      "question": "Was unterscheidet asymmetrische Verschlüsselung und digitale Signatur?",
+      "answer": "Bei Verschlüsselung wird mit dem öffentlichen Schlüssel des Empfängers verschlüsselt und privat entschlüsselt. Bei Signaturen wird privat signiert und öffentlich geprüft.",
+      "tags": [
+        "kryptografie",
+        "authentifikation",
+        "tls",
+        "pki"
+      ]
+    },
+    {
+      "id": "karte_130",
+      "chapter": "Kapitel 9 – Authentifikation und sichere Kommunikation",
+      "question": "Welche drei Authentifikationsmerkmale gibt es?",
+      "answer": "Wissen, zum Beispiel Passwort; Besitz, zum Beispiel Token oder Smartphone; Sein, also biometrische Merkmale wie Fingerabdruck.",
+      "tags": [
+        "kryptografie",
+        "authentifikation",
+        "tls",
+        "pki"
+      ]
+    },
+    {
+      "id": "karte_131",
+      "chapter": "Kapitel 9 – Authentifikation und sichere Kommunikation",
+      "question": "Wie sollten Passwörter sicher gespeichert werden?",
+      "answer": "Mit einer langsamen Passwort-Hashfunktion wie Argon2, bcrypt oder scrypt, mit individuellem zufälligem Salt und geeigneten Kostenparametern; niemals im Klartext.",
+      "tags": [
+        "kryptografie",
+        "authentifikation",
+        "tls",
+        "pki"
+      ]
+    },
+    {
+      "id": "karte_132",
+      "chapter": "Kapitel 9 – Authentifikation und sichere Kommunikation",
+      "question": "Welche Funktion hat ein Zertifikat?",
+      "answer": "Ein digitales Zertifikat bindet einen öffentlichen Schlüssel an eine Identität und wird von einer vertrauenswürdigen Zertifizierungsstelle digital signiert.",
+      "tags": [
+        "kryptografie",
+        "authentifikation",
+        "tls",
+        "pki"
+      ]
+    },
+    {
+      "id": "karte_133",
+      "chapter": "Kapitel 9 – Authentifikation und sichere Kommunikation",
+      "question": "Was ist eine Public-Key-Infrastruktur?",
+      "answer": "Eine PKI verwaltet Zertifikate, Zertifizierungsstellen, Vertrauenskette, Ausstellung, Prüfung und Sperrung öffentlicher Schlüssel.",
+      "tags": [
+        "kryptografie",
+        "authentifikation",
+        "tls",
+        "pki"
+      ]
+    },
+    {
+      "id": "karte_134",
+      "chapter": "Kapitel 9 – Authentifikation und sichere Kommunikation",
+      "question": "Wie wird das Zertifikat einer Webseite geprüft?",
+      "answer": "Browser prüft Domainname, Gültigkeitszeitraum, Signaturkette bis zu einer vertrauenswürdigen Root-CA und gegebenenfalls den Sperrstatus.",
+      "tags": [
+        "kryptografie",
+        "authentifikation",
+        "tls",
+        "pki"
+      ]
+    },
+    {
+      "id": "karte_135",
+      "chapter": "Kapitel 9 – Authentifikation und sichere Kommunikation",
+      "question": "Welche Aufgabe hat TLS?",
+      "answer": "TLS schützt die Kommunikation zwischen Anwendungen durch Verschlüsselung, Integritätsschutz und Authentifikation, meist mindestens des Servers.",
+      "tags": [
+        "kryptografie",
+        "authentifikation",
+        "tls",
+        "pki"
+      ]
+    },
+    {
+      "id": "karte_136",
+      "chapter": "Kapitel 9 – Authentifikation und sichere Kommunikation",
+      "question": "Welche kryptografischen Verfahren kombiniert TLS?",
+      "answer": "Asymmetrische Verfahren beziehungsweise Schlüsselaustausch zur Authentifikation und Schlüsselvereinbarung, symmetrische Verschlüsselung für Nutzdaten und Hash-/MAC- beziehungsweise AEAD-Verfahren für Integrität.",
+      "tags": [
+        "kryptografie",
+        "authentifikation",
+        "tls",
+        "pki"
+      ]
+    },
+    {
+      "id": "karte_137",
+      "chapter": "Kapitel 10 – Netzwerksicherheit: Firewalls",
+      "question": "Welche Funktion hat eine Firewall?",
+      "answer": "Sie kontrolliert Netzwerkverkehr anhand definierter Regeln und erlaubt, blockiert oder protokolliert Verbindungen zwischen Sicherheitszonen.",
+      "tags": [
+        "firewall",
+        "netzwerksicherheit"
+      ]
+    },
+    {
+      "id": "karte_138",
+      "chapter": "Kapitel 10 – Netzwerksicherheit: Firewalls",
+      "question": "Wie findet und korrigiert man Fehler in Stateful-Firewallregeln?",
+      "answer": "Prüfe Richtung, Quell- und Zielnetz, Protokoll, Ports, Reihenfolge und Verbindungszustand. Erlaube nur notwendige neue Verbindungen; Rückverkehr etablierter Verbindungen wird zustandsbezogen erlaubt.",
+      "tags": [
+        "firewall",
+        "netzwerksicherheit"
+      ]
+    },
+    {
+      "id": "karte_139",
+      "chapter": "Kapitel 10 – Netzwerksicherheit: Firewalls",
+      "question": "Was unterscheidet Packet Filter, Stateful Firewall und Application Layer Gateway?",
+      "answer": "Packet Filter prüfen vor allem Headerfelder. Stateful Firewalls berücksichtigen zusätzlich den Verbindungszustand. Application Layer Gateways analysieren Inhalte und Protokollsemantik der Anwendungsschicht.",
+      "tags": [
+        "firewall",
+        "netzwerksicherheit"
+      ]
+    },
+    {
+      "id": "karte_140",
+      "chapter": "Kapitel 10 – Netzwerksicherheit: Firewalls",
+      "question": "Was ist eine DMZ?",
+      "answer": "Eine DMZ ist ein separates Netzsegment für öffentlich erreichbare Dienste. Sie trennt diese Systeme vom internen Netz und begrenzt Schäden bei einer Kompromittierung.",
+      "tags": [
+        "firewall",
+        "netzwerksicherheit"
+      ]
+    },
+    {
+      "id": "karte_141",
+      "chapter": "Kapitel 11 – Sicherheitsstandards und Gesetze",
+      "question": "Wie unterscheiden sich Gesetze und Standards?",
+      "answer": "Gesetze sind rechtlich verbindliche Vorgaben. Standards beschreiben anerkannte technische oder organisatorische Vorgehensweisen und helfen, gesetzliche Anforderungen systematisch umzusetzen.",
+      "tags": [
+        "standards",
+        "gesetze",
+        "nis2"
+      ]
+    },
+    {
+      "id": "karte_142",
+      "chapter": "Kapitel 11 – Sicherheitsstandards und Gesetze",
+      "question": "Nenne drei Gesetze oder Rechtsakte mit Vorgaben zur IT-Sicherheit.",
+      "answer": "Zum Beispiel BSI-Gesetz, NIS-2-Umsetzung beziehungsweise NIS-2-Richtlinie und Datenschutz-Grundverordnung mit Anforderungen an die Sicherheit der Verarbeitung.",
+      "tags": [
+        "standards",
+        "gesetze",
+        "nis2"
+      ]
+    },
+    {
+      "id": "karte_143",
+      "chapter": "Kapitel 11 – Sicherheitsstandards und Gesetze",
+      "question": "Nenne drei Standards zur IT-Sicherheit.",
+      "answer": "ISO/IEC 27001 für Informationssicherheitsmanagement, BSI IT-Grundschutz und Common Criteria für die Sicherheitsbewertung von IT-Produkten.",
+      "tags": [
+        "standards",
+        "gesetze",
+        "nis2"
+      ]
+    },
+    {
+      "id": "karte_144",
+      "chapter": "Kapitel 11 – Sicherheitsstandards und Gesetze",
+      "question": "Warum trennt Common Criteria Protection Profiles und Evaluation Assurance Levels?",
+      "answer": "Protection Profiles beschreiben Sicherheitsanforderungen für eine Produktklasse. Evaluation Assurance Levels geben an, wie tief und streng geprüft wurde.",
+      "tags": [
+        "standards",
+        "gesetze",
+        "nis2"
+      ]
+    },
+    {
+      "id": "karte_145",
+      "chapter": "Kapitel 11 – Sicherheitsstandards und Gesetze",
+      "question": "Nenne zwei Anforderungen der NIS-2-Richtlinie.",
+      "answer": "Organisationen müssen angemessene Risikomanagement- und Sicherheitsmaßnahmen umsetzen sowie erhebliche Sicherheitsvorfälle innerhalb vorgeschriebener Fristen melden.",
+      "tags": [
+        "standards",
+        "gesetze",
+        "nis2"
+      ]
+    }
+  ]
+}

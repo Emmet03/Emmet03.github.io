@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lernkarten – Kommunikationsprotokolle</title>
+  <style>
+    :root {
+      --bg: #f3f5f9;
+      --panel: #ffffff;
+      --panel-soft: #f8fafc;
+      --text: #172033;
+      --muted: #667085;
+      --border: #dfe4ec;
+      --primary: #315efb;
+      --primary-dark: #2447c7;
+      --success: #15803d;
+      --warning: #b45309;
+      --danger: #b42318;
+      --shadow: 0 18px 50px rgba(16, 24, 40, 0.12);
+      --radius: 20px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(49, 94, 251, 0.12), transparent 32%),
+        linear-gradient(180deg, #f7f8fb 0%, var(--bg) 100%);
+    }
+
+    button,
+    select,
+    input {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .app {
+      width: min(1100px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 28px 0 48px;
+    }
+
+    .topbar {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .title-group h1 {
+      margin: 0 0 6px;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      line-height: 1.1;
+    }
+
+    .title-group p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .status-badge {
+      white-space: nowrap;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.8);
+      border-radius: 999px;
+      padding: 9px 13px;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .panel {
+      background: rgba(255, 255, 255, 0.93);
+      border: 1px solid rgba(223, 228, 236, 0.9);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .loader-panel {
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .loader-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .file-input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .button {
+      border: 0;
+      border-radius: 12px;
+      padding: 11px 15px;
+      font-weight: 700;
+      transition: transform 0.15s ease, background 0.15s ease, opacity 0.15s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-1px);
+    }
+
+    .button:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+      transform: none;
+    }
+
+    .button-primary {
+      color: white;
+      background: var(--primary);
+    }
+
+    .button-primary:hover {
+      background: var(--primary-dark);
+    }
+
+    .button-secondary {
+      color: var(--text);
+      background: #eef2f7;
+      border: 1px solid var(--border);
+    }
+
+    .button-success {
+      color: white;
+      background: var(--success);
+    }
+
+    .button-warning {
+      color: white;
+      background: var(--warning);
+    }
+
+    .button-danger {
+      color: white;
+      background: var(--danger);
+    }
+
+    .hint {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: minmax(220px, 1fr) minmax(180px, 0.7fr) auto auto;
+      gap: 12px;
+      padding: 16px;
+      margin-bottom: 20px;
+    }
+
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    label {
+      color: var(--muted);
+      font-size: 0.84rem;
+      font-weight: 700;
+    }
+
+    select {
+      width: 100%;
+      min-height: 44px;
+      padding: 0 12px;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      background: white;
+      color: var(--text);
+    }
+
+    .card-area {
+      padding: 18px;
+    }
+
+    .progress-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .progress-track {
+      flex: 1;
+      height: 10px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: #e8edf5;
+    }
+
+    .progress-bar {
+      width: 0%;
+      height: 100%;
+      background: var(--primary);
+      transition: width 0.25s ease;
+    }
+
+    .progress-text {
+      min-width: 110px;
+      text-align: right;
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .flashcard {
+      position: relative;
+      min-height: 410px;
+      perspective: 1200px;
+      user-select: none;
+    }
+
+    .flashcard-inner {
+      position: absolute;
+      inset: 0;
+      transition: transform 0.5s ease;
+      transform-style: preserve-3d;
+    }
+
+    .flashcard.is-flipped .flashcard-inner {
+      transform: rotateY(180deg);
+    }
+
+    .card-face {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      padding: clamp(24px, 5vw, 48px);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.98), rgba(247,249,252,0.98));
+      backface-visibility: hidden;
+      overflow: auto;
+    }
+
+    .card-back {
+      transform: rotateY(180deg);
+      background:
+        linear-gradient(145deg, rgba(245,248,255,0.98), rgba(255,255,255,0.98));
+    }
+
+    .eyebrow {
+      margin: 0 0 14px;
+      color: var(--primary);
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .card-face h2 {
+      margin: auto 0;
+      font-size: clamp(1.45rem, 4vw, 2.35rem);
+      line-height: 1.3;
+      text-wrap: balance;
+    }
+
+    .answer {
+      margin: auto 0;
+      font-size: clamp(1.05rem, 2.8vw, 1.35rem);
+      line-height: 1.65;
+      white-space: pre-line;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 22px;
+    }
+
+    .tag {
+      border-radius: 999px;
+      padding: 6px 10px;
+      color: #475467;
+      background: #eef2f7;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .flip-hint {
+      margin-top: 18px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .navigation {
+      display: grid;
+      grid-template-columns: auto auto 1fr auto auto;
+      gap: 10px;
+      align-items: center;
+      margin-top: 16px;
+    }
+
+    .score {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .empty-state {
+      display: grid;
+      min-height: 360px;
+      place-items: center;
+      padding: 32px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .keyboard-help {
+      margin-top: 14px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.82rem;
+    }
+
+    @media (max-width: 800px) {
+      .topbar {
+        flex-direction: column;
+      }
+
+      .controls {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .navigation {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .navigation .score {
+        grid-column: 1 / -1;
+        grid-row: 1;
+      }
+
+      .flashcard {
+        min-height: 470px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .app {
+        width: min(100% - 18px, 1100px);
+        padding-top: 14px;
+      }
+
+      .controls {
+        grid-template-columns: 1fr;
+      }
+
+      .card-area,
+      .loader-panel {
+        padding: 12px;
+      }
+
+      .navigation {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div class="title-group">
+        <h1>Lernkarten</h1>
+        <p id="subtitle">Kommunikationsprotokolle</p>
+      </div>
+      <div class="status-badge" id="loadStatus">Noch keine Daten geladen</div>
+    </header>
+
+    <section class="panel loader-panel" id="loaderPanel">
+      <div class="loader-row">
+        <button class="button button-primary" id="autoLoadButton">JSON automatisch laden</button>
+        <label class="button button-secondary" for="jsonFile">JSON-Datei auswählen</label>
+        <input class="file-input" id="jsonFile" type="file" accept=".json,application/json" />
+      </div>
+      <p class="hint">
+        Lege diese HTML-Datei zusammen mit <strong>lernkarten_kommunikationsprotokolle.json</strong>
+        in denselben Ordner. Falls dein Browser lokale Dateien nicht automatisch laden darf,
+        wähle die JSON-Datei über den zweiten Button aus.
+      </p>
+    </section>
+
+    <section class="panel controls hidden" id="controls">
+      <div class="control-group">
+        <label for="chapterFilter">Kapitel</label>
+        <select id="chapterFilter">
+          <option value="all">Alle Kapitel</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label for="modeSelect">Reihenfolge</label>
+        <select id="modeSelect">
+          <option value="normal">Normal</option>
+          <option value="shuffle">Gemischt</option>
+          <option value="unknown">Nur unsichere Karten</option>
+        </select>
+      </div>
+
+      <button class="button button-secondary" id="restartButton">Neu starten</button>
+      <button class="button button-secondary" id="resetScoreButton">Bewertung löschen</button>
+    </section>
+
+    <section class="panel card-area">
+      <div id="studyView" class="hidden">
+        <div class="progress-row">
+          <div class="progress-track" aria-label="Fortschritt">
+            <div class="progress-bar" id="progressBar"></div>
+          </div>
+          <div class="progress-text" id="progressText">0 / 0</div>
+        </div>
+
+        <article class="flashcard" id="flashcard" tabindex="0" aria-label="Lernkarte">
+          <div class="flashcard-inner">
+            <section class="card-face card-front">
+              <p class="eyebrow" id="frontChapter"></p>
+              <h2 id="questionText"></h2>
+              <div class="tags" id="frontTags"></div>
+            </section>
+
+            <section class="card-face card-back">
+              <p class="eyebrow">Antwort</p>
+              <div class="answer" id="answerText"></div>
+              <div class="tags" id="backTags"></div>
+            </section>
+          </div>
+        </article>
+
+        <div class="flip-hint">Karte anklicken oder Leertaste drücken, um sie umzudrehen.</div>
+
+        <div class="navigation">
+          <button class="button button-secondary" id="prevButton">← Zurück</button>
+          <button class="button button-warning" id="unknownButton">Unsicher</button>
+          <div class="score" id="scoreText">0 sicher · 0 unsicher</div>
+          <button class="button button-success" id="knownButton">Gewusst</button>
+          <button class="button button-secondary" id="nextButton">Weiter →</button>
+        </div>
+
+        <div class="keyboard-help">
+          Tastatur: Leertaste = drehen · ←/→ = wechseln · 1 = unsicher · 2 = gewusst
+        </div>
+      </div>
+
+      <div class="empty-state" id="emptyState">
+        <div>
+          <h2>Noch keine Lernkarten geladen</h2>
+          <p>Lade die JSON-Datei, um zu starten.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const DEFAULT_JSON_FILE = "lernkarten_kommunikationsprotokolle.json";
+
+    let allCards = [];
+    let visibleCards = [];
+    let currentIndex = 0;
+    let flipped = false;
+    let ratings = loadRatings();
+
+    const elements = {
+      autoLoadButton: document.getElementById("autoLoadButton"),
+      jsonFile: document.getElementById("jsonFile"),
+      loadStatus: document.getElementById("loadStatus"),
+      subtitle: document.getElementById("subtitle"),
+      controls: document.getElementById("controls"),
+      chapterFilter: document.getElementById("chapterFilter"),
+      modeSelect: document.getElementById("modeSelect"),
+      restartButton: document.getElementById("restartButton"),
+      resetScoreButton: document.getElementById("resetScoreButton"),
+      studyView: document.getElementById("studyView"),
+      emptyState: document.getElementById("emptyState"),
+      flashcard: document.getElementById("flashcard"),
+      frontChapter: document.getElementById("frontChapter"),
+      questionText: document.getElementById("questionText"),
+      answerText: document.getElementById("answerText"),
+      frontTags: document.getElementById("frontTags"),
+      backTags: document.getElementById("backTags"),
+      progressBar: document.getElementById("progressBar"),
+      progressText: document.getElementById("progressText"),
+      scoreText: document.getElementById("scoreText"),
+      prevButton: document.getElementById("prevButton"),
+      nextButton: document.getElementById("nextButton"),
+      unknownButton: document.getElementById("unknownButton"),
+      knownButton: document.getElementById("knownButton")
+    };
+
+    elements.autoLoadButton.addEventListener("click", autoLoadJson);
+    elements.jsonFile.addEventListener("change", handleFileSelection);
+    elements.flashcard.addEventListener("click", toggleFlip);
+    elements.prevButton.addEventListener("click", showPrevious);
+    elements.nextButton.addEventListener("click", showNext);
+    elements.unknownButton.addEventListener("click", () => rateCurrent("unknown"));
+    elements.knownButton.addEventListener("click", () => rateCurrent("known"));
+    elements.chapterFilter.addEventListener("change", applyFilters);
+    elements.modeSelect.addEventListener("change", applyFilters);
+    elements.restartButton.addEventListener("click", restartDeck);
+    elements.resetScoreButton.addEventListener("click", resetRatings);
+
+    document.addEventListener("keydown", (event) => {
+      const activeTag = document.activeElement?.tagName?.toLowerCase();
+      if (activeTag === "select" || activeTag === "input") return;
+      if (!visibleCards.length) return;
+
+      if (event.code === "Space") {
+        event.preventDefault();
+        toggleFlip();
+      } else if (event.key === "ArrowLeft") {
+        showPrevious();
+      } else if (event.key === "ArrowRight") {
+        showNext();
+      } else if (event.key === "1") {
+        rateCurrent("unknown");
+      } else if (event.key === "2") {
+        rateCurrent("known");
+      }
+    });
+
+    async function autoLoadJson() {
+      setStatus("Lade JSON …");
+      try {
+        const response = await fetch(DEFAULT_JSON_FILE, { cache: "no-store" });
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+        const data = await response.json();
+        initializeData(data);
+      } catch (error) {
+        setStatus("Automatisches Laden blockiert");
+        alert(
+          "Die JSON-Datei konnte nicht automatisch geladen werden. " +
+          "Das ist bei lokal geöffneten HTML-Dateien normal. " +
+          "Bitte wähle die JSON-Datei über „JSON-Datei auswählen“ aus."
+        );
+      }
+    }
+
+    async function handleFileSelection(event) {
+      const file = event.target.files?.[0];
+      if (!file) return;
+
+      setStatus("Lese Datei …");
+      try {
+        const text = await file.text();
+        const data = JSON.parse(text);
+        initializeData(data);
+      } catch (error) {
+        setStatus("Ungültige JSON-Datei");
+        alert("Die ausgewählte Datei konnte nicht als gültige Lernkarten-JSON gelesen werden.");
+      }
+    }
+
+    function initializeData(data) {
+      const cards = Array.isArray(data) ? data : data.cards;
+
+      if (!Array.isArray(cards) || cards.length === 0) {
+        throw new Error("Keine Karten gefunden.");
+      }
+
+      const invalid = cards.some(card =>
+        !card ||
+        typeof card.question !== "string" ||
+        typeof card.answer !== "string"
+      );
+
+      if (invalid) {
+        throw new Error("Mindestens eine Karte hat nicht das erwartete Format.");
+      }
+
+      allCards = cards.map((card, index) => ({
+        id: card.id || `karte_${index + 1}`,
+        chapter: card.chapter || "Ohne Kapitel",
+        question: card.question,
+        answer: card.answer,
+        tags: Array.isArray(card.tags) ? card.tags : []
+      }));
+
+      elements.subtitle.textContent = data.title || "Kommunikationsprotokolle";
+      setStatus(`${allCards.length} Karten geladen`);
+      populateChapterFilter();
+      elements.controls.classList.remove("hidden");
+      elements.studyView.classList.remove("hidden");
+      elements.emptyState.classList.add("hidden");
+      applyFilters();
+    }
+
+    function populateChapterFilter() {
+      const currentValue = elements.chapterFilter.value;
+      const chapters = [...new Set(allCards.map(card => card.chapter))];
+
+      elements.chapterFilter.innerHTML = '<option value="all">Alle Kapitel</option>';
+
+      for (const chapter of chapters) {
+        const option = document.createElement("option");
+        option.value = chapter;
+        option.textContent = chapter;
+        elements.chapterFilter.appendChild(option);
+      }
+
+      if ([...elements.chapterFilter.options].some(o => o.value === currentValue)) {
+        elements.chapterFilter.value = currentValue;
+      }
+    }
+
+    function applyFilters() {
+      const chapter = elements.chapterFilter.value;
+      const mode = elements.modeSelect.value;
+
+      visibleCards = allCards.filter(card => {
+        const chapterMatches = chapter === "all" || card.chapter === chapter;
+        const ratingMatches = mode !== "unknown" || ratings[card.id] === "unknown";
+        return chapterMatches && ratingMatches;
+      });
+
+      if (mode === "shuffle") {
+        visibleCards = shuffle([...visibleCards]);
+      }
+
+      currentIndex = 0;
+      flipped = false;
+      renderCard();
+    }
+
+    function restartDeck() {
+      currentIndex = 0;
+      flipped = false;
+
+      if (elements.modeSelect.value === "shuffle") {
+        visibleCards = shuffle([...visibleCards]);
+      }
+
+      renderCard();
+    }
+
+    function renderCard() {
+      if (!visibleCards.length) {
+        elements.studyView.classList.add("hidden");
+        elements.emptyState.classList.remove("hidden");
+        elements.emptyState.innerHTML = `
+          <div>
+            <h2>Keine Karten in dieser Auswahl</h2>
+            <p>Ändere Kapitel oder Reihenfolge. Für „Nur unsichere Karten“ musst du zuerst Karten als unsicher markieren.</p>
+          </div>
+        `;
+        return;
+      }
+
+      elements.studyView.classList.remove("hidden");
+      elements.emptyState.classList.add("hidden");
+
+      const card = visibleCards[currentIndex];
+      elements.frontChapter.textContent = card.chapter;
+      elements.questionText.textContent = card.question;
+      elements.answerText.textContent = card.answer;
+      renderTags(elements.frontTags, card.tags);
+      renderTags(elements.backTags, card.tags);
+
+      flipped = false;
+      elements.flashcard.classList.remove("is-flipped");
+
+      const position = currentIndex + 1;
+      const total = visibleCards.length;
+      const percent = (position / total) * 100;
+
+      elements.progressText.textContent = `${position} / ${total}`;
+      elements.progressBar.style.width = `${percent}%`;
+
+      elements.prevButton.disabled = currentIndex === 0;
+      elements.nextButton.disabled = currentIndex === total - 1;
+
+      updateScore();
+      updateRatingButtons(card.id);
+    }
+
+    function renderTags(container, tags) {
+      container.innerHTML = "";
+      for (const tagText of tags) {
+        const tag = document.createElement("span");
+        tag.className = "tag";
+        tag.textContent = tagText;
+        container.appendChild(tag);
+      }
+    }
+
+    function toggleFlip() {
+      flipped = !flipped;
+      elements.flashcard.classList.toggle("is-flipped", flipped);
+    }
+
+    function showPrevious() {
+      if (currentIndex > 0) {
+        currentIndex--;
+        renderCard();
+      }
+    }
+
+    function showNext() {
+      if (currentIndex < visibleCards.length - 1) {
+        currentIndex++;
+        renderCard();
+      }
+    }
+
+    function rateCurrent(value) {
+      const card = visibleCards[currentIndex];
+      if (!card) return;
+
+      ratings[card.id] = value;
+      saveRatings();
+      updateScore();
+      updateRatingButtons(card.id);
+
+      if (elements.modeSelect.value === "unknown" && value === "known") {
+        applyFilters();
+        return;
+      }
+
+      if (currentIndex < visibleCards.length - 1) {
+        currentIndex++;
+        renderCard();
+      }
+    }
+
+    function updateRatingButtons(cardId) {
+      const rating = ratings[cardId];
+      elements.unknownButton.textContent = rating === "unknown" ? "✓ Unsicher" : "Unsicher";
+      elements.knownButton.textContent = rating === "known" ? "✓ Gewusst" : "Gewusst";
+    }
+
+    function updateScore() {
+      const ids = new Set(allCards.map(card => card.id));
+      let known = 0;
+      let unknown = 0;
+
+      for (const [id, value] of Object.entries(ratings)) {
+        if (!ids.has(id)) continue;
+        if (value === "known") known++;
+        if (value === "unknown") unknown++;
+      }
+
+      elements.scoreText.textContent = `${known} sicher · ${unknown} unsicher`;
+    }
+
+    function resetRatings() {
+      const confirmed = confirm("Alle Bewertungen wirklich löschen?");
+      if (!confirmed) return;
+
+      ratings = {};
+      saveRatings();
+      applyFilters();
+    }
+
+    function loadRatings() {
+      try {
+        return JSON.parse(localStorage.getItem("lernkartenRatings") || "{}");
+      } catch {
+        return {};
+      }
+    }
+
+    function saveRatings() {
+      localStorage.setItem("lernkartenRatings", JSON.stringify(ratings));
+    }
+
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    function setStatus(text) {
+      elements.loadStatus.textContent = text;
+    }
+
+    // Automatischer Versuch beim Start.
+    window.addEventListener("DOMContentLoaded", autoLoadJson);
+  </script>
+</body>
+</html>
