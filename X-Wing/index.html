@@ -36,9 +36,10 @@
       box-shadow: inset 0 0 12px #0008, 0 0 12px #0008;
       transition: transform .14s, filter .14s, box-shadow .14s;
     }
-    .control:hover { filter: brightness(1.2); box-shadow: 0 0 15px #e1ebca30; }
-    .control:active, .control.is-active { transform: translateY(2px); box-shadow: 0 0 14px #f131246b; }
-    .control:focus-visible, .player-btn:focus-visible, .timeline:focus-visible { outline: 2px solid #f0e823; outline-offset: 5px; }
+    button.control:hover { filter: brightness(1.2); box-shadow: 0 0 15px #e1ebca30; }
+    button.control:active, .control.is-active { transform: translateY(2px); box-shadow: 0 0 14px #f131246b; }
+    .control:focus-visible, .player-btn:focus-visible, .timeline:focus-visible,
+    .led:focus-visible, .help-close:focus-visible { outline: 2px solid #f0e823; outline-offset: 5px; }
     .control.light { background: #a9ad9b; color: #050706; }
     .control.blue { background: #9bbcc5; color: #000; }
     .control.red { background: #96251c; color: #170806; }
@@ -48,13 +49,18 @@
     .control.right-control { background: #c2d1cf; }
     .control.right-control .glyph-disc { fill: #f6eafa; stroke: #ded1e8; }
     .indicators { display: grid; grid-template-columns: repeat(5, 21px); gap: 15px 13px; margin-left: -8px; }
-    .led { width: 20px; height: 20px; border: 2px solid #10130a; border-radius: 3px; background: #21281f; }
+    .led { width: 20px; height: 20px; padding: 0; border: 2px solid #10130a; border-radius: 3px; background: #21281f; }
     .led.on-green { background: #1bee06; box-shadow: 0 0 8px #13ff00, inset 0 0 8px #cbff6c; }
     .led.on-blue { background: #01a8ff; box-shadow: 0 0 8px #0490ff; }
     .led.on-red { background: #ff252a; box-shadow: 0 0 8px #ff272b; }
     .led.on-yellow { background: #ffd31b; box-shadow: 0 0 9px #ffd31b; }
     .led.on-amber { background: #aa7908; box-shadow: 0 0 6px #dc9a06; }
     .led.off { opacity: 0.05; }
+    button.led:hover { filter: brightness(1.35); }
+    button.led:active, button.led.is-active { transform: translateY(2px); }
+    @media (prefers-reduced-motion: no-preference) {
+      .led.is-blinking:not(:hover, :focus-visible, .is-active) { filter: brightness(.28); }
+    }
     .monitor-shell { padding: 15px 17px 20px; border-radius: 31px;
       border-left: 7px solid #162521; border-right: 6px solid #253c45;
       box-shadow: inset 0 0 0 4px #050705, 0 0 0 3px #050907, 0 12px 35px #000c;
@@ -88,7 +94,7 @@
     .player-btn { border: 0; color: var(--red); background: transparent; display: grid; place-items: center;
       width: 37px; height: 37px; flex: 0 0 37px; padding: 3px; }
     .player-btn svg { width: 28px; height: 28px; fill: currentColor; filter: drop-shadow(0 0 4px #f32b20); }
-    .player-btn:hover { color: #ff6755; }
+    button.player-btn:hover { color: #ff6755; }
     .transport { min-width: 0; flex: 1; }
     .timeline-row { display: flex; align-items: center; gap: 7px; }
     .time { font-size: 12px; font-weight: 700; font-variant-numeric: tabular-nums; min-width: 35px; text-shadow: 0 0 4px #ff3125; }
@@ -100,23 +106,66 @@
     .timeline::-moz-range-progress { height: 4px; background: #ed3825; }
     .timeline::-moz-range-thumb { width: 9px; height: 14px; border-radius: 0; background: #ff4f32; border: 1px solid #ffb751; }
     .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    .help-dialog {
+      width: min(calc(100% - 32px), 39rem); max-height: calc(100% - 32px);
+      padding: clamp(18px, 4vw, 32px); border: 2px solid var(--yellow); border-radius: 16px;
+      color: var(--cream); background: radial-gradient(ellipse at top, #222a17, #10140d 74%);
+      box-shadow: 0 0 16px #e3eb1b55, inset 0 0 24px #0009; line-height: 1.45;
+    }
+    .help-dialog::backdrop { background: #020302d9; }
+    .help-dialog h2, .help-dialog h3 { color: var(--yellow); }
+    .help-dialog h2 { margin: 0 0 18px; font-size: 1.5rem; }
+    .help-dialog h3 { margin: 18px 0 8px; font-size: 1rem; }
+    .help-legend { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); margin: 0; font-size: .9rem; }
+    .help-legend dt, .help-legend dd { margin: 0; padding: 6px 0; border-bottom: 1px solid #e6dd1933; overflow-wrap: anywhere; }
+    .help-legend dt { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; padding-right: 8px; }
+    .help-legend dd { align-content: center; color: #f3dd79; }
+    .control.help-key { flex: none; width: 27px; padding: 3px; }
+    .right-control.help-key { color: ButtonText; }
+    .player-btn.help-key { width: 24px; height: 24px; flex-basis: 24px; padding: 0; }
+    .player-btn.help-key svg { width: 18px; height: 18px; }
+    .help-leds { display: inline-grid; grid-template-columns: repeat(5, 8px); gap: 3px; padding: 2px; }
+    .help-leds .led { width: 8px; height: 8px; border-width: 1px; border-radius: 2px; }
+    .help-control-icons { display: inline-flex; gap: 4px; align-items: center; vertical-align: middle; }
+    .help-controls { display: grid; gap: 8px; padding-left: 20px; margin: 0; font-size: .9rem; }
+    .help-controls strong { color: #ff8b7c; }
+    .help-close { margin-top: 22px; padding: 7px 14px; border: 1px solid var(--yellow); border-radius: 4px; color: var(--yellow); background: #242810; }
+    .help-close:hover { background: #393d15; }
     .right .stack { display: flex; flex-direction: column; gap: 22px; }
     .right .button-row .control.red { margin-left: 15px; }
     @media (max-width: 950px) {
       .console { grid-template-columns: 1fr; gap: 24px; min-height: 0; padding: 16px; }
       .monitor-shell { order: 0; max-width: 750px; width: 100%; justify-self: center; }
-      .side { flex-direction: row; justify-content: center; flex-wrap: wrap; gap: 18px; padding: 0 !important; }
-      .side.left { order: 1; } .side.right { order: 2; align-items: center; }
+      .side { flex-direction: row; justify-content: center; flex-wrap: wrap; gap: 18px; }
+      .side.left { order: 1; padding-top: 0; } .side.right { order: 2; align-items: center; }
       .side.right .stack { flex-direction: row; gap: 18px; }
       .button-row { gap: 15px; } .right .button-row .control.red { margin: 0; }
       .control { width: 65px; } .indicators { align-self: center; }
     }
     @media (max-width: 550px) {
       .monitor { min-height: 330px; } .monitor-shell { padding: 9px; border-radius: 18px; }
+      .control { width: 57px; } .side.right .stack { gap: 8px; }
+    }
+    @media (max-width: 550px), (orientation: landscape) and (max-width: 1100px) {
       .player { width: 95%; padding: 7px; gap: 3px; margin-bottom: 8px; border-width: 2px; border-radius: 12px; }
       .time { font-size: 10px; min-width: 28px; }
       .player-btn { width: 27px; height: 30px; flex-basis: 27px; } .player-btn svg { width: 20px; height: 20px; }
-      .control { width: 57px; } .side.right .stack { gap: 8px; }
+    }
+    @media (orientation: landscape) and (max-width: 1100px) {
+      body { min-height: 100svh; }
+      .console { grid-template-columns: auto minmax(0, 1fr) auto; min-height: 0; gap: clamp(8px, 1.5vw, 16px); padding: 12px; }
+      .monitor-shell { width: 100%; padding: 9px; border-radius: 18px; }
+      .monitor { min-height: clamp(155px, calc(100svh - 48px), 440px); }
+      .side, .side.right { flex-flow: column nowrap; gap: clamp(10px, 3svh, 18px); }
+      .side.left { order: -1; align-items: center; padding-top: 0; }
+      .side.right { order: 1; align-items: flex-end; }
+      .side .control { width: clamp(42px, min(7.5vw, 17svh), 65px); padding: 6px; }
+      .button-row { gap: clamp(7px, 1.3vw, 13px); }
+      .right .button-row .control.red { margin: 0; }
+      .indicators { grid-template-columns: repeat(5, 18px); gap: 6px; margin-left: 0; }
+      .indicators .led { width: 18px; height: 18px; }
+      .timeline-row { gap: 4px; }
+      .timeline { min-width: 0; }
     }
     @media (prefers-reduced-motion: reduce) { *, *:before, *:after { transition: none !important; } }
   </style>
@@ -125,17 +174,29 @@
   <main class="console" aria-label="Retro Bedienkonsole">
     <section class="side left" aria-label="Linke Bedienelemente">
       <div class="button-row">
-        <button class="control light" data-action="info" aria-label="Information"><svg viewBox="0 0 64 64" aria-hidden="true"><circle class="glyph-disc" cx="32" cy="32" r="29"/><rect x="28" y="25" width="8" height="25"/><rect x="28" y="13" width="8" height="8"/></svg></button>
-        <button class="control blue" data-action="mode" aria-label="Modus wechseln"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="29"/><rect x="5" y="28" width="54" height="7" fill="#9bbcc5" stroke="none"/></svg></button>
+        <button class="control light" data-action="info" aria-label="Bedienhilfe öffnen" aria-haspopup="dialog" aria-controls="console-help"><svg viewBox="0 0 64 64" aria-hidden="true"><circle class="glyph-disc" cx="32" cy="32" r="29"/><rect x="28" y="25" width="8" height="25"/><rect x="28" y="13" width="8" height="8"/></svg></button>
+        <button class="control blue" data-action="mode" aria-label="Alle Sounds stoppen"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="29"/><rect x="5" y="28" width="54" height="7" fill="#9bbcc5" stroke="none"/></svg></button>
       </div>
       <div class="button-row">
         <button class="control red" data-action="scan" aria-label="Scan"><svg viewBox="0 0 64 64" aria-hidden="true"><circle class="glyph-disc" cx="27" cy="31" r="23"/><path d="M35 15 L58 31 L35 47Z" fill="#96251c" stroke="#96251c"/></svg></button>
         <button class="control red" data-action="menu" aria-label="Menü"><svg viewBox="0 0 64 64" aria-hidden="true"><rect x="6" y="9" width="38" height="16"/><rect x="6" y="38" width="38" height="16"/><path d="M49 14h9M49 42h9" fill="none" stroke-width="5"/></svg></button>
       </div>
-      <div class="indicators" aria-label="Statusanzeigen">
-        <span class="led on-green" data-led="power"></span><span class="led on-blue" data-led="link"></span><span class="led off"></span><span class="led on-red" data-led="record"></span><span class="led off"></span>
-        <span class="led off"></span><span class="led off"></span><span class="led on-amber"></span><span class="led on-blue"></span><span class="led off"></span>
-        <span class="led off"></span><span class="led on-yellow"></span><span class="led off"></span><span class="led on-green"></span><span class="led off"></span>
+      <div class="indicators" role="group" aria-label="R2-Soundtasten">
+        <button type="button" class="led on-green" data-led="power" data-action="r2" aria-label="R2-Sound abspielen"></button>
+        <button type="button" class="led on-blue" data-led="link" data-action="r2" aria-label="R2-Sound abspielen"></button>
+        <span class="led off"></span>
+        <button type="button" class="led on-red" data-led="record" data-action="r2" aria-label="R2-Sound abspielen"></button>
+        <span class="led off"></span>
+        <span class="led off"></span>
+        <span class="led off"></span>
+        <button type="button" class="led on-amber" data-action="r2" aria-label="R2-Sound abspielen"></button>
+        <button type="button" class="led on-blue" data-action="r2" aria-label="R2-Sound abspielen"></button>
+        <span class="led off"></span>
+        <span class="led off"></span>
+        <button type="button" class="led on-yellow" data-action="r2" aria-label="R2-Sound abspielen"></button>
+        <span class="led off"></span>
+        <button type="button" class="led on-green" data-action="r2" aria-label="R2-Sound abspielen"></button>
+        <span class="led off"></span>
       </div>
     </section>
 
@@ -201,11 +262,25 @@
       </div>
       <div class="button-row">
         <button class="control right-control" data-action="level-2" aria-label="Stufe zwei"><svg viewBox="0 0 64 64" aria-hidden="true"><circle class="glyph-disc" cx="32" cy="32" r="29"/><path d="M8 42h24 M37 23h5 M37 32h5" stroke="#c52e26" stroke-width="4" fill="none"/><rect x="44" y="29" width="13" height="17"/></svg></button>
-        <button class="control red" data-action="right-menu-2" aria-label="Rechtes Menü zwei"><svg viewBox="0 0 64 64" aria-hidden="true"><rect x="6" y="8" width="51" height="20" rx="7"/><rect x="6" y="36" width="51" height="20" rx="7"/></svg></button>
+        <button class="control red" data-action="right-menu-2" aria-label="Rechtes Menü zwei"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M30 9v32c-7-3-17 2-17 9 0 4 5 7 10 6 8-1 13-6 13-12V23c6 1 11 5 14 10 0-9-4-14-10-17-4-2-7-4-10-7Z"/></svg></button>
       </div>
       <div class="button-row"><button class="control right-control" data-action="level-3" aria-label="Stufe drei"><svg viewBox="0 0 64 64" aria-hidden="true"><circle class="glyph-disc" cx="32" cy="32" r="29"/><path d="M8 44h24 M39 28h5" stroke="#c52e26" stroke-width="4" fill="none"/><rect x="44" y="33" width="13" height="17"/></svg></button></div>
     </section>
   </main>
+
+  <dialog class="help-dialog" id="console-help" aria-labelledby="help-title">
+    <h2 id="help-title">Bedienhilfe</h2>
+    <h3>Soundbelegung</h3>
+    <dl class="help-legend" id="sound-legend"></dl>
+    <h3>Audioplayer</h3>
+    <ul class="help-controls">
+      <li><span class="help-control-icons" id="help-play-pause" aria-hidden="true"></span> <strong>Abspielen / Pause</strong> pausiert alle laufenden Sounds oder setzt sie fort.</li>
+      <li><span class="help-control-icons" id="help-stop" aria-hidden="true"></span> <strong>Stopp und Mode</strong> stoppen alle Sounds und setzen die Zeitleiste auf 0:00 zurück.</li>
+      <li><strong>Zeitleiste</strong> zeigt die aktuelle Position und die Gesamtdauer des zuletzt gestarteten, noch aktiven Sounds. Ziehe den Regler, um zu einer anderen Stelle zu springen.</li>
+      <li><strong>Soundtasten</strong> können mehrere Sounds gleichzeitig starten. Drückst du eine Soundtaste während einer Pause, laufen auch die pausierten Sounds weiter.</li>
+    </ul>
+    <form method="dialog"><button type="submit" class="help-close" autofocus>Schließen</button></form>
+  </dialog>
 
   <!--
     AUDIO-KONFIGURATION (JSON):
@@ -217,15 +292,14 @@
   <script type="application/json" id="audio-config">
   {
     "sounds": {
-      "info": "audio/info.mp3",
-      "mode": "audio/takeoff.mpeg",
+      "r2": "audio/r2.mp3",
       "scan": "audio/takeoff.mpeg",
       "menu": "audio/takeoff.mpeg",
       "level-1": "audio/blaster.mpeg",
       "level-2": "audio/blaster.mpeg",
       "level-3": "audio/blaster.mpeg",
       "right-menu-1": "audio/flyby.mpeg",
-      "right-menu-2": "audio/flyby.mpeg"
+      "right-menu-2": "audio/Der Rote Rudi (Instrumeddl).mp3"
     },
     "volume": 1
   }
@@ -246,6 +320,80 @@
     const currentTime = document.querySelector('#current-time');
     const duration = document.querySelector('#duration');
     const playerStatus = document.querySelector('#player-status');
+    const helpDialog = document.querySelector('#console-help');
+    const soundLegend = document.querySelector('#sound-legend');
+    const ledButtons = Array.from(document.querySelectorAll('button.led'));
+    const playGlyph = playIcon.innerHTML;
+    const pauseGlyph = '<rect x="5" y="4" width="5" height="16"/><rect x="14" y="4" width="5" height="16"/>';
+
+    const soundControls = {
+      r2: 'Bunte LED-Tasten links',
+      scan: 'Scan',
+      menu: 'Linkes Menü',
+      'level-1': 'Stufe 1',
+      'level-2': 'Stufe 2',
+      'level-3': 'Stufe 3',
+      'right-menu-1': 'Rechtes Menü 1',
+      'right-menu-2': 'Rechtes Menü 2'
+    };
+    const soundNames = { r2: 'R2-D2', takeoff: 'Start', blaster: 'Blasterschuss', flyby: 'Vorbeiflug' };
+
+    function createKeyPreview(button) {
+      const preview = document.createElement('span');
+      preview.className = button.className;
+      preview.classList.add('help-key');
+      preview.setAttribute('aria-hidden', 'true');
+      const icon = button.querySelector('svg').cloneNode(true);
+      icon.removeAttribute('id');
+      preview.append(icon);
+      return preview;
+    }
+
+    const ledPreview = document.createElement('span');
+    ledPreview.className = 'help-leds';
+    ledPreview.setAttribute('aria-hidden', 'true');
+    for (const led of document.querySelectorAll('.indicators .led')) {
+      const preview = document.createElement('span');
+      preview.className = led.className;
+      ledPreview.append(preview);
+    }
+
+    const legendGroups = new Map();
+    for (const action of Object.keys(soundControls)) {
+      const configuredPath = soundMap[action];
+      const path = typeof configuredPath === 'string' ? configuredPath.trim() : '';
+      if (!legendGroups.has(path)) legendGroups.set(path, []);
+      legendGroups.get(path).push(action);
+    }
+    for (const [path, actions] of legendGroups) {
+      const filename = path.split(/[?#]/)[0].split('/').pop().replace(/\.[^.]+$/, '');
+      const term = document.createElement('dt');
+      const label = document.createElement('span');
+      const description = document.createElement('dd');
+      label.className = 'sr-only';
+      label.textContent = actions.map(action => soundControls[action]).join(', ');
+      term.append(label);
+      for (const action of actions) {
+        term.append(action === 'r2' ? ledPreview : createKeyPreview(document.querySelector(`[data-action="${action}"]`)));
+      }
+      description.textContent = path ? (Object.hasOwn(soundNames, filename) ? soundNames[filename] : filename) : 'Kein Sound';
+      soundLegend.append(term, description);
+    }
+
+    const pausePreview = createKeyPreview(playPause);
+    pausePreview.querySelector('svg').innerHTML = pauseGlyph;
+    document.querySelector('#help-play-pause').append(createKeyPreview(playPause), pausePreview);
+    document.querySelector('#help-stop').append(createKeyPreview(stopButton), createKeyPreview(document.querySelector('[data-action="mode"]')));
+
+    function scheduleLedBlink() {
+      setTimeout(() => {
+        const led = ledButtons[Math.floor(Math.random() * ledButtons.length)];
+        led.classList.add('is-blinking');
+        setTimeout(() => led.classList.remove('is-blinking'), 160);
+        scheduleLedBlink();
+      }, 650 + Math.random() * 1250);
+    }
+    scheduleLedBlink();
 
     // Jede Betätigung erzeugt eine eigenständige Instanz, damit Sounds sich überlagern.
     const voices = new Set();
@@ -260,9 +408,7 @@
 
     function updatePlayIcon() {
       const playing = voices.size > 0 && !pausedAll;
-      playIcon.innerHTML = playing
-        ? '<rect x="5" y="4" width="5" height="16"/><rect x="14" y="4" width="5" height="16"/>'
-        : '<path d="M6 3.5 20 12 6 20.5Z"/>';
+      playIcon.innerHTML = playing ? pauseGlyph : playGlyph;
       playPause.setAttribute('aria-label', playing ? 'Alle Sounds pausieren' : 'Alle Sounds fortsetzen');
       playPause.title = playing ? 'Alle pausieren' : 'Alle fortsetzen';
     }
@@ -335,7 +481,13 @@
     document.querySelectorAll('[data-action]').forEach(button => {
       button.addEventListener('click', () => {
         const action = button.dataset.action;
-        void triggerSound(action);
+        if (action === 'info') {
+          helpDialog.showModal();
+        } else if (action === 'mode') {
+          stopButton.click();
+        } else {
+          void triggerSound(action);
+        }
         document.dispatchEvent(new CustomEvent('console:action', { detail: { action, button } }));
         button.classList.add('is-active');
         setTimeout(() => button.classList.remove('is-active'), 150);
